@@ -7,6 +7,8 @@ import {
   ActionIcon,
   Container,
   Burger,
+  Transition,
+  Paper,
 } from '@mantine/core'
 import { useBooleanToggle } from '@mantine/hooks'
 import { Bucket, User } from 'tabler-icons-react'
@@ -79,6 +81,21 @@ const useStyles = createStyles((theme) => ({
         theme.colors[theme.primaryColor][theme.colorScheme === 'dark' ? 3 : 7],
     },
   },
+  dropdown: {
+    position: 'absolute',
+    top: 56,
+    left: 0,
+    right: 0,
+    zIndex: 0,
+    borderTopRightRadius: 0,
+    borderTopLeftRadius: 0,
+    borderTopWidth: 0,
+    overflow: 'hidden',
+
+    [theme.fn.largerThan('sm')]: {
+      display: 'none',
+    },
+  },
 }))
 
 interface JeshoHeaderProps {
@@ -117,7 +134,13 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
         <Group className={classes.links} spacing={5}>
           {items}
         </Group>
-
+        <Transition transition='pop-top-right' duration={200} mounted={opened}>
+          {(styles) => (
+            <Paper className={classes.dropdown} withBorder style={styles}>
+              {items}
+            </Paper>
+          )}
+        </Transition>
         <h1>JESHO</h1>
 
         <Group spacing={0} className={classes.social} position='right' noWrap>
