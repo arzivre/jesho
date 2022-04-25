@@ -1,16 +1,10 @@
-import {
-  Box,
-  Center,
-  Group,
-  SimpleGrid,
-  Skeleton,
-  Text,
-  Title,
-} from '@mantine/core'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import { Main } from '../components/Main'
+import { Skeleton } from '@mantine/core'
+import Banner from 'components/Home/Banner'
+import SubBanner from 'components/Home/SubBanner'
+import Main from 'components/Main'
+import GridBanner from 'components/Home/GridBanner'
 
 const Home: NextPage = () => {
   return (
@@ -21,127 +15,9 @@ const Home: NextPage = () => {
       </Head>
 
       <Main>
-        <SimpleGrid
-          cols={3}
-          mb={20}
-          breakpoints={[
-            { maxWidth: 980, cols: 3, spacing: 'md' },
-            { maxWidth: 755, cols: 2, spacing: 'sm' },
-            { maxWidth: 600, cols: 1, spacing: 'sm' },
-          ]}
-        >
-          <Image
-            src='/images/a (1).jpg'
-            alt='Banner'
-            height={600}
-            width={400}
-          />
-          <Image
-            src='/images/a (2).jpg'
-            alt='Banner'
-            height={600}
-            width={400}
-          />
-          <Image
-            src='/images/a (3).jpg'
-            alt='Banner'
-            height={600}
-            width={400}
-          />
-        </SimpleGrid>
-        <SimpleGrid
-          cols={4}
-          mb={20}
-          breakpoints={[
-            { maxWidth: 980, cols: 6, spacing: 'md' },
-            { maxWidth: 755, cols: 4, spacing: 'sm' },
-            { maxWidth: 600, cols: 2, spacing: 'sm' },
-          ]}
-        >
-          <Box mx='auto'>
-            <Image
-              src='/images/a (2).jpg'
-              alt='Banner'
-              height={400}
-              width={400}
-            />
-            <Center
-              p='md'
-              style={{ zIndex: 100, position: 'relative', marginTop: '-4em' }}
-            >
-              <Text color='#000'>BackgroundImage </Text>
-            </Center>
-          </Box>
-          <Box mx='auto'>
-            <Image
-              src='/images/a (2).jpg'
-              alt='Banner'
-              height={400}
-              width={400}
-            />
-            <Center
-              p='md'
-              style={{ zIndex: 100, position: 'relative', marginTop: '-4em' }}
-            >
-              <Text color='#000'>BackgroundImage </Text>
-            </Center>
-          </Box>
-          <Box mx='auto'>
-            <Image
-              src='/images/a (2).jpg'
-              alt='Banner'
-              height={400}
-              width={400}
-            />
-            <Center
-              p='md'
-              style={{ zIndex: 100, position: 'relative', marginTop: '-4em' }}
-            >
-              <Text color='#000'>BackgroundImage </Text>
-            </Center>
-          </Box>
-          <Box mx='auto'>
-            <Image
-              src='/images/a (2).jpg'
-              alt='Banner'
-              height={400}
-              width={400}
-            />
-            <Center
-              p='md'
-              style={{ zIndex: 100, position: 'relative', marginTop: '-4em' }}
-            >
-              <Text color='#000'>BackgroundImage </Text>
-            </Center>
-          </Box>
-        </SimpleGrid>
-
-        <SimpleGrid cols={2} breakpoints={[{ maxWidth: 'xs', cols: 1 }]}>
-          <Group direction='column'>
-            <Box mb={40}>
-              <Title order={2}>Lorem</Title>
-              <Text size='xl' weight={400}>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Nesciunt rem corrupti dolorum, quos laborum et deserunt, eius
-                veniam ipsam eligendi facilis debitis officiis aliquam ab velit
-                fugit nostrum dolores illum?
-              </Text>
-            </Box>
-            <Image
-              src='/images/a (2).jpg'
-              alt='Banner'
-              height={600}
-              width={400}
-              // style={{ zIndex: -1, position: 'absolute' }}
-            />
-          </Group>
-          <Image
-            src='/images/a (3).jpg'
-            alt='Banner'
-            height={800}
-            width={400}
-          />
-        </SimpleGrid>
+        <Banner />
+        <SubBanner />
+        <GridBanner />
       </Main>
     </>
   )

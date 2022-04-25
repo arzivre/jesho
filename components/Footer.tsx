@@ -143,7 +143,7 @@ export const JeshoFooter = ({ data }: FooterProps) => {
   })
   return (
     <footer className={classes.footer}>
-      <Container>
+      <Container size='xl'>
         <SimpleGrid cols={2} className={classes.inner}>
           <div className={classes.logo}>
             <Title order={2}>Jesho</Title>
@@ -156,7 +156,7 @@ export const JeshoFooter = ({ data }: FooterProps) => {
         </SimpleGrid>
       </Container>
 
-      <Container className={classes.afterFooter}>
+      <Container size='xl' className={classes.afterFooter}>
         <Text color='dimmed' size='sm'>
           © 2022 HOUSE OF JESHO | Made by <Anchor>Arzivre</Anchor>
         </Text>

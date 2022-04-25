@@ -94,7 +94,7 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
     <NextLink key={link.label} href={link.link} passHref>
       <a
         className={cx(classes.link, {
-          [classes.linkActive]: active === link.link,
+          // [classes.linkActive]: active === link.link,
         })}
         onClick={(event) => {
           setActive(link.link)
