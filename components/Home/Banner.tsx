@@ -5,14 +5,18 @@ import {
   SimpleGrid,
   Text,
   Title,
+  Image,
 } from '@mantine/core'
-import Image from 'next/image'
 const useStyles = createStyles((theme) => ({
   box: {
     padding: '0 5px',
     transition: '0.5s linear',
     boxShadow: '-8px 8px #FFC9C9',
     transform: 'translateY(8px,-8px)',
+  },
+  img: {
+    height: '500px',
+    width: '400px',
   },
 }))
 
@@ -42,21 +46,8 @@ const Banner = () => {
       </Box>
       <Group direction='row' position='center'>
         <Box className={classes.box}>
-          <Image
-            src='/images/a (1).jpg'
-            alt='Banner'
-            height={'500px'}
-            width={'400px'}
-          />
+          <Image src='/images/a (1).jpg' alt='Banner' className={classes.img} />
         </Box>
-        {/* <Box className={classes.box}>
-          <Image
-            src='/images/a (2).jpg'
-            alt='Banner'
-            height={'100%'}
-            width={'50%'}
-          />
-        </Box> */}
       </Group>
     </SimpleGrid>
   )

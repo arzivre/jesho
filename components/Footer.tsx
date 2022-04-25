@@ -172,3 +172,4 @@ export const JeshoFooter = ({ data }: FooterProps) => {
     </footer>
   )
 }
+export default JeshoFooter

@@ -1,7 +1,9 @@
 import { AppProps } from 'next/app'
+import { Suspense } from 'react'
+import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import NextNProgress from 'nextjs-progressbar'
-import { MantineProvider } from '@mantine/core'
+import { Loader, MantineProvider } from '@mantine/core'
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props
@@ -27,7 +29,9 @@ export default function App(props: AppProps) {
         }}
       >
         <NextNProgress />
-        <Component {...pageProps} />
+        <Suspense fallback={<Loader />}>
+          <Component {...pageProps} />
+        </Suspense>
       </MantineProvider>
     </>
   )

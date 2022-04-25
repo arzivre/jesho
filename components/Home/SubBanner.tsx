@@ -21,7 +21,6 @@ const useStyles = createStyles((theme) => ({
   },
   innerCarousel: {
     display: 'flex',
-    // background: '#FFC9C9',
   },
   item: {
     minWidth: '25rem',

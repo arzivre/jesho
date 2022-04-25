@@ -1,5 +1,4 @@
-import Image from "next/image"
-import { Box, Group, SimpleGrid, Text, Title } from "@mantine/core"
+import { Box, Group, SimpleGrid, Text, Title, Image } from '@mantine/core'
 
 const GridBanner = () => {
   return (
@@ -17,12 +16,14 @@ const GridBanner = () => {
         <Image
           src='/images/a (2).jpg'
           alt='Banner'
-          height={600}
-          width={400}
-          // style={{ zIndex: -1, position: 'absolute' }}
+          style={{ height: '600px', width: '400px' }}
         />
       </Group>
-      <Image src='/images/a (3).jpg' alt='Banner' height={800} width={400} />
+      <Image
+        src='/images/a (3).jpg'
+        alt='Banner'
+        style={{ height: '800px', width: '400px' }}
+      />
     </SimpleGrid>
   )
 }
