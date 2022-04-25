@@ -1,10 +1,15 @@
 import type { NextPage } from 'next'
+import { Suspense } from 'react'
 import Head from 'next/head'
-import { Container, Skeleton } from '@mantine/core'
-import Banner from 'components/Home/Banner'
-import SubBanner from 'components/Home/SubBanner'
+import { Container, Loader, Skeleton } from '@mantine/core'
+
 import Main from 'components/Main'
+const Banner = dynamic(() => import('components/Home/Banner'), {
+  suspense:true
+})
+import SubBanner from 'components/Home/SubBanner'
 import GridBanner from 'components/Home/GridBanner'
+import dynamic from 'next/dynamic'
 
 const Home: NextPage = () => {
   return (
@@ -15,9 +20,11 @@ const Home: NextPage = () => {
       </Head>
 
       <Main>
-        <Container size='xl'>
-          <Banner />
-        </Container>
+        <Suspense fallback={<Loader/>}>
+          <Container size='xl'>
+            <Banner />
+          </Container>
+        </Suspense>
         <SubBanner />
         <Container size='xl'>
           <GridBanner />
