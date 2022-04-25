@@ -1,4 +1,3 @@
-import { Container } from '@mantine/core'
 import { JeshoFooter } from './Footer'
 import { JeshoHeader } from './Header'
 const links = [
@@ -53,7 +52,7 @@ export const Main = ({ children }: MainProps) => {
   return (
     <>
       <JeshoHeader links={links} />
-      <Container size='xl'>{children}</Container>
+      {children}
       <JeshoFooter data={data} />
     </>
   )

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-import { createStyles, Image } from '@mantine/core'
+import { Container, createStyles, Image } from '@mantine/core'
 import { motion } from 'framer-motion'
 
 const images = [
@@ -15,8 +15,9 @@ const useStyles = createStyles((theme) => ({
   carousel: {
     cursor: 'grab',
     overflow: 'hidden',
-    // background: '#96F2D7',
     marginBottom: 40,
+    padding: 40,
+    background: theme.colors.teal[1],
   },
   innerCarousel: {
     display: 'flex',
@@ -48,23 +49,25 @@ const SubBanner = () => {
 
   return (
     <motion.div ref={carousel} className={classes.carousel}>
-      <motion.div
-        drag='x'
-        dragConstraints={{ right: 0, left: -widt }}
-        whileTap={{ cursor: 'grabbing' }}
-        className={classes.innerCarousel}
-      >
-        {images.map((image, index) => (
-          <motion.div key={index} className={classes.item}>
-            <Image
-              src={image}
-              alt='image'
-              radius='md'
-              className={classes.img}
-            />
-          </motion.div>
-        ))}
-      </motion.div>
+      <Container size='xl'>
+        <motion.div
+          drag='x'
+          dragConstraints={{ right: 0, left: -widt }}
+          whileTap={{ cursor: 'grabbing' }}
+          className={classes.innerCarousel}
+        >
+          {images.map((image, index) => (
+            <motion.div key={index} className={classes.item}>
+              <Image
+                src={image}
+                alt='image'
+                radius='md'
+                className={classes.img}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+      </Container>
     </motion.div>
   )
 }

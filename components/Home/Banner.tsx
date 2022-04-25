@@ -31,7 +31,7 @@ const Banner = () => {
     >
       <Box mb={40}>
         <Title order={1} mt={40} mb={20}>
-          Varier is a furniture company based in Oslo, Norway. We make
+          Varier is a furniture company based in Semarang, Indonesia. We make
           out-of-the-ordinary furniture that balances form and function
         </Title>
         <Text size='xl' weight={400}>

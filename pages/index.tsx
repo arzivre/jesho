@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { Skeleton } from '@mantine/core'
+import { Container, Skeleton } from '@mantine/core'
 import Banner from 'components/Home/Banner'
 import SubBanner from 'components/Home/SubBanner'
 import Main from 'components/Main'
@@ -15,9 +15,13 @@ const Home: NextPage = () => {
       </Head>
 
       <Main>
-        <Banner />
+        <Container size='xl'>
+          <Banner />
+        </Container>
         <SubBanner />
-        <GridBanner />
+        <Container size='xl'>
+          <GridBanner />
+        </Container>
       </Main>
     </>
   )
