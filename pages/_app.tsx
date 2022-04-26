@@ -1,9 +1,9 @@
 import { AppProps } from 'next/app'
 import { Suspense } from 'react'
-import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import NextNProgress from 'nextjs-progressbar'
 import { Loader, MantineProvider } from '@mantine/core'
+import { NotificationsProvider } from '@mantine/notifications'
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props
@@ -28,12 +28,16 @@ export default function App(props: AppProps) {
           fontFamily: 'Varela Round, sans-serif',
 
           loader: 'bars',
+
+          shadows: 'sm',
         }}
       >
-        <NextNProgress />
-        <Suspense fallback={<Loader />}>
-          <Component {...pageProps} />
-        </Suspense>
+        <NotificationsProvider>
+          <NextNProgress />
+          <Suspense fallback={<Loader />}>
+            <Component {...pageProps} />
+          </Suspense>
+        </NotificationsProvider>
       </MantineProvider>
     </>
   )

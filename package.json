@@ -30,6 +30,7 @@
     "react-dom": "^18.0.0",
     "sharp": "^0.30.4",
     "tabler-icons-react": "^1.46.0",
+    "uuidv4": "^6.2.13",
     "xendit-node": "^1.21.2"
   },
   "devDependencies": {
