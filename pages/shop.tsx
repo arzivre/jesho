@@ -68,6 +68,7 @@ const Shop: NextPage = ({ products }) => {
             <Grid.Col xs={12} md={9}>
               <Suspense fallback={<Loader />}>
                 <Group direction='row'>
+                  {!products && <p>No Product</p>}
                   {products.map(
                     (product: { id: Key | string; link: string }) => (
                       <Card
