@@ -1,31 +1,45 @@
+import type { NextPage } from 'next'
+import { GetStaticProps } from 'next'
+import Head from 'next/head'
 import {
   Box,
+  Card,
+  Center,
   Container,
   Grid,
   Group,
   Image,
-  Navbar,
-  SimpleGrid,
-  Skeleton,
+  Loader,
+  ScrollArea,
+  Text,
+  Title,
   useMantineTheme,
 } from '@mantine/core'
+import { db } from 'libs/firebase-admin'
+import { firestore, postToJSON } from 'libs/firebase'
 import Main from 'components/Main'
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import React from 'react'
+import { Key, Suspense } from 'react'
 
-const getChild = (height: number) => (
-  <Skeleton height={height} radius='md' animate={false} />
-)
-const BASE_HEIGHT = 360
-const getSubHeight = (children: number, spacing: number) =>
-  BASE_HEIGHT / children - spacing * ((children - 1) / children)
+export const getStaticProps: GetStaticProps = async (context) => {
+  const snapshot = await db.collection('products').orderBy('id', 'desc').get()
 
-const Shop: NextPage = () => {
+  let products: any[] = []
+
+  snapshot.forEach((doc: { id: any; data: () => any }) => {
+    products.push({ id: doc.id, ...doc.data() })
+  })
+  return {
+    // will be passed to the page component as props
+    props: { products },
+  }
+}
+//@ts-ignore
+const Shop: NextPage = ({ products }) => {
   const theme = useMantineTheme()
 
   const nav = (
-    <div style={{position:'fixed'}}>
+    <div style={{ position: 'sticky', top: '100px' }}>
+      <Title order={2}>Kategori</Title>
       <h2>1</h2>
       <h2>2</h2>
       <h2>3</h2>
@@ -37,30 +51,50 @@ const Shop: NextPage = () => {
         <title>Shop - Jesho</title>
       </Head>
       <Main>
-        <Container my={100} >
+        <Container my={50}>
+          <Center>
+            <Title
+              order={1}
+              sx={(theme) => ({
+                fontSize: theme.fontSizes.xl * 3,
+              })}
+            >
+              SHOP
+            </Title>
+          </Center>
           <Grid>
-            <Grid.Col xs={3}>{nav}</Grid.Col>
-            <Grid.Col xs={9}>
-              <Group direction='row'>
-                <Box style={{margin:'auto'}}>
-                  <Image
-                    src='/images/a (1).jpg'
-                    alt='Banner'
-                    height='300px'
-                    width='300px'
-                  />
-                </Box>
-                <Box style={{margin:'auto'}}>
-                  <Image
-                    src='/images/a (1).jpg'
-                    alt='Banner'
-                    height='300px'
-                    width='300px'
-                  />
-                </Box>
-              
-               
-              </Group>
+            <Grid.Col xs={12} md={3}>
+              {nav}
+            </Grid.Col>
+            <Grid.Col xs={12} md={9}>
+              <Suspense fallback={<Loader />}>
+                <Group direction='row'>
+                  {products.map(
+                    (product: { id: Key | string; link: string }) => (
+                      <Card key={product.id} style={{ margin: 'auto' ,background:'white'}}>
+                        <Image
+                          src={product.link}
+                          alt='Banner'
+                          height='300px'
+                          width='300px'
+                        />
+                        <Group
+                          position='apart'
+                          style={{
+                            marginBottom: 5,
+                            marginTop: theme.spacing.sm,
+                          }}
+                        >
+                          <Text>Norway Fjord Adventures</Text>
+                          <Text size='md' weight={700}>
+                            Rp 100000
+                          </Text>
+                        </Group>
+                      </Card>
+                    )
+                  )}
+                </Group>
+              </Suspense>
             </Grid.Col>
           </Grid>
         </Container>

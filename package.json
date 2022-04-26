@@ -20,6 +20,8 @@
     "@mantine/rte": "^4.1.4",
     "@mantine/spotlight": "^4.1.4",
     "dayjs": "^1.11.1",
+    "firebase": "8.2.1",
+    "firebase-admin": "^10.1.0",
     "framer-motion": "^6.3.1",
     "next": "^12.1.5",
     "nextjs-progressbar": "^0.0.14",
@@ -27,7 +29,8 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "sharp": "^0.30.4",
-    "tabler-icons-react": "^1.46.0"
+    "tabler-icons-react": "^1.46.0",
+    "xendit-node": "^1.21.2"
   },
   "devDependencies": {
     "@types/node": "^17.0.27",
