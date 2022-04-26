@@ -31,6 +31,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     // will be passed to the page component as props
     props: { products },
+     revalidate: 60,
   }
 }
 //@ts-ignore
