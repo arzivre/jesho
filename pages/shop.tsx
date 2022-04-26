@@ -1,6 +1,8 @@
 import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
+import { Key, Suspense } from 'react'
 import Head from 'next/head'
+import dynamic from 'next/dynamic'
 import {
   Box,
   Card,
@@ -16,9 +18,11 @@ import {
   useMantineTheme,
 } from '@mantine/core'
 import { db } from 'libs/firebase-admin'
-import { firestore, postToJSON } from 'libs/firebase'
 import Main from 'components/Main'
-import { Key, Suspense } from 'react'
+
+const Category = dynamic(() => import('components/Category'), {
+  suspense: true,
+})
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const snapshot = await db.collection('products').orderBy('id', 'desc').get()
@@ -31,21 +35,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     // will be passed to the page component as props
     props: { products },
-     revalidate: 60,
+    revalidate: 60,
   }
 }
 //@ts-ignore
 const Shop: NextPage = ({ products }) => {
   const theme = useMantineTheme()
 
-  const nav = (
-    <div style={{ position: 'sticky', top: '100px' }}>
-      <Title order={2}>Kategori</Title>
-      <h2>1</h2>
-      <h2>2</h2>
-      <h2>3</h2>
-    </div>
-  )
   return (
     <>
       <Head>
@@ -65,14 +61,19 @@ const Shop: NextPage = ({ products }) => {
           </Center>
           <Grid>
             <Grid.Col xs={12} md={3}>
-              {nav}
+              <Suspense fallback={<Loader />}>
+                <Category />
+              </Suspense>
             </Grid.Col>
             <Grid.Col xs={12} md={9}>
               <Suspense fallback={<Loader />}>
                 <Group direction='row'>
                   {products.map(
                     (product: { id: Key | string; link: string }) => (
-                      <Card key={product.id} style={{ margin: 'auto' ,background:'white'}}>
+                      <Card
+                        key={product.id}
+                        style={{ margin: 'auto', background: 'white' }}
+                      >
                         <Image
                           src={product.link}
                           alt='Banner'
