@@ -26,6 +26,8 @@ export default function App(props: AppProps) {
           colorScheme: 'light',
 
           fontFamily: 'Varela Round, sans-serif',
+
+          loader: 'bars',
         }}
       >
         <NextNProgress />

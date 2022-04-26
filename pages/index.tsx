@@ -2,9 +2,11 @@ import type { NextPage } from 'next'
 import { Suspense } from 'react'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
-import { Container, Loader, Skeleton } from '@mantine/core'
+import { Container } from '@mantine/core'
 
+import Loading from 'components/Loading'
 import Main from 'components/Main'
+
 const Banner = dynamic(() => import('components/Home/Banner'), {
   suspense: true,
 })
@@ -24,17 +26,17 @@ const Home: NextPage = () => {
       </Head>
 
       <Main>
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<Loading />}>
           <Container size='xl'>
             <Banner />
           </Container>
         </Suspense>
 
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<Loading />}>
           <SubBanner />
         </Suspense>
 
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<Loading />}>
           <Container size='xl'>
             <GridBanner />
           </Container>
@@ -43,7 +45,5 @@ const Home: NextPage = () => {
     </>
   )
 }
-
-const child = <Skeleton height={140} radius='md' animate={false} />
 
 export default Home
