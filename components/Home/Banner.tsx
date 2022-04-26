@@ -9,14 +9,13 @@ import {
 } from '@mantine/core'
 const useStyles = createStyles((theme) => ({
   box: {
-    padding: '0 5px',
+    padding: '5px',
     transition: '0.5s linear',
     boxShadow: '-8px 8px #FFC9C9',
-    transform: 'translateY(8px,-8px)',
-  },
-  img: {
-    height: '500px',
-    width: '400px',
+    '&:hover': {
+      boxShadow: '8px -8px #FFC9C9',
+      transition: '0.5s linear',
+    },
   },
 }))
 
@@ -46,7 +45,12 @@ const Banner = () => {
       </Box>
       <Group direction='row' position='center'>
         <Box className={classes.box}>
-          <Image src='/images/a (1).jpg' alt='Banner' className={classes.img} />
+          <Image
+            src='/images/a (1).jpg'
+            alt='Banner'
+            height='500px'
+            width='400px'
+          />
         </Box>
       </Group>
     </SimpleGrid>

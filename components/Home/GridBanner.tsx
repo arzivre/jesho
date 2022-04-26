@@ -2,7 +2,7 @@ import { Box, Group, SimpleGrid, Text, Title, Image } from '@mantine/core'
 
 const GridBanner = () => {
   return (
-    <SimpleGrid cols={2} breakpoints={[{ maxWidth: 'xs', cols: 1 }]}>
+    <SimpleGrid cols={2} spacing='xl' breakpoints={[{ maxWidth: 'xs', cols: 1 }]}>
       <Group direction='column'>
         <Box mb={40}>
           <Title order={2}>Lorem</Title>
@@ -22,7 +22,8 @@ const GridBanner = () => {
       <Image
         src='/images/a (3).jpg'
         alt='Banner'
-        style={{ height: '800px', width: '400px' }}
+        height='600px'
+        width='400px'
       />
     </SimpleGrid>
   )
