@@ -1,6 +1,7 @@
-import { db, storage } from 'libs/firebase-admin'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { uuid } from 'uuidv4'
+import { v4 } from 'uuid'
+import { db, storage } from 'libs/firebase-admin'
+
 type Data = {
   id: string
   title: string
@@ -12,14 +13,24 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
+  if (req.method === 'POST') {
+    upload(req)
+  }
+  if (req.method === 'GET') {
+    upload(req)
+  }
+}
+
+async function upload(req: NextApiRequest) {
+  const uuid = v4()
   const tes = {
     id: 'ts',
     title: 'tes',
     price: 'tes',
-    thumbnail: 'public/images/a (3).jpg',
+    thumbnail: 'public/images/a (6).jpg',
     folder: 'tes',
   }
-  const { id, title, price, thumbnail, folder } = tes
+  const { id, title, price, thumbnail, folder } = req.body
   // const uploadPath = `${folder}/jesho/${thumbnail.name}`
   //@ts-ignore
   const createPersistentDownloadUrl = (bucket, pathToFile, downloadToken) => {
@@ -30,15 +41,10 @@ export default async function handler(
   const img = await storage
     .bucket('gs://jesho-store.appspot.com')
     .upload(thumbnail, {
-      destination: thumbnail,
+      destination: folder,
       metadata: {
         metadata: {
-          firebaseStorageDownloadTokens: uuid(),
-          url: createPersistentDownloadUrl(
-            'jesho-store.appspot.com',
-            'public/images/a (3).jpg',
-            uuid()
-          ),
+          firebaseStorageDownloadTokens: uuid,
         },
       },
     })
@@ -48,10 +54,10 @@ export default async function handler(
     id,
     title,
     price,
-    img,
+    url: createPersistentDownloadUrl('jesho-store.appspot.com', folder, uuid),
   }
 
   // const response = await db.collection('products').doc(data.id).set(data)
   //@ts-ignore
-  res.status(200).json(data)
+  return res.status(200).json(data)
 }
