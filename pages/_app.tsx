@@ -4,6 +4,7 @@ import Head from 'next/head'
 import NextNProgress from 'nextjs-progressbar'
 import { Loader, MantineProvider } from '@mantine/core'
 import { NotificationsProvider } from '@mantine/notifications'
+import { LoadingFullScreen } from 'components/Loading'
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props
@@ -34,7 +35,7 @@ export default function App(props: AppProps) {
       >
         <NotificationsProvider>
           <NextNProgress />
-          <Suspense fallback={<Loader />}>
+          <Suspense fallback={<LoadingFullScreen />}>
             <Component {...pageProps} />
           </Suspense>
         </NotificationsProvider>

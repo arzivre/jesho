@@ -1,28 +1,37 @@
+import { ProductProps } from 'libs/types'
 import { GetStaticProps } from 'next'
-import { Box, Button } from '@mantine/core'
 
 import { db } from 'libs/firebase-admin'
+import { compareAsc, parseISO } from 'date-fns'
 
 import AdminShell from 'components/Admin/AdminShell'
 import AdminTable from 'components/Admin/AdminTable'
-import { ProductProps } from 'libs/types'
 
+import { Box, Button } from '@mantine/core'
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const snapshot = await db.collection('products').orderBy('id', 'desc').get()
+  const snapshot = await db
+    .collection('products')
+    .orderBy('title', 'desc')
+    .get()
 
   let products: any[] = []
 
-  snapshot.forEach((doc: { id: any; data: () => any }) => {
+  snapshot.forEach((doc) => {
     products.push({ id: doc.id, ...doc.data() })
   })
+
+  products.sort((a, b) =>
+    compareAsc(parseISO(a.createdAt), parseISO(b.createdAt))
+  )
+
   return {
     // will be passed to the page component as props
     props: { products },
-    revalidate: 60,
+    revalidate: 10,
   }
 }
-interface Props { 
+interface Props {
   products: [ProductProps]
 }
 const Products = ({ products }: Props) => {
@@ -33,7 +42,7 @@ const Products = ({ products }: Props) => {
         <Button color='red'>Delete</Button>
       </td>
       <td>{product.id}</td>
-      <td>{product.link}</td>
+      <td>{product.imgUrl}</td>
       <td>{product.price}</td>
       <td>{product.title}</td>
     </tr>

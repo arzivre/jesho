@@ -4,8 +4,8 @@ import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import { Container } from '@mantine/core'
 
-import Loading from 'components/Loading'
 import Main from 'components/Main'
+import { Loading } from 'components/Loading'
 
 const Banner = dynamic(() => import('components/Home/Banner'), {
   suspense: true,
