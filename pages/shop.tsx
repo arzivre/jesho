@@ -1,10 +1,14 @@
 import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
+import { db } from 'libs/firebase-admin'
 import { Key, Suspense } from 'react'
+import { compareDesc, parseISO } from 'date-fns'
+
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
+
+import Main from 'components/Main'
 import {
-  Box,
   Card,
   Center,
   Container,
@@ -12,34 +16,36 @@ import {
   Group,
   Image,
   Loader,
-  ScrollArea,
   Text,
   Title,
   useMantineTheme,
 } from '@mantine/core'
-import { db } from 'libs/firebase-admin'
-import Main from 'components/Main'
-
-const Category = dynamic(() => import('components/Category'), {
-  suspense: true,
-})
+import { ProductProps } from 'libs/types'
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const snapshot = await db.collection('products').orderBy('id', 'desc').get()
+  const snapshot = await db.collection('products').get()
 
   let products: any[] = []
-
   snapshot.forEach((doc: { id: any; data: () => any }) => {
     products.push({ id: doc.id, ...doc.data() })
   })
+  products.sort((a, b) =>
+    compareDesc(parseISO(a.createdAt), parseISO(b.createdAt))
+  )
+
   return {
-    // will be passed to the page component as props
     props: { products },
     revalidate: 60,
   }
 }
-//@ts-ignore
-const Shop: NextPage = ({ products }) => {
+
+const Category = dynamic(() => import('components/Category'), {
+  suspense: true,
+})
+interface Props {
+  products: [ProductProps]
+}
+const Shop = ({ products }: Props) => {
   const theme = useMantineTheme()
 
   return (
@@ -69,33 +75,31 @@ const Shop: NextPage = ({ products }) => {
               <Suspense fallback={<Loader />}>
                 <Group direction='row'>
                   {!products && <p>No Product</p>}
-                  {products.map(
-                    (product: { id: Key | string; link: string }) => (
-                      <Card
-                        key={product.id}
-                        style={{ margin: 'auto', background: 'white' }}
+                  {products.map((product: ProductProps) => (
+                    <Card
+                      key={product.id}
+                      style={{ margin: 'auto', background: 'white' }}
+                    >
+                      <Image
+                        src={product.imgUrl}
+                        alt='Banner'
+                        height='300px'
+                        width='300px'
+                      />
+                      <Group
+                        position='apart'
+                        style={{
+                          marginBottom: 5,
+                          marginTop: theme.spacing.sm,
+                        }}
                       >
-                        <Image
-                          src={product.link}
-                          alt='Banner'
-                          height='300px'
-                          width='300px'
-                        />
-                        <Group
-                          position='apart'
-                          style={{
-                            marginBottom: 5,
-                            marginTop: theme.spacing.sm,
-                          }}
-                        >
-                          <Text>Norway Fjord Adventures</Text>
-                          <Text size='md' weight={700}>
-                            Rp 100000
-                          </Text>
-                        </Group>
-                      </Card>
-                    )
-                  )}
+                        <Text>{product.title}</Text>
+                        <Text size='md' weight={700}>
+                          Rp 100000
+                        </Text>
+                      </Group>
+                    </Card>
+                  ))}
                 </Group>
               </Suspense>
             </Grid.Col>

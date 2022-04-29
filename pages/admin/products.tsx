@@ -12,7 +12,6 @@ import { Box, Button, Image } from '@mantine/core'
 export const getStaticProps: GetStaticProps = async (context) => {
   const snapshot = await db
     .collection('products')
-    .orderBy('title', 'desc')
     .get()
 
   let products: any[] = []

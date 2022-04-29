@@ -4,5 +4,5 @@ export interface ProductProps {
   title: string
   description: string
   imgUrl: string
-  createAt: string
+  createdAt: string
 }
