@@ -27,7 +27,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     // will be passed to the page component as props
     props: { products },
-    revalidate: 10,
+    revalidate: 60,
   }
 }
 interface Props {
