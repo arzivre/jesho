@@ -7,7 +7,7 @@ import { compareAsc, parseISO } from 'date-fns'
 import AdminShell from 'components/Admin/AdminShell'
 import AdminTable from 'components/Admin/AdminTable'
 
-import { Box, Button } from '@mantine/core'
+import { Box, Button, Image } from '@mantine/core'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const snapshot = await db
@@ -42,18 +42,27 @@ const Products = ({ products }: Props) => {
         <Button color='red'>Delete</Button>
       </td>
       <td>{product.id}</td>
-      <td>{product.imgUrl}</td>
-      <td>{product.price}</td>
       <td>{product.title}</td>
+      <td>{product.price}</td>
+      <td>{product.description}</td>
+      <td>
+        <Image
+          src={product.imgUrl}
+          alt={product.title}
+          width='100px'
+          height='140px'
+        />
+      </td>
     </tr>
   ))
   const headers = (
     <tr>
       <th>Action</th>
       <th>Id</th>
-      <th>Link</th>
+      <th>Title</th>
       <th>Price</th>
-      <th> Title</th>
+      <th>Description</th>
+      <th>Image</th>
     </tr>
   )
   return (
