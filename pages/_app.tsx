@@ -1,12 +1,19 @@
 import { AppProps } from 'next/app'
 import { Suspense } from 'react'
 import Head from 'next/head'
+import useIsMounted from 'hooks/useIsMounted'
 import NextNProgress from 'nextjs-progressbar'
-import { Loader, MantineProvider } from '@mantine/core'
-import { NotificationsProvider } from '@mantine/notifications'
+import { MantineProvider } from '@mantine/core'
 import { LoadingFullScreen } from 'components/Loading'
+import { NotificationsProvider } from '@mantine/notifications'
 
-export default function App(props: AppProps) {
+export default function Wrapper(props: AppProps) {
+  let isMounted = useIsMounted()
+
+  return isMounted && <App {...props} />
+}
+
+function App(props: AppProps) {
   const { Component, pageProps } = props
 
   return (

@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import { Container } from '@mantine/core'
 
 import Main from 'components/Main'
-import { Loading } from 'components/Loading'
+import { Loading, LoadingFullScreen } from 'components/Loading'
 
 const Banner = dynamic(() => import('components/Home/Banner'), {
   suspense: true,
@@ -26,13 +26,13 @@ const Home: NextPage = () => {
       </Head>
 
       <Main>
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<LoadingFullScreen />}>
           <Container size='xl'>
             <Banner />
           </Container>
         </Suspense>
 
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<LoadingFullScreen />}>
           <SubBanner />
         </Suspense>
 
