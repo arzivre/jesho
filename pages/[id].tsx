@@ -40,7 +40,6 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (
   const params = context.params! // ! is a non-null assertion
   const doc = await db.collection('products').doc(params.id).get()
   const product = doc.data()
-  console.log('product', product)
   return {
     props: { product },
     revalidate: 60,
