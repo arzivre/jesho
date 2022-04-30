@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { Suspense, useState } from 'react'
 import NextLink from 'next/link'
 import {
   createStyles,
@@ -9,6 +9,7 @@ import {
   Burger,
   Transition,
   Paper,
+  Loader,
 } from '@mantine/core'
 import { useBooleanToggle } from '@mantine/hooks'
 import { Bucket, User } from 'tabler-icons-react'
@@ -106,7 +107,7 @@ interface JeshoHeaderProps {
 
 export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
   const [opened, toggleOpened] = useBooleanToggle(false)
-  const [active, setActive] = useState(links[0].link)
+  // const [active, setActive] = useState(links[0].link)
   const { classes, cx } = useStyles()
 
   const items = links.map((link) => (
@@ -115,9 +116,9 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
         className={cx(classes.link, {
           // [classes.linkActive]: active === link.link,
         })}
-        onClick={(event) => {
-          setActive(link.link)
-        }}
+        // onClick={(event) => {
+        //   setActive(link.link)
+        // }}
       >
         {link.label}
       </a>
@@ -127,32 +128,45 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
   return (
     <Header height={56} mb={10}>
       <Container size='xl' className={classes.inner}>
-        <Burger
-          opened={opened}
-          onClick={() => toggleOpened()}
-          size='sm'
-          className={classes.burger}
-        />
-        <Group className={classes.links} spacing={5}>
-          {items}
-        </Group>
-        <Transition transition='pop-top-right' duration={200} mounted={opened}>
-          {(styles) => (
-            <Paper className={classes.dropdown} withBorder style={styles}>
-              {items}
-            </Paper>
-          )}
-        </Transition>
-        <h1>JESHO</h1>
-
-        <Group spacing={0} className={classes.social} position='right' noWrap>
-          <ActionIcon size='lg'>
-            <User size={24} />
-          </ActionIcon>
-          <ActionIcon size='lg'>
-            <Bucket size={24} />
-          </ActionIcon>
-        </Group>
+        <Suspense fallback={<Loader />}>
+          <Burger
+            opened={opened}
+            onClick={() => toggleOpened()}
+            size='sm'
+            className={classes.burger}
+          />
+        </Suspense>
+        <Suspense fallback={<Loader />}>
+          <Group className={classes.links} spacing={5}>
+            {items}
+          </Group>
+        </Suspense>
+        <Suspense fallback={<Loader />}>
+          <Transition
+            transition='pop-top-right'
+            duration={200}
+            mounted={opened}
+          >
+            {(styles) => (
+              <Paper className={classes.dropdown} withBorder style={styles}>
+                {items}
+              </Paper>
+            )}
+          </Transition>
+        </Suspense>
+        <Suspense fallback={<Loader />}>
+          <h1>JESHO</h1>
+        </Suspense>
+        <Suspense fallback={<Loader />}>
+          <Group spacing={0} className={classes.social} position='right' noWrap>
+            <ActionIcon size='lg'>
+              <User size={24} />
+            </ActionIcon>
+            <ActionIcon size='lg'>
+              <Bucket size={24} />
+            </ActionIcon>
+          </Group>
+        </Suspense>
       </Container>
     </Header>
   )

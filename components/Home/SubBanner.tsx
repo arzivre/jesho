@@ -1,4 +1,5 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, Suspense } from 'react'
+import { Loading } from 'components/Loading'
 import { Container, createStyles, Image } from '@mantine/core'
 import { motion } from 'framer-motion'
 
@@ -57,12 +58,14 @@ const SubBanner = () => {
         >
           {images.map((image, index) => (
             <motion.div key={index} className={classes.item}>
-              <Image
-                src={image}
-                alt='image'
-                radius='md'
-                className={classes.img}
-              />
+              <Suspense fallback={<Loading />}>
+                <Image
+                  src={image}
+                  alt='image'
+                  radius='md'
+                  className={classes.img}
+                />
+              </Suspense>
             </motion.div>
           ))}
         </motion.div>
