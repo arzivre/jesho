@@ -1,12 +1,11 @@
-import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
 import { db } from 'libs/firebase-admin'
-import { Key, Suspense } from 'react'
+import { Suspense } from 'react'
 import { compareDesc, parseISO } from 'date-fns'
 
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
-
+import NextLink from 'next/link'
 import Main from 'components/Main'
 import {
   Card,
@@ -76,29 +75,30 @@ const Shop = ({ products }: Props) => {
                 <Group direction='row'>
                   {!products && <p>No Product</p>}
                   {products.map((product: ProductProps) => (
-                    <Card
-                      key={product.id}
-                      style={{ margin: 'auto', background: 'white' }}
-                    >
-                      <Image
-                        src={product.imgUrl}
-                        alt='Banner'
-                        height='300px'
-                        width='300px'
-                      />
-                      <Group
-                        position='apart'
-                        style={{
-                          marginBottom: 5,
-                          marginTop: theme.spacing.sm,
-                        }}
-                      >
-                        <Text>{product.title}</Text>
-                        <Text size='md' weight={700}>
-                          Rp 100000
-                        </Text>
-                      </Group>
-                    </Card>
+                    <NextLink key={product.id} href={`/${product.id}`} passHref>
+                      <a>
+                        <Card style={{ margin: 'auto', background: 'white' }}>
+                          <Image
+                            src={product.imgUrl}
+                            alt='Banner'
+                            height='300px'
+                            width='300px'
+                          />
+                          <Group
+                            position='apart'
+                            style={{
+                              marginBottom: 5,
+                              marginTop: theme.spacing.sm,
+                            }}
+                          >
+                            <Text>{product.title}</Text>
+                            <Text size='md' weight={700}>
+                              Rp 100000
+                            </Text>
+                          </Group>
+                        </Card>
+                      </a>
+                    </NextLink>
                   ))}
                 </Group>
               </Suspense>
