@@ -1,4 +1,4 @@
-import { Suspense } from 'react'
+import { Suspense, useEffect } from 'react'
 import { ParsedUrlQuery } from 'querystring'
 import { GetStaticPaths, GetStaticProps } from 'next'
 
@@ -8,7 +8,16 @@ import { db } from 'libs/firebase-admin'
 import Main from 'components/Main'
 import { Loading, LoadingFullScreen } from 'components/Loading'
 
-import { Grid, Group, Image, Container, Title, Text } from '@mantine/core'
+import {
+  Grid,
+  Group,
+  Image,
+  Container,
+  Title,
+  Text,
+  Button,
+} from '@mantine/core'
+import useCart from 'hooks/useCart'
 
 type Props = {
   product: any
@@ -39,14 +48,19 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (
 ) => {
   const params = context.params! // ! is a non-null assertion
   const doc = await db.collection('products').doc(params.id).get()
-  const product = doc.data()
+  const product = { id: doc.id, ...doc.data() }
   return {
-    props: { product },
+    props: { product, id: params.id },
     revalidate: 60,
   }
 }
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {
+  let { cart, addItem, increaseItem, decreaseItem } = useCart()
+  useEffect(() => {
+    console.log(cart)
+  }, [cart])
+
   return (
     <Main>
       <Suspense fallback={<LoadingFullScreen />}>
@@ -70,6 +84,9 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
               </Grid.Col>
             </Suspense>
           </Grid>
+          <Button onClick={() => addItem(product)}>Add</Button>
+          <Button onClick={() => increaseItem(product.id)}>+</Button>
+          <Button onClick={() => decreaseItem(product.id)}>-</Button>
         </Container>
       </Suspense>
     </Main>
