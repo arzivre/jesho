@@ -1,8 +1,7 @@
 import { Title } from '@mantine/core'
 import Main from 'components/Main'
-import useCart from 'hooks/useCart'
 import { ProductProps } from 'libs/types'
-import { Key, ReactChild, ReactFragment, ReactPortal } from 'react'
+import useCart from 'hooks/useCart'
 
 const Cart = () => {
   let { cart, sumItems } = useCart()
@@ -13,13 +12,15 @@ const Cart = () => {
       {cart.length > 0 &&
         cart.map((item: ProductProps) => (
           <div key={item.id}>
-            <p>{item.title}</p>
-            <p>{item.quantity}</p>
-            <p>{item.quantity! * Number(item.price)}</p>
-            <p>{itemCount}</p>
-            <p>{total}</p>
+            <p>title: {item.title}</p>
+            <p>Qty: {item.quantity}</p>
+            <p>Total: {item.quantity! * Number(item.price)}</p>
+
+            <hr />
           </div>
         ))}
+      <p>Jumlah: {itemCount}</p>
+      <p>Total: {total}</p>
     </Main>
   )
 }
