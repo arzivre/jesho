@@ -5,4 +5,5 @@ export interface ProductProps {
   description: string
   imgUrl: string
   createdAt: string
+  quantity?: number | undefined
 }

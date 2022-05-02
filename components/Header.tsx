@@ -1,20 +1,22 @@
-import { Suspense, useState } from 'react'
-import NextLink from 'next/link'
 import {
-  createStyles,
-  Header,
-  Group,
   ActionIcon,
-  Container,
   Burger,
-  Transition,
-  Paper,
+  Container,
+  createStyles,
+  Group,
+  Header,
   Loader,
-  Box,
+  Menu,
+  Paper,
+  Text,
+  Transition,
+  UnstyledButton,
 } from '@mantine/core'
 import { useBooleanToggle } from '@mantine/hooks'
 import useCart from 'hooks/useCart'
-import { Bucket, User } from 'tabler-icons-react'
+import NextLink from 'next/link'
+import { Suspense } from 'react'
+import { Bucket, ChevronDown, Logout } from 'tabler-icons-react'
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -101,6 +103,26 @@ const useStyles = createStyles((theme) => ({
       display: 'none',
     },
   },
+  userMenu: {
+    [theme.fn.smallerThan('xs')]: {
+      display: 'none',
+    },
+  },
+  user: {
+    color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
+    padding: `${theme.spacing.xs}px ${theme.spacing.sm}px`,
+    borderRadius: theme.radius.sm,
+    transition: 'background-color 100ms ease',
+
+    '&:hover': {
+      backgroundColor:
+        theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
+    },
+  },
+  userActive: {
+    backgroundColor:
+      theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
+  },
 }))
 
 interface JeshoHeaderProps {
@@ -108,26 +130,49 @@ interface JeshoHeaderProps {
 }
 
 export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
-  const [opened, toggleOpened] = useBooleanToggle(false)
-  // const [active, setActive] = useState(links[0].link)
+  const { classes, theme, cx } = useStyles()
   let { sumItems } = useCart()
   let { itemCount } = sumItems()
-  const { classes, cx } = useStyles()
+  const [opened, toggleOpened] = useBooleanToggle(false)
+  const [userMenuOpened, setUserMenuOpened] = useBooleanToggle(false)
 
   const items = links.map((link) => (
     <NextLink key={link.label} href={link.link} passHref>
-      <a
-        className={cx(classes.link, {
-          // [classes.linkActive]: active === link.link,
-        })}
-        // onClick={(event) => {
-        //   setActive(link.link)
-        // }}
-      >
-        {link.label}
-      </a>
+      <a className={cx(classes.link, {})}>{link.label}</a>
     </NextLink>
   ))
+
+  const profileMenu = (
+    <Menu
+      size={260}
+      placement='end'
+      transition='pop-top-right'
+      className={classes.userMenu}
+      onClose={() => setUserMenuOpened(false)}
+      onOpen={() => setUserMenuOpened(true)}
+      control={
+        <UnstyledButton
+          className={cx(classes.user, { [classes.userActive]: userMenuOpened })}
+        >
+          <Group spacing={7}>
+            {/* <Avatar src={user.image} alt={user.name} radius='xl' size={20} /> */}
+            <Text weight={500} size='sm' sx={{ lineHeight: 1 }} mr={3}>
+              {/* {user.name} */}
+              halo
+            </Text>
+            <ChevronDown size={12} />
+          </Group>
+        </UnstyledButton>
+      }
+    >
+      <Menu.Item icon={<Bucket size={14} color={theme.colors.blue[6]} />}>
+        <NextLink href={'/order'} passHref>
+          <a className={classes.link}>Your Orders</a>
+        </NextLink>
+      </Menu.Item>
+      <Menu.Item icon={<Logout size={14} />}>Logout</Menu.Item>
+    </Menu>
+  )
 
   return (
     <Header height={56} mb={10}>
@@ -140,11 +185,13 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
             className={classes.burger}
           />
         </Suspense>
+
         <Suspense fallback={<Loader />}>
           <Group className={classes.links} spacing={5}>
             {items}
           </Group>
         </Suspense>
+
         <Suspense fallback={<Loader />}>
           <Transition
             transition='pop-top-right'
@@ -158,18 +205,22 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
             )}
           </Transition>
         </Suspense>
+
         <Suspense fallback={<Loader />}>
           <h1>JESHO</h1>
         </Suspense>
+
         <Suspense fallback={<Loader />}>
           <Group spacing={0} className={classes.social} position='right' noWrap>
-            <ActionIcon size='lg'>
-              <User size={24} />
-            </ActionIcon>
-            <ActionIcon size='lg'>
-              <Bucket size={24} />
-            </ActionIcon>
-            <Box p={4}>{itemCount > 0 && itemCount}</Box>
+            {profileMenu}
+            <NextLink href={'/cart'} passHref>
+              <Text component='a'>
+                <ActionIcon size='lg'>
+                  <Bucket size={24} />
+                  {itemCount > 0 && itemCount}
+                </ActionIcon>
+              </Text>
+            </NextLink>
           </Group>
         </Suspense>
       </Container>
