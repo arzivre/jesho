@@ -56,11 +56,19 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (
 }
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {
-  let { cart, addItem, increaseItem, decreaseItem } = useCart()
+  let {
+    cart,
+    removeItem,
+    addItem,
+    increaseItem,
+    decreaseItem,
+    sumItems,
+    clear,
+  } = useCart()
+  let{itemCount}=sumItems()
   useEffect(() => {
-    console.log(cart)
-  }, [cart])
-
+    console.log(cart, itemCount)
+  }, [cart, itemCount])
   return (
     <Main>
       <Suspense fallback={<LoadingFullScreen />}>
@@ -69,6 +77,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
             <Grid.Col xs={12} md={6}>
               <Title order={1} mb={20}>
                 {product.title}
+                {itemCount}
               </Title>
               <Text>Rp {product.price}</Text>
               <Text>{product.description}</Text>
@@ -87,6 +96,8 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           <Button onClick={() => addItem(product)}>Add</Button>
           <Button onClick={() => increaseItem(product.id)}>+</Button>
           <Button onClick={() => decreaseItem(product.id)}>-</Button>
+          <Button onClick={() => removeItem(product.id)}>Remove</Button>
+          <Button onClick={() => clear()}>clear</Button>
         </Container>
       </Suspense>
     </Main>

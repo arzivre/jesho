@@ -5,8 +5,14 @@ let initialCart = Cookies.get('cart')
   ? JSON.parse(Cookies.get('cart') as string)
   : []
 
+const storeCartItems = (cartItems: string | any[]) => {
+  const cart = cartItems.length > 0 ? cartItems : []
+  Cookies.set('cart', JSON.stringify(cart))
+}
+
 const store = proxy({
   cart: initialCart,
+
   addItem: (newItems: any) => {
     if (!store.cart.find((item: { id: any }) => item.id === newItems.id)) {
       store.cart.push({
@@ -14,7 +20,6 @@ const store = proxy({
         quantity: 1,
       })
     }
-    Cookies.set('cart', JSON.stringify(store.cart))
   },
   increaseItem: (id: any) => {
     const increaseIndex = store.cart.findIndex((item: any) => item.id === id)
@@ -27,43 +32,31 @@ const store = proxy({
       product.quantity--
     }
   },
+  removeItem: (id: any) => {
+    store.cart = [store.cart.filter((item: { id: any }) => item.id !== id)]
+  },
+  clear: () => {
+    Cookies.remove('cart')
+    store.cart = []
+  },
+
+  sumItems: () => {
+    storeCartItems(store.cart)
+
+    return {
+      itemCount: store.cart.reduce(
+        (total: any, prod: { quantity: any }) => total + prod.quantity,
+        0
+      ),
+      total: store.cart.reduce(
+        (total: number, prod: { price: number; quantity: number }) =>
+          total + prod.price * prod.quantity,
+        0
+      ),
+    }
+  },
 })
 
 export default function useCart() {
   return useSnapshot(store)
 }
-// const storeCartItems = (cartItems) => {
-//   const cart = cartItems.length > 0 ? cartItems : []
-//   Cookies.set('cart', JSON.stringify(cart))
-// }
-
-// export const sumItems = (cartItems) => {
-//   storeCartItems(cartItems)
-//   return {
-//     itemCount: cartItems.reduce((total, prod) => total + prod.quantity, 0),
-//     total: cartItems.reduce(
-//       (total, prod) => total + prod.price * prod.quantity,
-//       0
-//     ),
-//   }
-// }
-//     case 'REMOVE_ITEM':
-//       const newCartItems = state.cartItems.filter(
-//         (item) => item.id !== action.payload.id
-//       )
-//       return {
-//         ...state,
-//         cartItems: [...newCartItems],
-//         ...sumItems(newCartItems),
-//       }
-//     case 'CLEAR':
-//       Cookies.remove('cart')
-//       return {
-//         cartItems: [],
-//         itemCount: 0,
-//         total: 0,
-//       }
-//     default:
-//       return state
-//   }
-// }

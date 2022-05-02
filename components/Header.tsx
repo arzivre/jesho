@@ -10,8 +10,10 @@ import {
   Transition,
   Paper,
   Loader,
+  Box,
 } from '@mantine/core'
 import { useBooleanToggle } from '@mantine/hooks'
+import useCart from 'hooks/useCart'
 import { Bucket, User } from 'tabler-icons-react'
 
 const useStyles = createStyles((theme) => ({
@@ -108,6 +110,8 @@ interface JeshoHeaderProps {
 export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
   const [opened, toggleOpened] = useBooleanToggle(false)
   // const [active, setActive] = useState(links[0].link)
+  let { sumItems } = useCart()
+  let { itemCount } = sumItems()
   const { classes, cx } = useStyles()
 
   const items = links.map((link) => (
@@ -165,6 +169,7 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
             <ActionIcon size='lg'>
               <Bucket size={24} />
             </ActionIcon>
+            <Box p={4}>{itemCount > 0 && itemCount}</Box>
           </Group>
         </Suspense>
       </Container>

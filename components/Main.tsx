@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
+import { Skeleton } from '@mantine/core'
 import { Loading } from './Loading'
 
 const JeshoFooter = dynamic(() => import('./Footer'), { suspense: true })
@@ -56,7 +57,7 @@ interface MainProps {
 export const Main = ({ children }: MainProps) => {
   return (
     <>
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<Skeleton height={56} />}>
         <JeshoHeader links={links} />
       </Suspense>
       {children}
