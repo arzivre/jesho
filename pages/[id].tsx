@@ -18,6 +18,7 @@ import {
   Button,
 } from '@mantine/core'
 import useCart from 'hooks/useCart'
+import isInCart from 'utils/isInCart'
 
 type Props = {
   product: any
@@ -56,16 +57,10 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (
 }
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {
-  let {
-    cart,
-    removeItem,
-    addItem,
-    increaseItem,
-    decreaseItem,
-    sumItems,
-    clear,
-  } = useCart()
-  let{itemCount}=sumItems()
+  let { cart, removeItem, addItem, increaseItem, decreaseItem, sumItems } =
+    useCart()
+  let { itemCount } = sumItems()
+  const inCart = isInCart(cart, product)
   useEffect(() => {
     console.log(cart, itemCount)
   }, [cart, itemCount])
@@ -77,27 +72,36 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
             <Grid.Col xs={12} md={6}>
               <Title order={1} mb={20}>
                 {product.title}
-                {itemCount}
               </Title>
               <Text>Rp {product.price}</Text>
               <Text>{product.description}</Text>
+              <hr />
+              <Group position='apart' grow>
+                {!inCart && (
+                  <Button onClick={() => addItem(product)}>Add</Button>
+                )}
+                {inCart && (
+                  <Button onClick={() => increaseItem(product.id)}>+</Button>
+                )}
+                {inCart?.quantity > 1 && (
+                  <Button onClick={() => decreaseItem(product.id)}>-</Button>
+                )}
+                {inCart?.quantity === 1 && (
+                  <Button onClick={() => removeItem(product.id)}>Remove</Button>
+                )}
+              </Group>
             </Grid.Col>
             <Suspense fallback={<Loading />}>
               <Grid.Col xs={12} md={6}>
-                <Image
+                {/* <Image
                   src={product.imgUrl}
                   alt={product.title}
                   width='600px'
                   height='540px'
-                />
+                /> */}
               </Grid.Col>
             </Suspense>
           </Grid>
-          <Button onClick={() => addItem(product)}>Add</Button>
-          <Button onClick={() => increaseItem(product.id)}>+</Button>
-          <Button onClick={() => decreaseItem(product.id)}>-</Button>
-          <Button onClick={() => removeItem(product.id)}>Remove</Button>
-          <Button onClick={() => clear()}>clear</Button>
         </Container>
       </Suspense>
     </Main>
