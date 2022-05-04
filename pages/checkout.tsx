@@ -1,9 +1,15 @@
+import { ProductProps } from 'libs/types'
+import { Suspense, useState } from 'react'
+import { Loading } from 'components/Loading'
+
 import Main from 'components/Main'
 import NextLink from 'next/link'
+
 import useCart from 'hooks/useCart'
+import useAuth from 'hooks/useAuth'
+import post from 'utils/post'
 
 import {
-  Anchor,
   Box,
   Breadcrumbs,
   Button,
@@ -18,9 +24,6 @@ import {
   TextInput,
   Title,
 } from '@mantine/core'
-import { ProductProps } from 'libs/types'
-import { Suspense, useState } from 'react'
-import { Loading } from 'components/Loading'
 
 const items = [
   { title: 'Home', href: '/' },
@@ -33,10 +36,49 @@ const items = [
 ))
 
 const Checkout = () => {
-  let { cart, sumItems } = useCart()
+  let { cart, clear, sumItems } = useCart()
   let { itemCount, total } = sumItems()
   const [value, setValue] = useState('MANDIRI')
-  
+  let { currentUser: user }: any = useAuth()
+
+  const creataVa = async (bank: string, details: any) => {
+    // setError(null)
+    // setLoading(true)
+
+    const metadata = {
+      email: user.email,
+      userId: user.uid,
+      userName: user.name,
+      shippingAddress: details,
+      items: { cart, itemCount, total },
+      statusDelivery: 'PENDING',
+      codeDelivery: 'PENDING',
+      isDelivered: false,
+    }
+
+    const order = {
+      externalID: 'va-' + new Date().getTime().toString(),
+      bankCode: bank || 'BNI',
+      name: user.name,
+      expectedAmt: total,
+      metadata,
+    }
+    
+    try {
+      const res = await post('api/xendit/va/virtual_account', order)
+      // Create Order Document
+      // addDocument(res)
+      // setVirtualAccount(res)
+
+      clear()
+      // setLoading(false)
+    } catch (error) {
+      // console.error(error)
+      // setError(error)
+      // setLoading(false)
+    }
+  }
+
   return (
     <Main>
       <Container size='xl'>
