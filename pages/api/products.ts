@@ -48,7 +48,7 @@ async function upload(req: NextApiRequest) {
         },
       },
     })
-  console.log('img', img)
+  // console.log('img', img)
 
   const data = {
     id,

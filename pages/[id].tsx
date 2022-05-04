@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from 'react'
+import { Suspense } from 'react'
 import { ParsedUrlQuery } from 'querystring'
 import { GetStaticPaths, GetStaticProps } from 'next'
 
@@ -61,9 +61,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
     useCart()
   let { itemCount } = sumItems()
   const inCart = isInCart(cart, product)
-  useEffect(() => {
-    console.log(cart, itemCount)
-  }, [cart, itemCount])
+  
   return (
     <Main>
       <Suspense fallback={<LoadingFullScreen />}>

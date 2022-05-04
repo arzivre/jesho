@@ -30,14 +30,14 @@ const UploadProduct = () => {
     // setThumbnailError('')
     // setDescription('')
     // router.push('/admin/products')
-    console.log('response:', response)
+    // console.log('response:', response)
   }
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     setThumbnail({})
     //@ts-ignore
     let selected = e.target.files[0]
-    console.log('selected', selected)
+    // console.log('selected', selected)
 
     if (!selected) {
       setThumbnailError('Please select a file')
@@ -54,7 +54,7 @@ const UploadProduct = () => {
 
     setThumbnailError('')
     setThumbnail(selected)
-    console.log('Thumbnail Updated')
+    // console.log('Thumbnail Updated')
   }
 
   return (
