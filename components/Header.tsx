@@ -183,19 +183,19 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
         </UnstyledButton>
       }
     >
-      <Menu.Item
-        icon={
-          <ActionIcon>
-            <BsBucket size={14} color={theme.colors.blue[6]} />
-          </ActionIcon>
-        }
-      >
-        <NextLink href={'/order'} prefetch={false} passHref>
-          <a className={classes.link} style={{ padding: 0 }}>
+      <NextLink href={'/order'} prefetch={false} passHref>
+        <a className={classes.link} style={{ padding: 0 }}>
+          <Menu.Item
+            icon={
+              <ActionIcon>
+                <BsBucket size={14} color={theme.colors.blue[6]} />
+              </ActionIcon>
+            }
+          >
             Order Lists
-          </a>
-        </NextLink>
-      </Menu.Item>
+          </Menu.Item>
+        </a>
+      </NextLink>
       {user ? (
         <Menu.Item
           color='red'
