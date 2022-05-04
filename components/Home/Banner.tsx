@@ -34,14 +34,14 @@ const Banner = () => {
     >
       <Box mb={40}>
         <Title order={1} mt={40} mb={20}>
-          Varier is a furniture company based in Semarang, Indonesia. We make
+          Houseofjesho is a furniture company based in Semarang, Indonesia. We make
           out-of-the-ordinary furniture that balances form and function
         </Title>
-        <Text size='xl' weight={400}>
+        {/* <Text size='xl' weight={400}>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt rem
           corrupti dolorum, quos laborum et deserunt, eius veniam ipsam eligendi
           facilis debitis officiis aliquam ab velit fugit nostrum dolores illum?
-        </Text>
+        </Text> */}
       </Box>
       <Group direction='row' position='center'>
         <Box className={classes.box}>

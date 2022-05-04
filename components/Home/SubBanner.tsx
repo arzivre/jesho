@@ -1,14 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Container, createStyles, Image } from '@mantine/core'
+import NextLink from 'next/link'
+import { Button, Container, createStyles, Group, Image } from '@mantine/core'
 
 const images = [
-  '/images/a (1).jpg',
-  '/images/a (7).jpg',
-  '/images/a (3).jpg',
-  '/images/a (4).jpg',
-  '/images/a (5).jpg',
-  '/images/a (6).jpg',
+  { url: '/images/a (1).jpg', link: '/wNe84iljoIZti5daRisJ' },
+  { url: '/images/a (2).jpg', link: '/zeJVdPkjlSXtT5U5WhOl' },
+  { url: '/images/a (3).jpg', link: '/vgMgx9jK4L4FWnM3OViM' },
+  { url: '/images/a (4).jpg', link: '/7i7Qv9zmsj8HfyHLUmro' },
 ]
 
 const useStyles = createStyles((theme) => ({
@@ -47,27 +46,32 @@ const SubBanner = () => {
   }, [])
 
   return (
-      <motion.div ref={carousel} className={classes.carousel}>
-        <Container size='xl'>
-          <motion.div
-            drag='x'
-            dragConstraints={{ right: 0, left: -widt }}
-            whileTap={{ cursor: 'grabbing' }}
-            className={classes.innerCarousel}
-          >
-            {images.map((image, index) => (
-              <motion.div key={index} className={classes.item}>
-                <Image
-                  src={image}
-                  alt='image'
-                  radius='md'
-                  className={classes.img}
-                />
-              </motion.div>
-            ))}
-          </motion.div>
-        </Container>
-      </motion.div>
+    <motion.div ref={carousel} className={classes.carousel}>
+      <Container size='xl'>
+        <motion.div
+          drag='x'
+          dragConstraints={{ right: 0, left: -widt }}
+          whileTap={{ cursor: 'grabbing' }}
+          className={classes.innerCarousel}
+        >
+          {images.map((image, index) => (
+            <motion.div key={index} className={classes.item}>
+              <Image
+                src={image.url}
+                alt='image'
+                radius='md'
+                className={classes.img}
+              />
+              <Group position='center'>
+                <NextLink href={image.link} passHref>
+                  <Button component='a' variant='outline' color='gray'>Product Details</Button>
+                </NextLink>
+              </Group>
+            </motion.div>
+          ))}
+        </motion.div>
+      </Container>
+    </motion.div>
   )
 }
 export default SubBanner

@@ -91,12 +91,12 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
             </Grid.Col>
             <Suspense fallback={<Loading />}>
               <Grid.Col xs={12} md={6}>
-                {/* <Image
+                <Image
                   src={product.imgUrl}
                   alt={product.title}
                   width='600px'
                   height='540px'
-                /> */}
+                />
               </Grid.Col>
             </Suspense>
           </Grid>
