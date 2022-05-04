@@ -1,5 +1,17 @@
+import { Suspense } from 'react'
+import useAuth, { signinWithGoogle, signout } from 'hooks/useAuth'
+import { useRouter } from 'next/router'
+import NextLink from 'next/link'
+import useCart from 'hooks/useCart'
+import { useBooleanToggle } from '@mantine/hooks'
+
+import { BsBucket } from 'react-icons/bs'
+import { BiLogOut, BiChevronDown } from 'react-icons/bi'
+import { FcGoogle } from 'react-icons/fc'
+
 import {
   ActionIcon,
+  Avatar,
   Burger,
   Container,
   createStyles,
@@ -12,11 +24,6 @@ import {
   Transition,
   UnstyledButton,
 } from '@mantine/core'
-import { useBooleanToggle } from '@mantine/hooks'
-import useCart from 'hooks/useCart'
-import NextLink from 'next/link'
-import { Suspense } from 'react'
-import { Bucket, ChevronDown, Logout } from 'tabler-icons-react'
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -131,10 +138,15 @@ interface JeshoHeaderProps {
 
 export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
   const { classes, theme, cx } = useStyles()
+  let { currentUser: user }: any = useAuth()
+
   let { sumItems } = useCart()
   let { itemCount } = sumItems()
+
   const [opened, toggleOpened] = useBooleanToggle(false)
   const [userMenuOpened, setUserMenuOpened] = useBooleanToggle(false)
+
+  const router = useRouter()
 
   const items = links.map((link) => (
     <NextLink key={link.label} href={link.link} passHref>
@@ -155,22 +167,49 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
           className={cx(classes.user, { [classes.userActive]: userMenuOpened })}
         >
           <Group spacing={7}>
-            {/* <Avatar src={user.image} alt={user.name} radius='xl' size={20} /> */}
+            {user && (
+              <Avatar
+                src={user.photoURL}
+                alt={user.name}
+                radius='xl'
+                size={20}
+              />
+            )}
             <Text weight={500} size='sm' sx={{ lineHeight: 1 }} mr={3}>
-              {/* {user.name} */}
-              halo
+              {user ? user.name : 'Guest'}
             </Text>
-            <ChevronDown size={12} />
+            <BiChevronDown size={12} />
           </Group>
         </UnstyledButton>
       }
     >
-      <Menu.Item icon={<Bucket size={14} color={theme.colors.blue[6]} />}>
+      <Menu.Item
+        icon={
+          <ActionIcon>
+            <BsBucket size={14} color={theme.colors.blue[6]} />
+          </ActionIcon>
+        }
+      >
         <NextLink href={'/order'} passHref>
-          <a className={classes.link}>Your Orders</a>
+          <a className={classes.link} style={{padding:0}}>Order Lists</a>
         </NextLink>
       </Menu.Item>
-      <Menu.Item icon={<Logout size={14} />}>Logout</Menu.Item>
+      {user ? (
+        <Menu.Item icon={<BiLogOut size={14} />} onClick={() => signout()}>
+          Log out
+        </Menu.Item>
+      ) : (
+        <Menu.Item
+          icon={
+            <ActionIcon>
+              <FcGoogle size={14} />
+            </ActionIcon>
+          }
+          onClick={() => signinWithGoogle(router.asPath)}
+        >
+          Log in
+        </Menu.Item>
+      )}
     </Menu>
   )
 
@@ -216,7 +255,7 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
             <NextLink href={'/cart'} passHref>
               <Text component='a'>
                 <ActionIcon size='lg'>
-                  <Bucket size={24} />
+                  <BsBucket size={14} />
                   {itemCount > 0 && itemCount}
                 </ActionIcon>
               </Text>
