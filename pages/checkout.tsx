@@ -1,6 +1,6 @@
 import { ProductProps } from 'libs/types'
 import { Suspense, useState } from 'react'
-import { Loading } from 'components/Loading'
+import { Loading, LoadingFullScreen } from 'components/Loading'
 
 import Main from 'components/Main'
 import NextLink from 'next/link'
@@ -24,6 +24,7 @@ import {
   TextInput,
   Title,
 } from '@mantine/core'
+import { useForm } from '@mantine/form'
 
 const items = [
   { title: 'Home', href: '/' },
@@ -40,6 +41,18 @@ const Checkout = () => {
   let { itemCount, total } = sumItems()
   const [value, setValue] = useState('MANDIRI')
   let { currentUser: user }: any = useAuth()
+  const form = useForm({
+    initialValues: {
+      nama_depan: '',
+      name_belakang: '',
+      alamat: '',
+      detail_alamat: '',
+      negara: 'Indonesia',
+      provinsi: '',
+      kota: '',
+      kode_pos: '',
+    },
+  })
 
   const creataVa = async (bank: string, details: any) => {
     // setError(null)
@@ -63,7 +76,7 @@ const Checkout = () => {
       expectedAmt: total,
       metadata,
     }
-    
+
     try {
       const res = await post('api/xendit/va/virtual_account', order)
       // Create Order Document
@@ -81,94 +94,116 @@ const Checkout = () => {
 
   return (
     <Main>
-      <Container size='xl'>
-        <Group position='left'>
-          <Breadcrumbs>{items}</Breadcrumbs>
-        </Group>
-      </Container>
-      <Container size='lg' my={20}>
-        <SimpleGrid
-          cols={2}
-          spacing='xl'
-          breakpoints={[
-            { maxWidth: 'sm', cols: 2, spacing: 'sm' },
-            { maxWidth: 'xs', cols: 1, spacing: 'sm' },
-          ]}
-        >
-          <Group direction='column' position='center' grow>
-            <Title order={2}>Alamat Pengiriman</Title>
-            <form>
-              <Group grow>
-                <TextInput label='Nama depan' placeholder='Jhon' />
-                <TextInput label='Nama Belakang' placeholder='Doe' />
-              </Group>
-              <TextInput
-                label='Alamat Pengiriman'
-                placeholder='15329 Huston 21st'
-              />
-              <TextInput label='Detail Alamat' placeholder='(optional)' />
-              <Select
-                data={['Indonesia']}
-                placeholder='Indonesia'
-                label='Negara'
-                value={'Indonesia'}
-              />
-              <Group direction='row' grow>
-                <TextInput label='Provinsi' placeholder='Jawa Barat' />
-                <TextInput label='Kota' placeholder='Jakarta' />
-                <TextInput label='Kode Pos' placeholder='65123' />
-              </Group>
-              <RadioGroup
-                label='Pilih Metode Pembayaran Virtual Account'
-                description='Virtual Account'
-                required
-                value={value}
-                onChange={setValue}
-              >
-                <Radio value='MANDIRI' label='MANDIRI' />
-                <Radio value='BNI' label='BNI' />
-                <Radio value='BRI' label='BRI' />
-                <Radio value='BCA ' label='BCA' />
-              </RadioGroup>
-              <Group position='left' mt={20}>
-                <Button>Bayar</Button>
-              </Group>
-            </form>
+      <Suspense fallback={<Loading />}>
+        <Container size='xl'>
+          <Group position='left'>
+            <Breadcrumbs>{items}</Breadcrumbs>
           </Group>
+        </Container>
+      </Suspense>
 
-          <Group direction='column' position='center' grow>
-            <Title order={2}>Keranjang</Title>
-
+      <Suspense fallback={<LoadingFullScreen />}>
+        <Container size='lg' my={20}>
+          <SimpleGrid
+            cols={2}
+            spacing='xl'
+            breakpoints={[
+              { maxWidth: 'sm', cols: 2, spacing: 'sm' },
+              { maxWidth: 'xs', cols: 1, spacing: 'sm' },
+            ]}
+          >
             <Suspense fallback={<Loading />}>
-              {cart.length > 0 &&
-                cart.map((item: ProductProps) => (
-                  <Group key={item.id} spacing='xs' grow mb={20}>
-                    <Box>
-                      <Image
-                        src={item.imgUrl}
-                        alt={item.title}
-                        height={140}
-                        width={100}
-                      />
-                    </Box>
-                    <Box>
-                      <Group direction='column' position='right'>
-                        <Text size='xl'> {item.title}</Text>
-                        <Text size='xl'>
-                          Rp {item.quantity! * Number(item.price)}
-                        </Text>
-                      </Group>
-                    </Box>
+              <Group direction='column' position='center' grow>
+                <Title order={2}>Alamat Pengiriman</Title>
+                <form>
+                  <Group grow>
+                    <TextInput
+                      label='Nama depan'
+                      placeholder='Jhon'
+                      {...form.getInputProps('nama_depan')}
+                    />
+                    <TextInput label='Nama Belakang' placeholder='Doe' />
                   </Group>
-                ))}
-
-              <Group direction='column' position='right'>
-                <Text size='xl'>subtotal: Rp{total}</Text>
+                  <Group grow>
+                    <TextInput
+                      label='Email'
+                      placeholder='Jhon'
+                      {...form.getInputProps('nama_depan')}
+                    />
+                    <TextInput label='Phone' placeholder='0812 3456 7890' />
+                  </Group>
+                  <TextInput
+                    label='Alamat Pengiriman'
+                    placeholder='15329 Huston 21st'
+                  />
+                  <TextInput label='Detail Alamat' placeholder='(optional)' />
+                  <Select
+                    data={['Indonesia']}
+                    placeholder='Indonesia'
+                    label='Negara'
+                    value={'Indonesia'}
+                  />
+                  <Group direction='row' grow>
+                    <TextInput label='Provinsi' placeholder='Jawa Barat' />
+                    <TextInput label='Kota' placeholder='Jakarta' />
+                    <TextInput label='Kode Pos' placeholder='65123' />
+                  </Group>
+                  <RadioGroup
+                    label='Pilih Metode Pembayaran Virtual Account'
+                    description='Virtual Account'
+                    required
+                    value={value}
+                    onChange={setValue}
+                  >
+                    <Radio value='MANDIRI' label='MANDIRI' />
+                    <Radio value='BNI' label='BNI' />
+                    <Radio value='BRI' label='BRI' />
+                    <Radio value='BCA ' label='BCA' />
+                  </RadioGroup>
+                  <Group position='left' mt={20}>
+                    <Button>Bayar</Button>
+                  </Group>
+                </form>
               </Group>
             </Suspense>
-          </Group>
-        </SimpleGrid>
-      </Container>
+
+            <Suspense fallback={<Loading />}>
+              <Group direction='column' position='center' grow>
+                <Title order={2}>Keranjang</Title>
+
+                <Suspense fallback={<Loading />}>
+                  {cart.length > 0 &&
+                    cart.map((item: ProductProps) => (
+                      <Group key={item.id} spacing='xs' grow mb={20}>
+                        <Box>
+                          <Image
+                            src={item.imgUrl}
+                            alt={item.title}
+                            height={140}
+                            width={100}
+                          />
+                        </Box>
+                        <Box>
+                          <Group direction='column' position='right'>
+                            <Text size='xl'> {item.title}</Text>
+                            <Text size='xl'>
+                              Rp {item.quantity! * Number(item.price)}
+                            </Text>
+                          </Group>
+                        </Box>
+                      </Group>
+                    ))}
+
+                  <Group direction='column' position='right'>
+                    <Text size='xl'>subtotal: Rp{total}</Text>
+                  </Group>
+                </Suspense>
+              </Group>
+            </Suspense>
+          </SimpleGrid>
+        </Container>
+      </Suspense>
+
     </Main>
   )
 }
