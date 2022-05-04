@@ -149,7 +149,7 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
   const router = useRouter()
 
   const items = links.map((link) => (
-    <NextLink key={link.label} href={link.link} passHref>
+    <NextLink key={link.label} href={link.link}>
       <a className={cx(classes.link, {})}>{link.label}</a>
     </NextLink>
   ))
@@ -190,12 +190,22 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
           </ActionIcon>
         }
       >
-        <NextLink href={'/order'} passHref>
-          <a className={classes.link} style={{padding:0}}>Order Lists</a>
+        <NextLink href={'/order'} prefetch={false} passHref>
+          <a className={classes.link} style={{ padding: 0 }}>
+            Order Lists
+          </a>
         </NextLink>
       </Menu.Item>
       {user ? (
-        <Menu.Item icon={<BiLogOut size={14} />} onClick={() => signout()}>
+        <Menu.Item
+          color='red'
+          icon={
+            <ActionIcon>
+              <BiLogOut size={14} color='red' />
+            </ActionIcon>
+          }
+          onClick={() => signout()}
+        >
           Log out
         </Menu.Item>
       ) : (
