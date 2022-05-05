@@ -1,0 +1,8 @@
+User-agent: Unnecessarybot
+Disallow: /
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://leerob.io/sitemap.xml

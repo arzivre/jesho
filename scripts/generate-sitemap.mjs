@@ -2,18 +2,19 @@ import { writeFileSync } from 'fs'
 import { globby } from 'globby'
 const homeURL = 'https://www.houseofjesho.com'
 
-;(async () => {
+(async () => {
   try {
     console.log('generating sitemap..')
 
     const pages = await globby([
       'pages/*.tsx',
+      'pages/[*.tsx',
       'pages/**/*.tsx',
-      'contents/**/*.mdx',
-      '!pages/[*.tsx',
-      '!contents/*.mdx',
       '!pages/_*.tsx',
       '!pages/404.tsx',
+      '!pages/cart.tsx',
+      '!pages/checkout.tsx',
+      '!pages/order.tsx',
       '!pages/api/**/*.tsx',
       '!pages/admin/_*.tsx',
       '!pages/admin/**/*.tsx',
@@ -33,7 +34,7 @@ const homeURL = 'https://www.houseofjesho.com'
                   .replace('.mdx', '')
                 const route = path === '/index' ? '' : path
                 const fullUrl = `${homeURL}${route}`
-                // console.log(fullUrl)
+                console.log(fullUrl)
                 return `
                         <url>
                             <loc>${fullUrl}</loc>
