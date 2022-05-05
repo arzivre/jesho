@@ -24,6 +24,11 @@ function App(props: AppProps) {
           name='viewport'
           content='minimum-scale=1, initial-scale=1, width=device-width'
         />
+        <meta
+          name='description'
+          content='Houseofjesho adalah perusahaan mebel yang berbasis di Semarang, Indonesia. Kita membuat
+           furnitur dan costum jasa cutting'
+        />
       </Head>
 
       <MantineProvider
