@@ -25,7 +25,6 @@
     "firebase": "8.2.1",
     "firebase-admin": "^10.1.0",
     "framer-motion": "^6.3.1",
-    "globby": "^13.1.1",
     "js-cookie": "^3.0.1",
     "next": "^12.1.5",
     "nextjs-progressbar": "^0.0.14",
@@ -48,6 +47,7 @@
     "@types/react-dom": "^18.0.2",
     "eslint": "8.12.0",
     "eslint-config-next": "12.1.1",
+    "globby": "^13.1.1",
     "typescript": "4.6.3"
   }
 }
