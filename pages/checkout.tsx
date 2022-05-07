@@ -25,6 +25,7 @@ import {
   Title,
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
+import { firestore } from 'libs/firebase'
 
 const items = [
   { title: 'Home', href: '/' },
@@ -39,12 +40,18 @@ const items = [
 const Checkout = () => {
   let { cart, clear, sumItems } = useCart()
   let { itemCount, total } = sumItems()
-  const [value, setValue] = useState('MANDIRI')
   let { currentUser: user }: any = useAuth()
+
+  const [bankCode, setBankCode] = useState('MANDIRI')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<unknown | null>(null)
+  const [virtualAccount, setVirtualAccount] = useState<{} | null>(null)
+  const [simulation, setSimulation] = useState<any | null>(null)
+
   const form = useForm({
     initialValues: {
       nama_depan: '',
-      name_belakang: '',
+      nama_belakang: '',
       alamat: '',
       detail_alamat: '',
       negara: 'Indonesia',
@@ -54,15 +61,16 @@ const Checkout = () => {
     },
   })
 
-  const creataVa = async (bank: string, details: any) => {
+  const creataVa = async (values: any) => {
     // setError(null)
     // setLoading(true)
+    // setVirtualAccount(null)
 
     const metadata = {
       email: user.email,
       userId: user.uid,
       userName: user.name,
-      shippingAddress: details,
+      shippingAddress: values,
       items: { cart, itemCount, total },
       statusDelivery: 'PENDING',
       codeDelivery: 'PENDING',
@@ -71,27 +79,57 @@ const Checkout = () => {
 
     const order = {
       externalID: 'va-' + new Date().getTime().toString(),
-      bankCode: bank || 'BNI',
+      bankCode: bankCode || 'BNI',
       name: user.name,
       expectedAmt: total,
+      //! combine metadata in server
       metadata,
     }
+    // console.log('order', order)
 
     try {
-      const res = await post('api/xendit/va/virtual_account', order)
-      // Create Order Document
-      // addDocument(res)
-      // setVirtualAccount(res)
+      const results = await post('api/xendit/va/virtual_account', order)
+
+      //* Create Order Document
+      const createdAt = new Date().toISOString()
+      await firestore
+        .collection('orders')
+        .doc(results.external_id)
+        .set({ ...results, createdAt })
+      setVirtualAccount(results)
 
       clear()
-      // setLoading(false)
+      setLoading(false)
     } catch (error) {
       // console.error(error)
-      // setError(error)
-      // setLoading(false)
+      setError(error)
+      setLoading(false)
     }
   }
 
+  //! Tes Simulasi Pembayaran
+  const verivikasi = async (virtualAccount: { externalId?: any; expected_amount?: any }) => {
+    setSimulation(null)
+    const response = await post('/api/xendit/va/simulate', {
+      externalId: virtualAccount.externalId,
+      amount: virtualAccount.expected_amount,
+    })
+    setSimulation(response)
+  }
+
+  if (virtualAccount) {
+    return (
+      <Main>
+        <Container>
+          <Group position='center' mt={20}>
+            <Button onClick={() => verivikasi(virtualAccount)}>Bayar</Button>
+          </Group>
+          {JSON.stringify(virtualAccount)}
+          {simulation && JSON.stringify(simulation)}
+        </Container>
+      </Main>
+    )
+  }
   return (
     <Main>
       <Suspense fallback={<Loading />}>
@@ -115,7 +153,7 @@ const Checkout = () => {
             <Suspense fallback={<Loading />}>
               <Group direction='column' position='center' grow>
                 <Title order={2}>Alamat Pengiriman</Title>
-                <form>
+                <form onSubmit={form.onSubmit(creataVa)}>
                   <Group grow>
                     <TextInput
                       label='Nama depan'
@@ -128,32 +166,50 @@ const Checkout = () => {
                     <TextInput
                       label='Email'
                       placeholder='Jhon'
-                      {...form.getInputProps('nama_depan')}
+                      {...form.getInputProps('nama_belakang')}
                     />
                     <TextInput label='Phone' placeholder='0812 3456 7890' />
                   </Group>
                   <TextInput
                     label='Alamat Pengiriman'
                     placeholder='15329 Huston 21st'
+                    {...form.getInputProps('alamat')}
                   />
-                  <TextInput label='Detail Alamat' placeholder='(optional)' />
+                  <TextInput
+                    label='Detail Alamat'
+                    placeholder='(optional)'
+                    {...form.getInputProps('detail_alamat')}
+                  />
                   <Select
                     data={['Indonesia']}
                     placeholder='Indonesia'
                     label='Negara'
+                    {...form.getInputProps('negara')}
                     value={'Indonesia'}
                   />
                   <Group direction='row' grow>
-                    <TextInput label='Provinsi' placeholder='Jawa Barat' />
-                    <TextInput label='Kota' placeholder='Jakarta' />
-                    <TextInput label='Kode Pos' placeholder='65123' />
+                    <TextInput
+                      label='Provinsi'
+                      placeholder='Jawa Barat'
+                      {...form.getInputProps('provinsi')}
+                    />
+                    <TextInput
+                      label='Kota'
+                      placeholder='Jakarta'
+                      {...form.getInputProps('kota')}
+                    />
+                    <TextInput
+                      label='Kode Pos'
+                      placeholder='65123'
+                      {...form.getInputProps('kode_pos')}
+                    />
                   </Group>
                   <RadioGroup
                     label='Pilih Metode Pembayaran Virtual Account'
                     description='Virtual Account'
                     required
-                    value={value}
-                    onChange={setValue}
+                    value={bankCode}
+                    onChange={setBankCode}
                   >
                     <Radio value='MANDIRI' label='MANDIRI' />
                     <Radio value='BNI' label='BNI' />
@@ -161,7 +217,9 @@ const Checkout = () => {
                     <Radio value='BCA ' label='BCA' />
                   </RadioGroup>
                   <Group position='left' mt={20}>
-                    <Button>Bayar</Button>
+                    <Button type='submit' value='Send'>
+                      Bayar
+                    </Button>
                   </Group>
                 </form>
               </Group>
@@ -203,7 +261,6 @@ const Checkout = () => {
           </SimpleGrid>
         </Container>
       </Suspense>
-
     </Main>
   )
 }
