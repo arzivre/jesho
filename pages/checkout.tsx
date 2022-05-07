@@ -27,16 +27,6 @@ import {
 import { useForm } from '@mantine/form'
 import { firestore } from 'libs/firebase'
 
-const items = [
-  { title: 'Home', href: '/' },
-  { title: 'Keranjang', href: '/cart' },
-  { title: 'Checkout', href: '/checkout' },
-].map((item, index) => (
-  <NextLink key={index} href={item.href} passHref>
-    <Text component='a'>{item.title}</Text>
-  </NextLink>
-))
-
 const Checkout = () => {
   let { cart, clear, sumItems } = useCart()
   let { itemCount, total } = sumItems()
@@ -61,7 +51,17 @@ const Checkout = () => {
     },
   })
 
-  const creataVa = async (values: any) => {
+  const items = [
+    { title: 'Home', href: '/' },
+    { title: 'Keranjang', href: '/cart' },
+    { title: 'Checkout', href: '/checkout' },
+  ].map((item, index) => (
+    <NextLink key={index} href={item.href} passHref>
+      <Text component='a'>{item.title}</Text>
+    </NextLink>
+  ))
+
+  const handleSubmit = async (values: typeof form.values) => {
     // setError(null)
     // setLoading(true)
     // setVirtualAccount(null)
@@ -108,7 +108,10 @@ const Checkout = () => {
   }
 
   //! Tes Simulasi Pembayaran
-  const verivikasi = async (virtualAccount: { externalId?: any; expected_amount?: any }) => {
+  const verivikasi = async (virtualAccount: {
+    externalId?: any
+    expected_amount?: any
+  }) => {
     setSimulation(null)
     const response = await post('/api/xendit/va/simulate', {
       externalId: virtualAccount.externalId,
@@ -140,6 +143,8 @@ const Checkout = () => {
         </Container>
       </Suspense>
 
+      {loading && <LoadingFullScreen />}
+
       <Suspense fallback={<LoadingFullScreen />}>
         <Container size='lg' my={20}>
           <SimpleGrid
@@ -153,7 +158,7 @@ const Checkout = () => {
             <Suspense fallback={<Loading />}>
               <Group direction='column' position='center' grow>
                 <Title order={2}>Alamat Pengiriman</Title>
-                <form onSubmit={form.onSubmit(creataVa)}>
+                <form onSubmit={form.onSubmit(handleSubmit)}>
                   <Group grow>
                     <TextInput
                       label='Nama depan'
@@ -218,7 +223,7 @@ const Checkout = () => {
                   </RadioGroup>
                   <Group position='left' mt={20}>
                     <Button type='submit' value='Send'>
-                      Bayar
+                      Checkout
                     </Button>
                   </Group>
                 </form>
