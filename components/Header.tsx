@@ -149,8 +149,10 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
   const router = useRouter()
 
   const items = links.map((link) => (
-    <NextLink key={link.label} href={link.link}>
-      <a className={cx(classes.link, {})}>{link.label}</a>
+    <NextLink key={link.label} href={link.link} passHref>
+      <Text component='a' className={classes.link}>
+        {link.label}
+      </Text>
     </NextLink>
   ))
 
@@ -187,9 +189,9 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
         <a className={classes.link} style={{ padding: 0 }}>
           <Menu.Item
             icon={
-              <ActionIcon>
+              <>
                 <BsBucket size={14} color={theme.colors.blue[6]} />
-              </ActionIcon>
+              </>
             }
           >
             Order Lists
@@ -200,9 +202,9 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
         <Menu.Item
           color='red'
           icon={
-            <ActionIcon>
+            <>
               <BiLogOut size={14} color='red' />
-            </ActionIcon>
+            </>
           }
           onClick={() => signout()}
         >
@@ -211,9 +213,9 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
       ) : (
         <Menu.Item
           icon={
-            <ActionIcon>
+            <>
               <FcGoogle size={14} />
-            </ActionIcon>
+            </>
           }
           onClick={() => signinWithGoogle(router.asPath)}
         >

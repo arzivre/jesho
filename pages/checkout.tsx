@@ -109,12 +109,12 @@ const Checkout = () => {
 
   //! Tes Simulasi Pembayaran
   const verivikasi = async (virtualAccount: {
-    externalId?: any
+    external_id?: any
     expected_amount?: any
   }) => {
     setSimulation(null)
     const response = await post('/api/xendit/va/simulate', {
-      externalId: virtualAccount.externalId,
+      externalId: virtualAccount.external_id,
       amount: virtualAccount.expected_amount,
     })
     setSimulation(response)
@@ -142,7 +142,7 @@ const Checkout = () => {
           </Group>
         </Container>
       </Suspense>
-
+      
       {loading && <LoadingFullScreen />}
 
       <Suspense fallback={<LoadingFullScreen />}>
@@ -156,7 +156,7 @@ const Checkout = () => {
             ]}
           >
             <Suspense fallback={<Loading />}>
-              <Group direction='column' position='center' grow>
+              <Group direction='column' position='center'>
                 <Title order={2}>Alamat Pengiriman</Title>
                 <form onSubmit={form.onSubmit(handleSubmit)}>
                   <Group grow>
