@@ -26,12 +26,14 @@ const OrderList = () => {
             <Text>{order.items.itemCount}</Text>
           </Group>
 
-          <Group>
-            {order.items.cartItems.map((item: any) => (
+          <Group direction='column' style={{ height: '190px', width: '160px' }}>
+            {order.items.cart.map((item: any) => (
               <Image
                 key={item.title}
                 src={item.imgUrl ? item.imgUrl : item.link}
                 alt={item.title}
+                height={'90%'}
+                width={'60%'}
               />
             ))}
           </Group>

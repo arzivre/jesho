@@ -90,12 +90,16 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
               </Group>
             </Grid.Col>
             <Suspense fallback={<Loading />}>
-              <Grid.Col xs={12} md={6}>
+              <Grid.Col
+                xs={12}
+                md={6}
+                style={{ height: '390px', width: '360px' }}
+              >
                 <Image
                   src={product.imgUrl}
                   alt={product.title}
-                  width='600px'
-                  height='540px'
+                  height={'90%'}
+                  width={'60%'}
                 />
               </Grid.Col>
             </Suspense>

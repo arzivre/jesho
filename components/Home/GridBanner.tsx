@@ -14,18 +14,23 @@ const GridBanner = () => {
             Epic home decor from creative finger macrame and wood
           </Text>
         </Box>
-        <Image
-          src='/images/a (2).jpg'
-          alt='Banner'
-          style={{ height: '600px', width: '400px' }}
-        />
+        <Box style={{ margin: 'auto', height: '390px', width: '360px' }}>
+          <Image
+            src='/images/a (2).jpg'
+            alt='Banner'
+            height={'90%'}
+            width={'90%'}
+          />
+        </Box>
       </Group>
-      <Image
-        src='/images/a (3).jpg'
-        alt='Banner'
-        height='600px'
-        width='400px'
-      />
+      <Box style={{ margin: 'auto', height: '390px', width: '360px' }}>
+        <Image
+          src='/images/a (3).jpg'
+          alt='Banner'
+          height={'90%'}
+          width={'90%'}
+        />
+      </Box>
     </SimpleGrid>
   )
 }
