@@ -9,6 +9,7 @@ import {
 } from '@mantine/core'
 const useStyles = createStyles((theme) => ({
   box: {
+    margin:'auto',
     padding: '5px',
     transition: '0.5s linear',
     boxShadow: '-8px 8px #FFC9C9',

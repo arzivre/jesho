@@ -161,7 +161,7 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
       size={260}
       placement='end'
       transition='pop-top-right'
-      className={classes.userMenu}
+      // className={classes.userMenu}
       onClose={() => setUserMenuOpened(false)}
       onOpen={() => setUserMenuOpened(true)}
       control={
@@ -177,7 +177,13 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
                 size={20}
               />
             )}
-            <Text weight={500} size='sm' sx={{ lineHeight: 1 }} mr={3}>
+            <Text
+              className={classes.userMenu}
+              weight={500}
+              size='sm'
+              sx={{ lineHeight: 1 }}
+              mr={3}
+            >
               {user ? user.name : 'Guest'}
             </Text>
             <BiChevronDown size={12} />
