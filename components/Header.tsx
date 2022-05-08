@@ -187,13 +187,7 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
     >
       <NextLink href={'/order'} prefetch={false} passHref>
         <a className={classes.link} style={{ padding: 0 }}>
-          <Menu.Item
-            icon={
-              <>
-                <BsBucket size={14} color={theme.colors.blue[6]} />
-              </>
-            }
-          >
+          <Menu.Item icon={<BsBucket size={14} color={theme.colors.blue[6]} />}>
             Order Lists
           </Menu.Item>
         </a>
@@ -201,22 +195,14 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
       {user ? (
         <Menu.Item
           color='red'
-          icon={
-            <>
-              <BiLogOut size={14} color='red' />
-            </>
-          }
+          icon={<BiLogOut size={14} color='red' />}
           onClick={() => signout()}
         >
           Log out
         </Menu.Item>
       ) : (
         <Menu.Item
-          icon={
-            <>
-              <FcGoogle size={14} />
-            </>
-          }
+          icon={<FcGoogle size={14} />}
           onClick={() => signinWithGoogle(router.asPath)}
         >
           Log in
