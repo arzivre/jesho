@@ -1,21 +1,40 @@
-const data = {
-  is_closed: true,
-  status: 'PENDING',
-  currency: 'IDR',
-  owner_id: '615d0fc87198d4a2a5e8332a',
-  external_id: 'va-1651907375941',
-  bank_code: 'BRI',
-  merchant_code: '92001',
-  name: 'tech js',
-  account_number: '920019999322406',
-  expected_amount: 30000,
-  expiration_date: '2022-05-09T17:00:00.000Z',
-  is_single_use: false,
-  id: '62761b33dcc03679cb1d1194',
+import { Group, Text, Title } from '@mantine/core'
+import { format, parseISO } from 'date-fns'
+
+interface Props { 
+  data: {
+    bank_code: string
+    name: string
+    account_number: string
+    expected_amount: number | string
+    expiration_date: string
+  }
 }
-const VirtualAccount = () => {
+const VirtualAccount = ({ data }: Props) => {
   return (
-    <div>VirtualAccount</div>
+    <>
+      <Group position='center' my={20}>
+        <Title>Virtual Account Bank {data.bank_code}</Title>
+      </Group>
+      <Group position='apart' mb={20}>
+        <Text>Name</Text>
+        <Text size='xl' weight={500}>{data.name}</Text>
+      </Group>
+      <Group position='apart' mb={20}>
+        <Text>Virtual Account Number</Text>
+        <Text size='xl' weight={500}>{data.account_number}</Text>
+      </Group>
+      <Group position='apart' mb={20}>
+        <Text>Total yang perlu dibayar</Text>
+        <Text size='xl' weight={500}>Rp {data.expected_amount}</Text>
+      </Group>
+      <Group position='apart' mb={20}>
+        <Text>Tangal Kadaluarsa</Text>
+        <Text size='xl' weight={500}>
+          {format(parseISO(data.expiration_date), 'dd MMM yyyy - HH:mm')}
+        </Text>
+      </Group>
+    </>
   )
 }
 export default VirtualAccount

@@ -20,7 +20,7 @@ const Cart = () => {
       <Container size='md'>
         {cart.length > 0 &&
           cart.map((item: ProductProps) => (
-            <Group key={item.id} position='apart' spacing='xs' grow mb={20}>
+            <Group key={item.id} spacing='xs' grow mb={20}>
               <Box>
                 <Image
                   src={item.imgUrl}
@@ -31,20 +31,20 @@ const Cart = () => {
               </Box>
               <Box>
                 <Group position='apart'>
-                  <Text size='xl'> {item.title}</Text>
-                  <Text size='xl'>Rp {item.price}</Text>
+                  <Text size='md'> {item.title}</Text>
+                  <Text size='md'>Rp {item.price}</Text>
                 </Group>
 
                 <Group position='apart'>
-                  <Text size='xl'>Qty:</Text>
-                  <Text size='xl'> {item.quantity}</Text>
+                  <Text size='md'>Qty:</Text>
+                  <Text size='md'> {item.quantity}</Text>
                 </Group>
 
                 <hr />
 
                 <Group position='apart'>
-                  <Text size='xl'>Total:</Text>
-                  <Text size='xl'>
+                  <Text size='md'>Total:</Text>
+                  <Text size='md'>
                     Rp {item.quantity! * Number(item.price)}
                   </Text>
                 </Group>
@@ -52,9 +52,12 @@ const Cart = () => {
             </Group>
           ))}
         <Group direction='column' position='right'>
-          <Text size='xl'>Jumlah: {itemCount}</Text>
-          <Text size='xl'>Total: Rp{total}</Text>
+          <Text size='md'>Jumlah: {itemCount}</Text>
+          <Text size='md'>Subtotal: Rp {total}</Text>
+          <Text size='md'>Pengiriman: Rp 30000</Text>
+          <Text size='xl'>Total: Rp {total + 30000}</Text>
         </Group>
+
         <Group position='right' spacing='xl' mt={20}>
           <Button color='red' onClick={() => clear()}>
             Clear Cart

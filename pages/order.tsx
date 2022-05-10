@@ -94,11 +94,14 @@ const OrderList = () => {
                       Nama: {order.shippingAddress.nama_depan}{' '}
                       {order.shippingAddress.nama_belakang}
                       <hr />
+                      Phone:
+                      {order.shippingAddress.phone || ''}
+                      <hr />
                       Alamat: {order.shippingAddress.negara}{' '}
                       {order.shippingAddress.provinsi}{' '}
                       {order.shippingAddress.kota}
                       {order.shippingAddress.alamat}{' '}
-                      {order.shippingAddress.detail_alamat}{' '}
+                      {order.shippingAddress.detail_alamat || ''}{' '}
                       {order.shippingAddress.kode_pos}
                       <hr />
                       Kode pos:

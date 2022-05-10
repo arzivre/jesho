@@ -26,6 +26,7 @@ import {
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { firestore } from 'libs/firebase'
+import VirtualAccount from 'components/VirtualAccount'
 
 const Checkout = () => {
   let { cart, clear, sumItems } = useCart()
@@ -42,6 +43,8 @@ const Checkout = () => {
     initialValues: {
       nama_depan: '',
       nama_belakang: '',
+      email: '',
+      phone: '',
       alamat: '',
       detail_alamat: '',
       negara: 'Indonesia',
@@ -62,9 +65,9 @@ const Checkout = () => {
   ))
 
   const handleSubmit = async (values: typeof form.values) => {
-    // setError(null)
-    // setLoading(true)
-    // setVirtualAccount(null)
+    setError(null)
+    setLoading(true)
+    setVirtualAccount(null)
 
     const metadata = {
       email: user.email,
@@ -79,9 +82,9 @@ const Checkout = () => {
 
     const order = {
       externalID: 'va-' + new Date().getTime().toString(),
-      bankCode: bankCode || 'BNI',
-      name: user.name,
-      expectedAmt: total,
+      bankCode: bankCode || 'MANDIRI',
+      name: values.nama_depan + ' ' + values.nama_belakang,
+      expectedAmt: total + 30000,
       //! combine metadata in server
       metadata,
     }
@@ -127,8 +130,10 @@ const Checkout = () => {
           <Group position='center' mt={20}>
             <Button onClick={() => verivikasi(virtualAccount)}>Bayar</Button>
           </Group>
-          {JSON.stringify(virtualAccount)}
           {simulation && JSON.stringify(simulation)}
+          <br />
+          {/*@ts-ignore*/}
+          <VirtualAccount data={virtualAccount} />
         </Container>
       </Main>
     )
@@ -142,7 +147,7 @@ const Checkout = () => {
           </Group>
         </Container>
       </Suspense>
-      
+
       {loading && <LoadingFullScreen />}
 
       <Suspense fallback={<LoadingFullScreen />}>
@@ -165,15 +170,23 @@ const Checkout = () => {
                       placeholder='Jhon'
                       {...form.getInputProps('nama_depan')}
                     />
-                    <TextInput label='Nama Belakang' placeholder='Doe' />
+                    <TextInput
+                      label='Nama Belakang'
+                      placeholder='Doe'
+                      {...form.getInputProps('nama_belakang')}
+                    />
                   </Group>
                   <Group grow>
                     <TextInput
                       label='Email'
                       placeholder='Jhon'
-                      {...form.getInputProps('nama_belakang')}
+                      {...form.getInputProps('email')}
                     />
-                    <TextInput label='Phone' placeholder='0812 3456 7890' />
+                    <TextInput
+                      label='Phone'
+                      placeholder='0812 3456 7890'
+                      {...form.getInputProps('phone')}
+                    />
                   </Group>
                   <TextInput
                     label='Alamat Pengiriman'
@@ -248,8 +261,8 @@ const Checkout = () => {
                         </Box>
                         <Box>
                           <Group direction='column' position='right'>
-                            <Text size='xl'> {item.title}</Text>
-                            <Text size='xl'>
+                            <Text size='md'> {item.title}</Text>
+                            <Text size='md'>
                               Rp {item.quantity! * Number(item.price)}
                             </Text>
                           </Group>
@@ -258,7 +271,12 @@ const Checkout = () => {
                     ))}
 
                   <Group direction='column' position='right'>
-                    <Text size='xl'>subtotal: Rp{total}</Text>
+                    <Text size='md' align='justify'>
+                      subtotal: Rp {total}
+                    </Text>
+                    <Text size='md'>Pengiriman: Rp 30000</Text>
+                    <br />
+                    <Text size='xl'>Total: Rp {total + 30000}</Text>
                   </Group>
                 </Suspense>
               </Group>
