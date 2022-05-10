@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import {
   Box,
   createStyles,
@@ -5,10 +6,12 @@ import {
   SimpleGrid,
   Text,
   Title,
-  Image,
 } from '@mantine/core'
+
 const useStyles = createStyles((theme) => ({
   box: {
+    height: '500px',
+    width:'400px',
     margin:'auto',
     padding: '5px',
     transition: '0.5s linear',
@@ -35,8 +38,8 @@ const Banner = () => {
     >
       <Box mb={40}>
         <Title order={1} mt={40} mb={20}>
-          Houseofjesho is a furniture company based in Semarang, Indonesia. We make
-          out-of-the-ordinary furniture that balances form and function
+          Houseofjesho is a furniture company based in Semarang, Indonesia. We
+          make out-of-the-ordinary furniture that balances form and function
         </Title>
         {/* <Text size='xl' weight={400}>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt rem
@@ -47,10 +50,12 @@ const Banner = () => {
       <Group direction='row' position='center'>
         <Box className={classes.box}>
           <Image
-            src='/images/a (1).jpg'
+            src='https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fa%20(1).jpg?alt=media&token=1749064b-0380-4421-92c9-0dfc2f1df887'
             alt='Banner'
-            height='500px'
-            width='400px'
+            height='75%'
+            width='60%'
+            layout='responsive'
+            objectFit='cover'
           />
         </Box>
       </Group>
