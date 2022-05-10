@@ -1,13 +1,26 @@
 import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import NextLink from 'next/link'
-import { Button, Container, createStyles, Group, Image } from '@mantine/core'
+import { Button, Container, createStyles, Group } from '@mantine/core'
 
 const images = [
-  { url: '/images/a (1).jpg', link: '/wNe84iljoIZti5daRisJ' },
-  { url: '/images/a (2).jpg', link: '/zeJVdPkjlSXtT5U5WhOl' },
-  { url: '/images/a (3).jpg', link: '/vgMgx9jK4L4FWnM3OViM' },
-  { url: '/images/a (4).jpg', link: '/7i7Qv9zmsj8HfyHLUmro' },
+  {
+    url: 'https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fa%20(1).jpg?alt=media&token=1749064b-0380-4421-92c9-0dfc2f1df887',
+    link: '/wNe84iljoIZti5daRisJ',
+  },
+  {
+    url: 'https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fa%20(2).jpg?alt=media&token=00ba7e92-55cf-44f0-83fc-d49387c22ef9',
+    link: '/zeJVdPkjlSXtT5U5WhOl',
+  },
+  {
+    url: 'https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fa%20(3).jpg?alt=media&token=a8b7368b-c388-434d-86e1-57d64a56de43',
+    link: '/vgMgx9jK4L4FWnM3OViM',
+  },
+  {
+    url: 'https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fa%20(4).jpg?alt=media&token=32a45b2e-5044-45ee-aa89-c82b1f9997bf',
+    link: '/7i7Qv9zmsj8HfyHLUmro',
+  },
 ]
 
 const useStyles = createStyles((theme) => ({
@@ -58,13 +71,19 @@ const SubBanner = () => {
             <motion.div key={index} className={classes.item}>
               <Image
                 src={image.url}
-                alt='image'
-                radius='md'
+                alt='Banner'
+                height='90%'
+                width='70%'
+                layout='responsive'
+                objectFit='contain'
                 className={classes.img}
               />
+              <br />
               <Group position='center'>
                 <NextLink href={image.link} passHref>
-                  <Button component='a' variant='outline' color='gray'>Product Details</Button>
+                  <Button component='a' variant='outline' color='gray'>
+                    Product Details
+                  </Button>
                 </NextLink>
               </Group>
             </motion.div>

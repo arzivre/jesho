@@ -11,15 +11,8 @@ import {
 const useStyles = createStyles((theme) => ({
   box: {
     height: '500px',
-    width:'400px',
+    width:'350px',
     margin:'auto',
-    padding: '5px',
-    transition: '0.5s linear',
-    boxShadow: '-8px 8px #FFC9C9',
-    '&:hover': {
-      boxShadow: '8px -8px #FFC9C9',
-      transition: '0.5s linear',
-    },
   },
 }))
 
@@ -52,10 +45,10 @@ const Banner = () => {
           <Image
             src='https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fa%20(1).jpg?alt=media&token=1749064b-0380-4421-92c9-0dfc2f1df887'
             alt='Banner'
-            height='75%'
-            width='60%'
+            height='90%'
+            width='70%'
             layout='responsive'
-            objectFit='cover'
+            objectFit='contain'
           />
         </Box>
       </Group>
