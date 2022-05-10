@@ -37,7 +37,7 @@ const Checkout = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<unknown | null>(null)
   const [virtualAccount, setVirtualAccount] = useState<{} | null>(null)
-  const [simulation, setSimulation] = useState<any | null>(null)
+  // const [simulation, setSimulation] = useState<any | null>(null)
 
   const form = useForm({
     initialValues: {
@@ -104,34 +104,34 @@ const Checkout = () => {
       clear()
       setLoading(false)
     } catch (error) {
-      // console.error(error)
+      console.error(error)
       setError(error)
       setLoading(false)
     }
   }
 
   //! Tes Simulasi Pembayaran
-  const verivikasi = async (virtualAccount: {
-    external_id?: any
-    expected_amount?: any
-  }) => {
-    setSimulation(null)
-    const response = await post('/api/xendit/va/simulate', {
-      externalId: virtualAccount.external_id,
-      amount: virtualAccount.expected_amount,
-    })
-    setSimulation(response)
-  }
+  // const verivikasi = async (virtualAccount: {
+  //   external_id?: any
+  //   expected_amount?: any
+  // }) => {
+  //   setSimulation(null)
+  //   const response = await post('/api/xendit/va/simulate', {
+  //     externalId: virtualAccount.external_id,
+  //     amount: virtualAccount.expected_amount,
+  //   })
+  //   setSimulation(response)
+  // }
 
   if (virtualAccount) {
     return (
       <Main>
         <Container>
-          <Group position='center' mt={20}>
+          {/* <Group position='center' mt={20}>
             <Button onClick={() => verivikasi(virtualAccount)}>Bayar</Button>
           </Group>
           {simulation && JSON.stringify(simulation)}
-          <br />
+          <br /> */}
           {/*@ts-ignore*/}
           <VirtualAccount data={virtualAccount} />
         </Container>
