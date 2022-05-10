@@ -69,15 +69,22 @@ const SubBanner = () => {
         >
           {images.map((image, index) => (
             <motion.div key={index} className={classes.item}>
-              <Image
-                src={image.url}
-                alt='Banner'
-                height='90%'
-                width='70%'
-                layout='responsive'
-                objectFit='contain'
-                className={classes.img}
-              />
+              <div
+                style={{
+                  borderRadius: '0.5rem',
+                  overflow: 'hidden',
+                }}
+              >
+                <Image
+                  src={image.url}
+                  alt='Banner'
+                  height='90%'
+                  width='70%'
+                  layout='responsive'
+                  objectFit='cover'
+                  className={classes.img}
+                />
+              </div>
               <br />
               <Group position='center'>
                 <NextLink href={image.link} passHref>
