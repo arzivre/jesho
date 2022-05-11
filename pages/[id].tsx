@@ -39,6 +39,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   })
   return {
     //* must be in this format => paths: [{ params: { id}}],
+    // TODO: replace with slug for seo
     paths,
     fallback: 'blocking',
   }
@@ -57,9 +58,8 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (
 }
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {
-  let { cart, removeItem, addItem, increaseItem, decreaseItem, sumItems } =
+  let { cart, removeItem, addItem, increaseItem, decreaseItem,  } =
     useCart()
-  let { itemCount } = sumItems()
   const inCart = isInCart(cart, product)
   
   return (
