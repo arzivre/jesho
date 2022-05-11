@@ -1,18 +1,18 @@
 import Main from 'components/Main'
+import Image from 'next/image'
 
 import {
   Container,
   Grid,
   SimpleGrid,
-  Skeleton,
-  useMantineTheme,
   Group,
   Title,
   createStyles,
   Text,
+  useMantineTheme,
 } from '@mantine/core'
 import CardPost from 'components/CardPost'
-import Image from 'next/image'
+import { format, parseISO } from 'date-fns'
 
 const useStyles = createStyles((theme) => ({
   title: {
@@ -28,8 +28,9 @@ const mockup = {
   image:
     'https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fa%20(1).jpg?alt=media&token=1749064b-0380-4421-92c9-0dfc2f1df887',
   link: 'https://mantine.dev/',
-  title: 'Resident Evil Village review',
+  title: 'Mockup tes',
   rating: 'outstanding',
+  publishedAt: '2011-10-05T14:48:00.000Z',
   description:
     'Resident Evil Village is a direct sequel to 2017’s Resident Evil 7, but takes a very different direction to its predecessor, namely the fact that this time round instead of fighting against various mutated zombies, you’re now dealing with more occult enemies like werewolves and vampires.',
   author: {
@@ -38,11 +39,11 @@ const mockup = {
 }
 
 const Blog = () => {
-  const theme = useMantineTheme()
+  // const theme = useMantineTheme()
 
   return (
     <Main>
-      <Container size='xl' my='xl'>
+      <Container size='xl'>
         <Group position='left'>
           <Title
             order={1}
@@ -59,7 +60,7 @@ const Blog = () => {
         <SimpleGrid
           cols={3}
           spacing='md'
-          my='xl'
+          mt={50}
           breakpoints={[{ maxWidth: 'sm', cols: 1 }]}
         >
           <CardPost {...mockup} />
@@ -67,9 +68,10 @@ const Blog = () => {
           <CardPost {...mockup} />
         </SimpleGrid>
 
-        <Grid my='xl'>
+        <Grid mt={100}>
           <Grid.Col
-            span={4}
+            xs={12}
+            md={4}
             style={{
               height: '200px',
               width: '400px',
@@ -85,12 +87,14 @@ const Blog = () => {
             />
           </Grid.Col>
 
-          <Grid.Col span={8}>
-            <Text size='md'></Text>
-            <Text weight={500} size='xl' color={'#087F5B'}>
-              {mockup.title}
-            </Text>
-            <Text color={'gray'}>{mockup.author.name}</Text>
+          <Grid.Col xs={12} md={8}>
+            <Title>{mockup.title}</Title>
+            <Group position='apart'>
+              <Text color={'gray'}>{mockup.author.name}</Text>
+              <Text size='sm' inline>
+                {format(parseISO(mockup.publishedAt), 'dd MMM yyyy ')}
+              </Text>
+            </Group>
             <Text lineClamp={2}>{mockup.description}</Text>
           </Grid.Col>
         </Grid>

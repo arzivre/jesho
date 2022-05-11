@@ -1,16 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
 import NextLink from 'next/link'
-import {
-  Card,
-  Text,
-  ActionIcon,
-  Group,
-  Center,
-  Avatar,
-  useMantineTheme,
-  createStyles,
-} from '@mantine/core'
+import { parseISO, format } from 'date-fns'
+import { Card, Text, Group, useMantineTheme, createStyles } from '@mantine/core'
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -49,7 +41,7 @@ interface ArticleCardProps {
   link: string
   title: string
   description: string
-  rating?: string
+  publishedAt: string
   author: {
     name: string
     image?: string
@@ -62,6 +54,7 @@ const CardPost = ({
   title,
   description,
   author,
+  publishedAt,
   ...others
 }: ArticleCardProps &
   Omit<React.ComponentPropsWithoutRef<'div'>, keyof ArticleCardProps>) => {
@@ -79,8 +72,12 @@ const CardPost = ({
       <Card.Section>
         <NextLink href={link}>
           <a {...linkProps}>
-            <Image src={image} alt='thumbnail' height={'30%'} width={'30%'}
-              layout='responsive' 
+            <Image
+              src={image}
+              alt='thumbnail'
+              height={'25%'}
+              width={'30%'}
+              layout='responsive'
               objectFit='cover'
             />
           </a>
@@ -96,11 +93,12 @@ const CardPost = ({
       </Text>
 
       <Group position='apart' className={classes.footer}>
-        <Center>
-          <Text size='sm' inline>
-            {author.name}
-          </Text>
-        </Center>
+        <Text size='sm' inline>
+          {author.name}
+        </Text>
+        <Text size='sm' inline>
+          {format(parseISO(publishedAt), 'dd MMM yyyy ')}
+        </Text>
       </Group>
     </Card>
   )
