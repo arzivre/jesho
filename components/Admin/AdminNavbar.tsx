@@ -5,23 +5,16 @@ import {
   Code,
   ScrollArea,
   createStyles,
-  Box,
   Anchor,
 } from '@mantine/core'
-import {
-  Notes,
-  CalendarStats,
-  Gauge,
-  PresentationAnalytics,
-  FileAnalytics,
-  Adjustments,
-  Lock,
-} from 'tabler-icons-react'
+import { Notes, Gauge } from 'tabler-icons-react'
 
 const mockdata = [
   { href: '/admin/', label: 'Dashboard', icon: Gauge },
   { href: '/admin/products', label: 'Products', icon: Notes },
-  { href: '/admin/upload', label: 'Upload', icon: Notes },
+  { href: '/admin/upload', label: 'Upload Product', icon: Notes },
+  { href: '/admin/blog', label: 'Blog', icon: Notes },
+  { href: '/admin/blog/upload', label: 'Create Blog', icon: Notes },
 ]
 
 const useStyles = createStyles((theme) => ({
