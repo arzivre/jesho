@@ -42,7 +42,7 @@ const useStyles = createStyles((theme) => ({
     fontSize: theme.fontSizes.xl * 4,
     margiin: 'auto',
     [theme.fn.smallerThan('xs')]: {
-      fontSize: theme.fontSizes.md,
+      fontSize: theme.fontSizes.xl* 2,
     },
   },
 }))

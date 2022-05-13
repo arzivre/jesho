@@ -6,20 +6,20 @@ import { Button, Container, createStyles, Group } from '@mantine/core'
 
 const images = [
   {
-    url: 'https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fa%20(1).jpg?alt=media&token=1749064b-0380-4421-92c9-0dfc2f1df887',
-    link: '/wNe84iljoIZti5daRisJ',
+    url: 'https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fb_5_.webp?alt=media&token=25e7cdac-ad6f-4ec9-b731-7ab9658ffde4',
+    link: '/DIY-Dream-Catcher-Wall-Decor-Pink',
   },
   {
-    url: 'https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fa%20(2).jpg?alt=media&token=00ba7e92-55cf-44f0-83fc-d49387c22ef9',
-    link: '/zeJVdPkjlSXtT5U5WhOl',
+    url: 'https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fb_2_.webp?alt=media&token=c6d933cb-d42a-4c06-b452-6a320e977590',
+    link: '/DIY-Dream-Catcher-Wall-Decor-Red',
   },
   {
-    url: 'https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fa%20(3).jpg?alt=media&token=a8b7368b-c388-434d-86e1-57d64a56de43',
-    link: '/vgMgx9jK4L4FWnM3OViM',
+    url: 'https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fb_4_.webp?alt=media&token=36bcde37-6db1-43ad-85cc-0fa04c608541',
+    link: '/DIY-Dream-Catcher-Wall-Decor-White',
   },
   {
-    url: 'https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fa%20(4).jpg?alt=media&token=32a45b2e-5044-45ee-aa89-c82b1f9997bf',
-    link: '/7i7Qv9zmsj8HfyHLUmro',
+    url: 'https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fb_1_.webp?alt=media&token=ad58bddb-bb8d-41ec-8bb9-c9413e42e497',
+    link: '/DIY-Dream-Catcher-Wall-Gray-new',
   },
 ]
 

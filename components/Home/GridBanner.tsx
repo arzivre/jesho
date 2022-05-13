@@ -6,10 +6,11 @@ const GridBanner = () => {
     <SimpleGrid
       cols={2}
       spacing='xl'
+      mb={40}
       breakpoints={[{ maxWidth: 'xs', cols: 1 }]}
     >
       <Group direction='column' grow>
-        <Box >
+        <Box>
           <Title order={2}>Product</Title>
           <Text size='xl' weight={400}>
             Epic home decor from creative finger macrame and wood
@@ -17,21 +18,21 @@ const GridBanner = () => {
         </Box>
         <Box style={{ margin: 'auto', height: '390px', width: '360px' }}>
           <Image
-            src='https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fa%20(2).jpg?alt=media&token=00ba7e92-55cf-44f0-83fc-d49387c22ef9'
+            src='https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fb_5_.webp?alt=media&token=25e7cdac-ad6f-4ec9-b731-7ab9658ffde4'
             alt='Banner'
-            height='80%'
-            width='80%'
+            height='100%'
+            width='100%'
             layout='responsive'
             objectFit='contain'
           />
         </Box>
       </Group>
-      <Box style={{ margin: 'auto', height: '390px', width: '360px' }}>
+      <Box style={{ margin: 'auto', height: '560px', width: '560px' }}>
         <Image
-          src='https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fa%20(3).jpg?alt=media&token=a8b7368b-c388-434d-86e1-57d64a56de43'
+          src='https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fb_7_.webp?alt=media&token=c8cc54ca-b332-4bea-9099-ee7a055b5815'
           alt='Banner'
-          height='90%'
-          width='70%'
+          height='100%'
+          width='100%'
           layout='responsive'
           objectFit='contain'
         />

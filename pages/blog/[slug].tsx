@@ -74,7 +74,7 @@ const BlogDetail = ({ blog }: BlogDetailsProps) => {
       <Container>
         {blog.cover && (
           <Group position='center' mt={20}>
-            <div style={{ height: '400px', minWidth: '600px' }}>
+            <div>
               <Image
                 src={blog.cover}
                 alt={blog.title}

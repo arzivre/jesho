@@ -15,6 +15,14 @@ import useCart from 'hooks/useCart'
 const Cart = () => {
   let { cart, clear, sumItems } = useCart()
   let { itemCount, total } = sumItems()
+  if (itemCount === 0) {
+    return (
+      <Main>
+        <Title align='center' my={150}>Keranjang Kosong</Title>
+      </Main>
+    )
+  }
+
   return (
     <Main>
       <Container size='md'>

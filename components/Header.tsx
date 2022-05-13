@@ -26,13 +26,16 @@ import {
 } from '@mantine/core'
 
 const useStyles = createStyles((theme) => ({
+  root: {
+    position: 'sticky',
+    top: 0,
+    zIndex: 1,
+  },
   inner: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 56,
-    position: 'sticky',
-    top: 10,
 
     [theme.fn.smallerThan('sm')]: {
       justifyContent: 'flex-start',
@@ -100,7 +103,7 @@ const useStyles = createStyles((theme) => ({
     top: 56,
     left: 0,
     right: 0,
-    zIndex: 0,
+    zIndex: 1,
     borderTopRightRadius: 0,
     borderTopLeftRadius: 0,
     borderTopWidth: 0,
@@ -218,7 +221,7 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
   )
 
   return (
-    <Header height={56}>
+    <Header height={56} className={classes.root}>
       <Container size='xl' className={classes.inner}>
         <Suspense fallback={<Loader />}>
           <Burger

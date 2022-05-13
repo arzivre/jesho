@@ -43,7 +43,7 @@ const Banner = () => {
       <Group direction='row' position='center'>
         <Box className={classes.box}>
           <Image
-            src='https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fa%20(1).jpg?alt=media&token=1749064b-0380-4421-92c9-0dfc2f1df887'
+            src='https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/blog%2Fjesho%2F20210409221416.jpg?alt=media&token=629bc9a0-ca6f-4040-b61c-3d27faa2c718'
             alt='Banner'
             height='90%'
             width='70%'

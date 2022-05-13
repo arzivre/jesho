@@ -66,18 +66,6 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
       <Suspense fallback={<LoadingFullScreen />}>
         <Container size='xl'>
           <Grid mt={50}>
-            <Grid.Col xs={12} md={6}>
-              <Title order={1} mb={20}>
-                {product.title}
-              </Title>
-              <Text size='xl'>Rp {product.price}</Text>
-              <hr />
-              {product.description ? (
-                <Text>{product.description}</Text>
-              ) : (
-                <div dangerouslySetInnerHTML={{ __html: product.content }} />
-              )}
-            </Grid.Col>
             <Suspense fallback={<Loading />}>
               <Grid.Col xs={12} md={6}>
                 <Group position='center' mb={20}>
@@ -114,6 +102,18 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                 </Group>
               </Grid.Col>
             </Suspense>
+            <Grid.Col xs={12} md={6}>
+              <Title order={1} mb={20}>
+                {product.title}
+              </Title>
+              <Text size='xl'>Rp {product.price}</Text>
+              <hr />
+              {product.description ? (
+                <Text>{product.description}</Text>
+              ) : (
+                <div dangerouslySetInnerHTML={{ __html: product.content }} />
+              )}
+            </Grid.Col>
           </Grid>
         </Container>
       </Suspense>
