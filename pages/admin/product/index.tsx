@@ -11,7 +11,7 @@ import { Box, Button, Image } from '@mantine/core'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const snapshot = await db
-    .collection('products')
+    .collection('products').orderBy('createdAt', 'desc')
     .get()
 
   let products: any[] = []
@@ -19,10 +19,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
   snapshot.forEach((doc) => {
     products.push({ id: doc.id, ...doc.data() })
   })
-
-  products.sort((a, b) =>
-    compareAsc(parseISO(a.createdAt), parseISO(b.createdAt))
-  )
 
   return {
     // will be passed to the page component as props
