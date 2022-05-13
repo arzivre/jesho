@@ -10,9 +10,31 @@ import {
   createStyles,
   Text,
   useMantineTheme,
+  Box,
 } from '@mantine/core'
 import CardPost from 'components/CardPost'
 import { format, parseISO } from 'date-fns'
+import { GetStaticProps } from 'next'
+import { db } from 'libs/firebase-admin'
+import { BlogProps } from 'libs/types'
+
+export const getStaticProps: GetStaticProps = async () => {
+  const snapshot = await db
+    .collection('blogs')
+    .orderBy('publishedAt', 'desc')
+    .get()
+
+  let blogs: any[] = []
+
+  snapshot.forEach((doc: { id: any; data: () => any }) => {
+    blogs.push({ id: doc.id, ...doc.data() })
+  })
+
+  return {
+    props: { blogs },
+    revalidate: 60,
+  }
+}
 
 const useStyles = createStyles((theme) => ({
   title: {
@@ -38,19 +60,17 @@ const mockup = {
   },
 }
 
-const Blog = () => {
-  // const theme = useMantineTheme()
+interface Props {
+  blogs: BlogProps[]
+}
+const Blog = ({ blogs }: Props) => {
+  const { classes } = useStyles()
 
   return (
     <Main>
       <Container size='xl'>
         <Group position='left'>
-          <Title
-            order={1}
-            sx={(theme) => ({
-              fontSize: theme.fontSizes.xl * 4,
-            })}
-          >
+          <Title order={1} className={classes.title}>
             Postingan unggulan
           </Title>
         </Group>
@@ -69,7 +89,7 @@ const Blog = () => {
         </SimpleGrid>
 
         <Grid mt={100}>
-          <Grid.Col
+          {/* <Grid.Col
             xs={12}
             md={4}
             style={{
@@ -85,17 +105,21 @@ const Blog = () => {
               layout='responsive'
               objectFit='cover'
             />
-          </Grid.Col>
+          </Grid.Col> */}
 
           <Grid.Col xs={12} md={8}>
-            <Title>{mockup.title}</Title>
-            <Group position='apart'>
-              <Text color={'gray'}>{mockup.author.name}</Text>
-              <Text size='sm' inline>
-                {format(parseISO(mockup.publishedAt), 'dd MMM yyyy ')}
-              </Text>
-            </Group>
-            <Text lineClamp={2}>{mockup.description}</Text>
+            {blogs.map((blog) => (
+              <Box key={blog.slug}>
+                <Title order={3}>{blog.title}</Title>
+                <Group position='apart'>
+                  {/* <Text color={'gray'}>{blog.author.name}</Text> */}
+                  <Text size='sm' inline>
+                    {format(parseISO(blog.publishedAt), 'dd MMM yyyy ')}
+                  </Text>
+                </Group>
+                <Text lineClamp={2}>{blog.description}</Text>
+              </Box>
+            ))}
           </Grid.Col>
         </Grid>
       </Container>
