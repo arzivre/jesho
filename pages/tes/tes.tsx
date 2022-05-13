@@ -6,7 +6,8 @@ const Tes = () => {
   return (
     <Main>
       <Container size='xs'>
-          <VirtualAccount />
+        {/* <VirtualAccount /> */}
+        <h1>Tes</h1>
       </Container>
     </Main>
   )
