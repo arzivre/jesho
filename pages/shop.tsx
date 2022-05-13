@@ -1,17 +1,6 @@
-import { GetStaticProps } from 'next'
-import { db } from 'libs/firebase-admin'
-import { Suspense } from 'react'
-import { compareDesc, parseISO } from 'date-fns'
-
-import Head from 'next/head'
-import dynamic from 'next/dynamic'
-import NextLink from 'next/link'
-import Main from 'components/Main'
 import {
-  Card,
-  Center,
+  Box,
   Container,
-  Grid,
   Group,
   Image,
   Loader,
@@ -19,18 +8,26 @@ import {
   Title,
   useMantineTheme,
 } from '@mantine/core'
+import Main from 'components/Main'
+import { db } from 'libs/firebase-admin'
 import { ProductProps } from 'libs/types'
+import { GetStaticProps } from 'next'
+import dynamic from 'next/dynamic'
+import Head from 'next/head'
+import NextLink from 'next/link'
+import { Suspense } from 'react'
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const snapshot = await db.collection('products').get()
+  const snapshot = await db
+    .collection('products')
+    .orderBy('createdAt', 'desc')
+    .get()
 
   let products: any[] = []
+
   snapshot.forEach((doc: { id: any; data: () => any }) => {
     products.push({ id: doc.id, ...doc.data() })
   })
-  products.sort((a, b) =>
-    compareDesc(parseISO(a.createdAt), parseISO(b.createdAt))
-  )
 
   return {
     props: { products },
@@ -53,58 +50,55 @@ const Shop = ({ products }: Props) => {
         <title>Shop - Jesho</title>
       </Head>
       <Main>
-        <Container my={50}>
-          <Center>
-            <Title
-              order={1}
-              sx={(theme) => ({
-                fontSize: theme.fontSizes.xl * 3,
-              })}
-            >
-              SHOP
-            </Title>
-          </Center>
-          <Grid>
-            <Grid.Col xs={12} md={3}>
-              <Suspense fallback={<Loader />}>
-                <Category />
-              </Suspense>
-            </Grid.Col>
-            <Grid.Col xs={12} md={9}>
-              <Suspense fallback={<Loader />}>
-                <Group direction='row'>
-                  {!products && <p>No Product</p>}
-                  {products.map((product: ProductProps) => (
-                    <NextLink key={product.id} href={`/${product.id}`} passHref>
-                      <a>
-                        <Card style={{ margin: 'auto', background: 'white' }}>
-                          <Image
-                            src={product.imgUrl}
-                            alt='Banner'
-                            height='300px'
-                            width='300px'
-                          />
-                          <Group
-                            position='apart'
-                            style={{
-                              marginBottom: 5,
-                              marginTop: theme.spacing.sm,
-                            }}
-                          >
-                            <Text>{product.title}</Text>
-                            <Text size='md' weight={700}>
-                              Rp 100000
-                            </Text>
-                          </Group>
-                        </Card>
-                      </a>
-                    </NextLink>
-                  ))}
-                </Group>
-              </Suspense>
-            </Grid.Col>
-          </Grid>
-        </Container>
+        <Box
+          sx={(theme) => ({
+            margin: 0,
+            backgroundColor: theme.colors.yellow[0],
+          })}
+        >
+          <Title
+            align='center'
+            order={1}
+            sx={(theme) => ({
+              fontSize: theme.fontSizes.xl * 3,
+              fontFamily: 'Varela Round, sans-serif',
+              fontWeight: 100,
+            })}
+          >
+            SHOP
+          </Title>
+
+          <Suspense fallback={<Loader />}>
+            <Group direction='row' position='center' grow py={20}>
+              {products.map((product: ProductProps) => (
+                <NextLink key={product.id} href={`/${product.id}`} passHref>
+                  <Text component='a'>
+                    <div>
+                      <Image
+                        src={product.imgUrl}
+                        alt='Banner'
+                        height='400px'
+                        width='400px'
+                      />
+                      <Group
+                        direction='column'
+                        style={{
+                          marginBottom: 5,
+                          marginTop: theme.spacing.sm,
+                        }}
+                      >
+                        <Text>{product.title}</Text>
+                        <Text size='md' weight={700}>
+                          Rp 100000
+                        </Text>
+                      </Group>
+                    </div>
+                  </Text>
+                </NextLink>
+              ))}
+            </Group>
+          </Suspense>
+        </Box>
       </Main>
     </>
   )

@@ -7,7 +7,7 @@ export const useProduct = (folder: string) => {
   const [response, setResponse] = useState<null | {}>(null)
 
   //upload to storage
-  const uploadImage = async (thumbnail: any, values: Object) => {
+  const uploadImage = async (thumbnail: any, values: any) => {
     setError(null)
     setLoading(true)
 
@@ -22,7 +22,7 @@ export const useProduct = (folder: string) => {
         createdAt: new Date().toISOString(),
       }
 
-      const res = firestore.collection('products').add(data)
+      const res = firestore.collection('products').doc(data.slug).set(data)
 
       setResponse(res)
       setError(null)

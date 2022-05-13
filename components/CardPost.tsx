@@ -53,7 +53,7 @@ const CardPost = ({
   link,
   title,
   description,
-  author,
+  // author,
   publishedAt,
   ...others
 }: ArticleCardProps &
@@ -93,9 +93,9 @@ const CardPost = ({
       </Text>
 
       <Group position='apart' className={classes.footer}>
-        <Text size='sm' inline>
+        {/* <Text size='sm' inline>
           {author.name}
-        </Text>
+        </Text> */}
         <Text size='sm' inline>
           {format(parseISO(publishedAt), 'dd MMM yyyy ')}
         </Text>

@@ -58,10 +58,9 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (
 }
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {
-  let { cart, removeItem, addItem, increaseItem, decreaseItem,  } =
-    useCart()
+  let { cart, removeItem, addItem, increaseItem, decreaseItem } = useCart()
   const inCart = isInCart(cart, product)
-  
+
   return (
     <Main>
       <Suspense fallback={<LoadingFullScreen />}>
@@ -71,36 +70,48 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
               <Title order={1} mb={20}>
                 {product.title}
               </Title>
-              <Text>Rp {product.price}</Text>
-              <Text>{product.description}</Text>
+              <Text size='xl'>Rp {product.price}</Text>
               <hr />
-              <Group position='apart' grow>
-                {!inCart && (
-                  <Button onClick={() => addItem(product)}>Add</Button>
-                )}
-                {inCart && (
-                  <Button onClick={() => increaseItem(product.id)}>+</Button>
-                )}
-                {inCart?.quantity > 1 && (
-                  <Button onClick={() => decreaseItem(product.id)}>-</Button>
-                )}
-                {inCart?.quantity === 1 && (
-                  <Button onClick={() => removeItem(product.id)}>Remove</Button>
-                )}
-              </Group>
+              {product.description ? (
+                <Text>{product.description}</Text>
+              ) : (
+                <div dangerouslySetInnerHTML={{ __html: product.content }} />
+              )}
             </Grid.Col>
             <Suspense fallback={<Loading />}>
-              <Grid.Col
-                xs={12}
-                md={6}
-                style={{ height: '390px', width: '360px' }}
-              >
-                <Image
-                  src={product.imgUrl}
-                  alt={product.title}
-                  height={'90%'}
-                  width={'60%'}
-                />
+              <Grid.Col xs={12} md={6}>
+                <Group position='center' mb={20}>
+                  <div style={{ height: '400px', width: '400px' }}>
+                    <Image
+                      src={product.imgUrl}
+                      alt={product.title}
+                      height={'100%'}
+                      width={'100%'}
+                    />
+                  </div>
+                </Group>
+                <Group position='apart' grow>
+                  {!inCart && (
+                    <Button mx={20} onClick={() => addItem(product)}>
+                      Add{' '}
+                    </Button>
+                  )}
+                  {inCart && (
+                    <Button mx={20} onClick={() => increaseItem(product.id)}>
+                      +
+                    </Button>
+                  )}
+                  {inCart?.quantity > 1 && (
+                    <Button mx={20} onClick={() => decreaseItem(product.id)}>
+                      -
+                    </Button>
+                  )}
+                  {inCart?.quantity === 1 && (
+                    <Button mx={20} onClick={() => removeItem(product.id)}>
+                      Remove
+                    </Button>
+                  )}
+                </Group>
               </Grid.Col>
             </Suspense>
           </Grid>
