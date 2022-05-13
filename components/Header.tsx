@@ -218,7 +218,7 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
   )
 
   return (
-    <Header height={56} mb={10}>
+    <Header height={56}>
       <Container size='xl' className={classes.inner}>
         <Suspense fallback={<Loader />}>
           <Burger
