@@ -1,6 +1,6 @@
 import Main from 'components/Main'
 import Image from 'next/image'
-
+import NextLink from 'next/link'
 import {
   Container,
   Grid,
@@ -11,6 +11,7 @@ import {
   Text,
   useMantineTheme,
   Box,
+  Card,
 } from '@mantine/core'
 import CardPost from 'components/CardPost'
 import { format, parseISO } from 'date-fns'
@@ -68,60 +69,43 @@ const Blog = ({ blogs }: Props) => {
 
   return (
     <Main>
-      <Container size='xl'>
-        <Group position='left'>
-          <Title order={1} className={classes.title}>
-            Postingan unggulan
-          </Title>
-        </Group>
-      </Container>
+      <Title align='center' order={1} className={classes.title}>
+        Blog
+      </Title>
 
       <Container my='md'>
-        <SimpleGrid
-          cols={3}
-          spacing='md'
-          mt={50}
-          breakpoints={[{ maxWidth: 'sm', cols: 1 }]}
-        >
-          <CardPost {...mockup} />
-          <CardPost {...mockup} />
-          <CardPost {...mockup} />
-        </SimpleGrid>
-
-        <Grid mt={100}>
-          {/* <Grid.Col
-            xs={12}
-            md={4}
-            style={{
-              height: '200px',
-              width: '400px',
-            }}
-          >
-            <Image
-              src={mockup.image}
-              alt='thumbnail'
-              height={'50%'}
-              width={'100%'}
-              layout='responsive'
-              objectFit='cover'
-            />
-          </Grid.Col> */}
-
-          <Grid.Col xs={12} md={8}>
-            {blogs.map((blog) => (
-              <Box key={blog.slug}>
-                <Title order={3}>{blog.title}</Title>
-                <Group position='apart'>
-                  {/* <Text color={'gray'}>{blog.author.name}</Text> */}
-                  <Text size='sm' inline>
-                    {format(parseISO(blog.publishedAt), 'dd MMM yyyy ')}
-                  </Text>
-                </Group>
-                <Text lineClamp={2}>{blog.description}</Text>
-              </Box>
-            ))}
-          </Grid.Col>
-        </Grid>
+        <Title align='left' order={2}>
+          Semua Post
+        </Title>
+        {blogs.map((blog) => (
+          <NextLink key={blog.slug} href={`/blog/${blog.slug}`} passHref>
+            <Text component='a'>
+              <Grid mt={20}>
+                <Grid.Col xs={12} md={8}>
+                  <Group direction='column'>
+                    <Text size='sm' inline>
+                      {format(parseISO(blog.publishedAt), 'dd MMM yyyy ')}
+                    </Text>
+                    <Title order={3}>{blog.title}</Title>
+                    <Text lineClamp={2}>{blog.description}</Text>
+                  </Group>
+                </Grid.Col>
+                <Grid.Col xs={12} md={4}>
+                  {blog.cover && (
+                    <Group position='center'>
+                      <Image
+                        src={blog.cover}
+                        alt='preview'
+                        width={200}
+                        height={125}
+                      />
+                    </Group>
+                  )}
+                </Grid.Col>
+              </Grid>
+            </Text>
+          </NextLink>
+        ))}
       </Container>
     </Main>
   )

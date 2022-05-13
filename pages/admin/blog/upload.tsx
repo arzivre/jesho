@@ -137,7 +137,7 @@ const AdminUploadBlog = () => {
                 // @ts-ignores
                 src={URL.createObjectURL(thumbnail)}
                 alt='preview'
-                width={400}
+                width={600}
                 height={400}
               />
             ) : null}
@@ -165,6 +165,17 @@ const AdminUploadBlog = () => {
       </form>
 
       <h2>Preview Content</h2>
+      {thumbnail ? (
+        <Group position='center'>
+          <Image
+            // @ts-ignores
+            src={URL.createObjectURL(thumbnail)}
+            alt='preview'
+            width={600}
+            height={400}
+          />
+        </Group>
+      ) : null}
       <Title align='center'>{form.values.title}</Title>
       <div dangerouslySetInnerHTML={{ __html: content }} />
     </AdminShell>

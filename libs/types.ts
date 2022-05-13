@@ -9,11 +9,11 @@ export interface ProductProps {
   quantity?: number | undefined
 }
 
-
 export interface BlogProps {
   id: string
   description: string
   slug: string
+  cover?: string
   content: string
   title: string
   publishedAt: string
@@ -23,5 +23,5 @@ export interface ImageProps {
   lastModified: number
   name: string
   size: number
-  type:string
+  type: string
 }

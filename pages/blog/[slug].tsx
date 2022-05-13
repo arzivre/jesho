@@ -1,9 +1,21 @@
-import { Container, createStyles, Title } from '@mantine/core'
-import Main from 'components/Main'
-import { db } from 'libs/firebase-admin'
-import { BlogProps } from 'libs/types'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import { useState } from 'react'
+
+import { db } from 'libs/firebase-admin'
 import { ParsedUrlQuery } from 'querystring'
+
+import { Loading } from 'components/Loading'
+import Main from 'components/Main'
+import { Container, createStyles, Group, Text, Title } from '@mantine/core'
+import { BlogProps } from 'libs/types'
+import dynamic from 'next/dynamic'
+import Image from 'next/image'
+import { format, parseISO } from 'date-fns'
+
+const RichTextEditor = dynamic(() => import('@mantine/rte'), {
+  ssr: false,
+  loading: () => <Loading />,
+})
 
 type Props = {
   blog: any
@@ -55,14 +67,37 @@ const useStyles = createStyles((theme) => ({
 
 const BlogDetail = ({ blog }: BlogDetailsProps) => {
   const { classes } = useStyles()
+  const [content, onChange] = useState(blog.content)
 
   return (
     <Main>
       <Container>
-        <Title align='center' my={50} className={classes.title}>
+        {blog.cover && (
+          <Group position='center' mt={20}>
+            <div style={{ height: '400px', minWidth: '600px' }}>
+              <Image
+                src={blog.cover}
+                alt={blog.title}
+                height={400}
+                width={900}
+              />
+            </div>
+          </Group>
+        )}
+        <Text size='sm' inline my={20}>
+          {format(parseISO(blog.publishedAt), 'dd MMM yyyy')}
+        </Text>
+        <Title align='center' mb={50} className={classes.title}>
           {blog.title}
         </Title>
-        <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+        <RichTextEditor
+          value={content}
+          onChange={onChange}
+          readOnly
+          style={{
+            border: 0,
+          }}
+        />
       </Container>
     </Main>
   )
