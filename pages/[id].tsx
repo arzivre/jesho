@@ -60,7 +60,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (
 const ProductDetails = ({ product }: ProductDetailsProps) => {
   let { cart, removeItem, addItem, increaseItem, decreaseItem } = useCart()
   const inCart = isInCart(cart, product)
-
+  // const noContent=
   return (
     <Main>
       <Suspense fallback={<LoadingFullScreen />}>

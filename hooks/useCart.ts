@@ -14,6 +14,7 @@ const store = proxy({
   cart: initialCart,
 
   addItem: (newItems: any) => {
+    newItems.content && delete newItems.content
     if (!store.cart.find((item: { id: any }) => item.id === newItems.id)) {
       store.cart.push({
         ...newItems,
