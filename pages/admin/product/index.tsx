@@ -22,14 +22,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
     .orderBy('createdAt', 'desc')
     .get()
 
-  let fallback: any[] = []
+  let products: any[] = []
 
   snapshot.forEach((doc) => {
-    fallback.push({ id: doc.id, ...doc.data() })
+    products.push({ id: doc.id, ...doc.data() })
   })
 
   return {
-    props: { fallback },
+    props: { fallback: { '/api/product/action': products } },
     revalidate: 60,
   }
 }
