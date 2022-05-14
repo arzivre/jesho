@@ -1,13 +1,19 @@
-import { ProductProps } from 'libs/types'
 import { GetStaticProps } from 'next'
+import { ProductProps } from 'libs/types'
 
 import { db } from 'libs/firebase-admin'
-import { compareAsc, parseISO } from 'date-fns'
+import useSWR, { SWRConfig } from 'swr'
+import fetcher from 'utils/fetcher'
 
 import AdminShell from 'components/Admin/AdminShell'
-import AdminTable from 'components/Admin/AdminTable'
 
-import { Box, Button, Image } from '@mantine/core'
+import { Suspense } from 'react'
+import { Loading } from 'components/Loading'
+
+import AdminTable from 'components/Admin/AdminTable'
+import NextLink from 'next/link'
+import { Anchor, Button, Image } from '@mantine/core'
+import { useRouter } from 'next/router'
 import post from 'utils/post'
 
 export const getStaticProps: GetStaticProps = async (context) => {
@@ -16,30 +22,40 @@ export const getStaticProps: GetStaticProps = async (context) => {
     .orderBy('createdAt', 'desc')
     .get()
 
-  let products: any[] = []
+  let fallback: any[] = []
 
   snapshot.forEach((doc) => {
-    products.push({ id: doc.id, ...doc.data() })
+    fallback.push({ id: doc.id, ...doc.data() })
   })
 
   return {
-    // will be passed to the page component as props
-    props: { products },
-    revalidate: 1,
+    props: { fallback },
+    revalidate: 60,
   }
 }
+
 interface Props {
-  products: [ProductProps]
+  fallback: [ProductProps]
 }
-const Products = ({ products }: Props) => {
-  const handleDelete = async (id: string) => {
-    const res = await post('/api/product/action', id, 'DELETE')
-    console.log(res)
+
+const Products = ({ fallback }: Props) => {
+  const { data: products, error } = useSWR(`/api/product/action`, fetcher, {
+    suspense: true,
+  })
+  const router = useRouter()
+
+  const handleUpdate = async (id: string) => {
+    router.push(`/admin/product/${id}`)
   }
+
+  const handleDelete = async (id: string) => {
+    await post('/api/product/action', id, 'DELETE')
+  }
+
   const rows = products.map((product: ProductProps) => (
     <tr key={product.id}>
       <td>
-        <Button>Edit</Button>
+        <Button onClick={() => handleUpdate(product.slug)}>Edit</Button>
         <Button color='red' onClick={() => handleDelete(product.slug)}>
           Delete
         </Button>
@@ -47,7 +63,11 @@ const Products = ({ products }: Props) => {
       <td>{product.id}</td>
       <td>{product.title}</td>
       <td>{product.price}</td>
-      <td>{product.description}</td>
+      <td>
+        <NextLink href={`/${product.slug}`} passHref>
+          <Anchor>Check Page</Anchor>
+        </NextLink>
+      </td>
       <td>
         <Image
           src={product.imgUrl}
@@ -68,11 +88,14 @@ const Products = ({ products }: Props) => {
       <th>Image</th>
     </tr>
   )
+
   return (
     <AdminShell>
-      <Box>
-        <AdminTable headers={headers} rows={rows} />
-      </Box>
+      <Suspense fallback={<Loading />}>
+        <SWRConfig value={{ fallback }}>
+          <AdminTable headers={headers} rows={rows} />
+        </SWRConfig>
+      </Suspense>
     </AdminShell>
   )
 }

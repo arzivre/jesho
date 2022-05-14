@@ -6,9 +6,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  //* POST
   if (req.method === 'POST') {
     // upload(req)
   }
+  //! DELETE
   if (req.method === 'DELETE') {
     try {
       await db.collection('products').doc(req.body).delete()
@@ -16,6 +18,20 @@ export default async function handler(
     } catch (error) {
       console.error(error)
     }
+  }
+  //* GET
+  if (req.method === 'GET') {
+    const snapshot = await db
+      .collection('products')
+      .orderBy('createdAt', 'desc')
+      .get()
+
+    let products: any[] = []
+
+    snapshot.forEach((doc) => {
+      products.push({ id: doc.id, ...doc.data() })
+    })
+    res.status(200).json(products)
   }
 }
 
