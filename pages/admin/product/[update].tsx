@@ -99,7 +99,7 @@ const UpdateProduct = ({ product }: ProductDetailsProps) => {
 
     await firestore
       .collection('products')
-      .doc(product.slug)
+      .doc(product.id)
       .set(data, { merge: true })
 
     router.push('/admin/product')
