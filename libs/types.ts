@@ -1,5 +1,6 @@
 export interface ProductProps {
-  id: number
+  id: number | string
+  slug: string
   price: string
   title: string
   description: string

@@ -8,10 +8,12 @@ import AdminShell from 'components/Admin/AdminShell'
 import AdminTable from 'components/Admin/AdminTable'
 
 import { Box, Button, Image } from '@mantine/core'
+import post from 'utils/post'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const snapshot = await db
-    .collection('products').orderBy('createdAt', 'desc')
+    .collection('products')
+    .orderBy('createdAt', 'desc')
     .get()
 
   let products: any[] = []
@@ -23,18 +25,24 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     // will be passed to the page component as props
     props: { products },
-    revalidate: 60,
+    revalidate: 1,
   }
 }
 interface Props {
   products: [ProductProps]
 }
 const Products = ({ products }: Props) => {
+  const handleDelete = async (id: string) => {
+    const res = await post('/api/product/action', id, 'DELETE')
+    console.log(res)
+  }
   const rows = products.map((product: ProductProps) => (
     <tr key={product.id}>
       <td>
         <Button>Edit</Button>
-        <Button color='red'>Delete</Button>
+        <Button color='red' onClick={() => handleDelete(product.slug)}>
+          Delete
+        </Button>
       </td>
       <td>{product.id}</td>
       <td>{product.title}</td>
