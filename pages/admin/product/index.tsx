@@ -39,7 +39,8 @@ interface Props {
 }
 
 const Products = ({ fallback }: Props) => {
-  const { data: products, error } = useSWR(`/api/product/action`, fetcher, {
+  const { data: products } = useSWR(`/api/product/action`, fetcher, {
+    fallbackData: fallback,
     suspense: true,
   })
   const router = useRouter()
@@ -92,9 +93,7 @@ const Products = ({ fallback }: Props) => {
   return (
     <AdminShell>
       <Suspense fallback={<Loading />}>
-        <SWRConfig value={{ fallback }}>
-          <AdminTable headers={headers} rows={rows} />
-        </SWRConfig>
+        <AdminTable headers={headers} rows={rows} />
       </Suspense>
     </AdminShell>
   )
