@@ -30,6 +30,11 @@ const useStyles = createStyles((theme) => ({
     position: 'sticky',
     top: 0,
     zIndex: 1,
+    WebkitBackdropFilter: 'blur(8px)', // Safari
+    backdropFilter: 'blur(8px)', // Chrome, Firefox
+    boxShadow: ' 0px 10px 15px 10px rgb(0 0 0 / 1%)',
+    backgroundColor: 'rgb(206 212 218 / 15%)',
+    borderBottom: '1px solid rgb(206 212 218 / 40%)',
   },
   inner: {
     display: 'flex',
