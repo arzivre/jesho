@@ -24,6 +24,7 @@ const GridBanner = () => {
             width='100%'
             layout='responsive'
             objectFit='contain'
+            priority
           />
         </Box>
       </Group>
@@ -35,6 +36,7 @@ const GridBanner = () => {
           width='100%'
           layout='responsive'
           objectFit='contain'
+          priority
         />
       </Box>
     </SimpleGrid>

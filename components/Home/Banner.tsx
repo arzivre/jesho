@@ -49,6 +49,7 @@ const Banner = () => {
             width='70%'
             layout='responsive'
             objectFit='contain'
+            priority
           />
         </Box>
       </Group>
