@@ -1,5 +1,6 @@
 export interface ProductProps {
   id: string
+  productId?: string
   slug: string
   price: string
   title: string
@@ -25,4 +26,15 @@ export interface ImageProps {
   name: string
   size: number
   type: string
+}
+
+export interface DataProps {
+  productId?: string
+  content: string
+  title: string
+  price: string | number
+  slug: string
+  searchQuery: string
+  imgUrl?: string
+  createdAt?: string
 }

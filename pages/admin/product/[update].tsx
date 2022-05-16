@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { db } from 'libs/firebase-admin'
 import { ParsedUrlQuery } from 'querystring'
-import { ProductProps } from 'libs/types'
+import { DataProps, ProductProps } from 'libs/types'
 import { firestore } from 'libs/firebase'
 
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
@@ -74,17 +74,11 @@ const UpdateProduct = ({ product }: ProductDetailsProps) => {
 
   const handleSubmit = async (values: typeof form.values) => {
     const searchQuery = values.title
-    interface DataProps {
-      content: string
-      title: string
-      price: string | number
-      slug: string
-      searchQuery: string
-      imgUrl?: string
-    }
+
     const data: DataProps = {
       ...values,
       content,
+      productId: product.id,
       slug: values.title.replace(/\s/g, '-'),
       searchQuery,
     }

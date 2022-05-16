@@ -22,12 +22,17 @@ export const useProduct = (folder: string) => {
         createdAt: new Date().toISOString(),
       }
 
-      const res = firestore
-        .collection('products')
-        .doc(data.slug)
-        .set(data, { merge: merge || false })
+      const docRef = firestore.collection('products').doc(data.slug)
+      docRef.set(
+        {
+          name: 'Jhon Doe',
+          job: 'Programmer',
+          id: docRef.id,
+        },
+        { merge: merge || false }
+      )
 
-      setResponse(res)
+      setResponse(docRef)
       setError(null)
       setLoading(false)
     } catch (error: any) {
