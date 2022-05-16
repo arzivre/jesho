@@ -56,7 +56,7 @@ const AdminOrder = (fallback: any) => {
   const rows = orders.map((order: any) => (
     <tr key={order.id}>
       <td>
-        <Button onClick={() => handleUpdate(order.id)}>Edit</Button>
+        <Button onClick={() => handleUpdate(order.external_id)}>Edit</Button>
         <Button color='red' onClick={() => handleDelete(order.id)}>
           {loading ? 'Loading...' : 'Delete'}
         </Button>
