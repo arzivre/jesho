@@ -11,6 +11,7 @@ import { Notes, Gauge } from 'tabler-icons-react'
 
 const mockdata = [
   { href: '/admin/', label: 'Dashboard', icon: Gauge },
+  { href: '/admin/order', label: 'Order', icon: Notes },
   { href: '/admin/product', label: 'Products', icon: Notes },
   { href: '/admin/product/upload', label: 'Upload Product', icon: Notes },
   { href: '/admin/blog', label: 'Blog', icon: Notes },
