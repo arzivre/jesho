@@ -14,7 +14,7 @@ export default async function handler(
   if (req.method === 'DELETE') {
     try {
       await db.collection('products').doc(req.body).delete()
-      res.status(204).json('Ok')
+      res.status(204).end()
     } catch (error) {
       console.error(error)
     }

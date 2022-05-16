@@ -7,7 +7,8 @@ import { useForm } from '@mantine/form'
 import { useProduct } from 'hooks/useProduct'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-
+import { firestore, storage } from 'libs/firebase'
+import { DataProps } from 'libs/types'
 
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
@@ -31,17 +32,28 @@ const UploadProduct = () => {
 
   const handleSubmit = async (values: typeof form.values) => {
     const searchQuery = values.title
-    const data = {
+
+    const data: DataProps = {
       ...values,
       content,
       slug: values.title.replace(/\s/g, '-'),
       searchQuery,
+      createdAt: new Date().toISOString(),
     }
 
-    uploadImage(thumbnail, data)
+    const uploadPath = `products/jesho/${thumbnail.name}`
+    const img = await storage.ref(uploadPath).put(thumbnail)
+    const imgUrl = await img.ref.getDownloadURL()
+
+    data.imgUrl = imgUrl
+
+    const docRef = firestore.collection('products').doc()
+    await docRef.set({
+      ...data,
+      productId: docRef.id,
+    })
 
     router.push('/admin/product')
-    // console.log('response:', response)
   }
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {

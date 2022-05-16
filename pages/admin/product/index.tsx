@@ -2,12 +2,12 @@ import { GetStaticProps } from 'next'
 import { ProductProps } from 'libs/types'
 
 import { db } from 'libs/firebase-admin'
-import useSWR, { SWRConfig } from 'swr'
+import useSWR, { SWRConfig, useSWRConfig } from 'swr'
 import fetcher from 'utils/fetcher'
 
 import AdminShell from 'components/Admin/AdminShell'
 
-import { Suspense } from 'react'
+import { Suspense, useState } from 'react'
 import { Loading } from 'components/Loading'
 
 import AdminTable from 'components/Admin/AdminTable'
@@ -29,7 +29,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   })
 
   return {
-    props: { fallback: { '/api/product/action': products } },
+    props: { fallback: products },
     revalidate: 60,
   }
 }
@@ -39,10 +39,12 @@ interface Props {
 }
 
 const Products = ({ fallback }: Props) => {
-  const { data: products } = useSWR(`/api/product/action`, fetcher, {
+  const { mutate } = useSWRConfig()
+  const { data: products, error } = useSWR('/api/product/action', fetcher, {
     fallbackData: fallback,
     suspense: true,
   })
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
 
   const handleUpdate = async (id: string) => {
@@ -50,15 +52,18 @@ const Products = ({ fallback }: Props) => {
   }
 
   const handleDelete = async (id: string) => {
+    setLoading(true)
     await post('/api/product/action', id, 'DELETE')
+    mutate('/api/product/action')
+    setLoading(false)
   }
 
   const rows = products.map((product: ProductProps) => (
     <tr key={product.id}>
       <td>
-        <Button onClick={() => handleUpdate(product.slug)}>Edit</Button>
-        <Button color='red' onClick={() => handleDelete(product.slug)}>
-          Delete
+        <Button onClick={() => handleUpdate(product.id)}>Edit</Button>
+        <Button color='red' onClick={() => handleDelete(product.id)}>
+          {loading ? 'Loading...' : 'Delete'}
         </Button>
       </td>
       <td>{product.id}</td>
@@ -89,7 +94,6 @@ const Products = ({ fallback }: Props) => {
       <th>Image</th>
     </tr>
   )
-
   return (
     <AdminShell>
       <Suspense fallback={<Loading />}>
