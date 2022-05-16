@@ -24,7 +24,7 @@ type Props = {
   product: any
 }
 interface Params extends ParsedUrlQuery {
-  id: string
+  slug: string
 }
 interface ProductDetailsProps {
   product: ProductProps
@@ -34,7 +34,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const ref = await db.collection('products').get()
   const paths = ref.docs.map((doc) => {
     return {
-      params: { id: doc.id },
+      params: { slug: doc.data().slug },
     }
   })
   return {
@@ -49,10 +49,19 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (
   context
 ) => {
   const params = context.params! // ! is a non-null assertion
-  const doc = await db.collection('products').doc(params.id).get()
-  const product = { id: doc.id, ...doc.data() }
+
+  const data = await db
+    .collection('products')
+    .where('slug', '==', params.slug)
+    .limit(1)
+    .get()
+    .then((querySnapshot) => {
+      let product: any = querySnapshot.docs[0].data()
+      return product
+    })
+
   return {
-    props: { product, id: params.id },
+    props: { product: data },
     revalidate: 60,
   }
 }
