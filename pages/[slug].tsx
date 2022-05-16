@@ -50,15 +50,12 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (
 ) => {
   const params = context.params! // ! is a non-null assertion
 
-  const data = await db
+  const query = await db
     .collection('products')
     .where('slug', '==', params.slug)
-    .limit(1)
     .get()
-    .then((querySnapshot) => {
-      let product: any = querySnapshot.docs[0].data()
-      return product
-    })
+
+  let data = query.docs[0].data()
 
   return {
     props: { product: data },

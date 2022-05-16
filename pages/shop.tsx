@@ -71,7 +71,7 @@ const Shop = ({ products }: Props) => {
           <Suspense fallback={<Loader />}>
             <Group direction='row' position='center' grow py={20}>
               {products.map((product: ProductProps) => (
-                <NextLink key={product.id} href={`/${product.id}`} passHref>
+                <NextLink key={product.id} href={`/${product.slug}`} passHref>
                   <Text component='a'>
                     <div>
                       <Image
