@@ -129,9 +129,11 @@ const Checkout = () => {
       <Main>
         <Container>
           <Group position='center' mt={20}>
-            <Button onClick={() => verivikasi(virtualAccount)}>Bayar</Button>
+            <Button onClick={() => verivikasi(virtualAccount)}>Simulasi Bayar</Button>
           </Group>
-          {simulation && JSON.stringify(simulation)}
+          {simulation && JSON.stringify(simulation.status)}
+          <br />
+          {simulation && JSON.stringify(simulation.message)}
           <br />
           {/*@ts-ignore*/}
           <VirtualAccount data={virtualAccount} />

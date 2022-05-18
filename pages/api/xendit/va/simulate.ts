@@ -35,8 +35,12 @@ export default async function handler(
         })
       }
       // TODO: delete this
+      const result = {
+        status: 'COMPLETED',
+        message: `Payment for the Fixed VA with external id ${externalId} is currently being processed. Please ensure that you have set a callback URL for VA payments via Dashboard Settings and contact us if you do not receive a VA payment callback within the next 5 mins.`,
+      }
 
-      return res.status(200).json(response.body)
+      return res.status(200).json(result)
     } catch (error) {
       return { error }
     }
