@@ -10,13 +10,14 @@ export default async function handler(
   //* UPDATE
   if (req.method === 'PUT') {
     try {
-      await db
+      const response = await db
         .collection('orders')
         .doc(id as string)
         .update(req.body)
-      res.status(204).end()
-    } catch (error) {
+      res.status(201).json(response)
+    } catch (error: any) {
       console.error(error)
+      res.status(400).json(error.message)
     }
   }
   //* GET

@@ -1,8 +1,9 @@
-import { Group, Text, Title } from '@mantine/core'
+import { Button, Group, Image, Text, TextInput, Title } from '@mantine/core'
+import { useForm } from '@mantine/form'
 import AdminShell from 'components/Admin/AdminShell'
 import { Loading } from 'components/Loading'
 import { format, parseISO } from 'date-fns'
-import { OrderDetailProps } from 'libs/types'
+import { ProductProps } from 'libs/types'
 import { useRouter } from 'next/router'
 import { Suspense } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
@@ -16,6 +17,7 @@ const OrderUpdate = () => {
   const { data: order, error } = useSWR(`/api/order/${id}`, fetcher, {
     suspense: true,
   })
+
   const {
     alamat,
     detail_alamat,
@@ -27,19 +29,13 @@ const OrderUpdate = () => {
     phone,
     provinsi,
   } = order.shippingAddress
-  const status =
-    order.status === 'PENDING' ? (
-      <Title>Pending</Title>
-    ) : (
-      <Title>{order.status}</Title>
-    )
-  const pengiriman =
-    order.statusDelivery === 'PENDING' ? (
-      null
-    ) : (
-      <Title>{order.statusDelivery}</Title>
-    ) 
-      
+
+  const form = useForm({
+    initialValues: {
+      resi: '',
+    },
+  })
+
   const details = (
     <>
       <Group grow>
@@ -63,17 +59,25 @@ const OrderUpdate = () => {
         </Group>
       </Group>
       <hr />
+      <Text weight='bold' align='left'>
+        STATUS
+      </Text>
       <Group grow my={10}>
         <Group spacing={0}>
-          <Text>Status: {order.status}</Text>
-          <Text>Status Pengiriman: {order.statusDelivery}</Text>
+          <Text>Pembayaran: {order.status}</Text>
+          <Text>
+            Pengiriman: {order.codeDelivery} - {order.statusDelivery}
+          </Text>
         </Group>
-        <Text>Total: Rp {order.items.total}</Text>
         <Text>Nama: {order.name}</Text>
         <Text>Email: {order.email}</Text>
       </Group>
       <hr />
-      <Title order={3}>Alamat Pengiriman</Title>
+      <Text>Total: Rp {order.items.total}</Text>
+      <hr />
+      <Title order={3} align='center'>
+        Alamat Pengiriman
+      </Title>
       <Group grow my={10}>
         <Text>
           Nama Penerima: {nama_depan} {nama_belakang}{' '}
@@ -89,26 +93,63 @@ const OrderUpdate = () => {
         <hr />
         Kode pos: {kode_pos}
       </Text>
+      <hr />
+      <Title order={3} align='center' mb={20}>
+        Barang dibeli
+      </Title>
+
+      <Group>
+        {order.items.cart.map((item: ProductProps) => (
+          <Group key={item.productId} style={{ border: '2px solid black' }}>
+            <Group direction='column'>
+              <Text align='center'>{item.title}</Text>
+              <Text align='center'>
+                {item.quantity} x Rp {item.price} = Rp{' '}
+                {Number(item.price) * Number(item.quantity)}
+              </Text>
+            </Group>
+            <Image
+              src={item.imgUrl}
+              alt={item.title}
+              height='200px'
+              width='200px'
+            />
+          </Group>
+        ))}
+      </Group>
+      <Group position='center' my={20}>
+        <Text>Total: Rp {order.items.total}</Text>
+      </Group>
     </>
   )
 
-  const handleSubmit = async (data: any) => {
-    await post(`/admin/order/${id}`, data, 'PUT')
-    mutate(`/api/order/${id}`, data, false)
+  const handleSubmit = async (values: typeof form.values) => {
+    const data = {
+      codeDelivery: values.resi,
+      statusDelivery: 'DIKIRIM',
+    }
+    const response = await post(`/api/order/${id}`, data, 'PUT')
+    mutate(`/api/order/${id}`)
+    console.log(response)
   }
 
   return (
     <AdminShell>
       <Group position='center' mb={20}>
         <Title>Order Details</Title>
-        <Suspense fallback={<Loading />}>
-          {status}
-        </Suspense>
-        <Suspense fallback={<Loading />}>
-          {pengiriman}
-        </Suspense>
       </Group>
       <Suspense fallback={<Loading />}>{details}</Suspense>
+      <form onSubmit={form.onSubmit(handleSubmit)}>
+        <TextInput
+          label='KODE RESI'
+          required
+          placeholder='003085801224'
+          {...form.getInputProps('resi')}
+        />
+        <Group position='right' mt='md'>
+          <Button type='submit'>Submit</Button>
+        </Group>
+      </form>
     </AdminShell>
   )
 }

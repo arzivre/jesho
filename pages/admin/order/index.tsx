@@ -1,4 +1,4 @@
-import { Anchor, Button, Title } from '@mantine/core'
+import { Button , Title } from '@mantine/core'
 import AdminShell from 'components/Admin/AdminShell'
 import { Loading } from 'components/Loading'
 import { db } from 'libs/firebase-admin'
@@ -8,7 +8,6 @@ import { Suspense, useState } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
 import fetcher from 'utils/fetcher'
 import post from 'utils/post'
-import NextLink from 'next/link'
 import AdminTable from 'components/Admin/AdminTable'
 import { format, parseISO } from 'date-fns'
 
@@ -44,48 +43,62 @@ const AdminOrder = (fallback: any) => {
 
   const handleUpdate = async (id: string) => {
     router.push(`/admin/order/${id}`)
+    return
   }
 
   const handleDelete = async (id: string) => {
-    setLoading(true)
-    await post('/api/order/v1', id, 'DELETE')
-    mutate('/api/order/v1')
-    setLoading(false)
+    const ok = confirm('Are you sure you want to delete this order?')
+    if (ok) {
+      setLoading(true)
+      await post('/api/order/v1', id, 'DELETE')
+      mutate('/api/order/v1')
+      setLoading(false)
+    }
+    return
   }
 
   const rows = orders.map((order: any) => (
     <tr key={order.id}>
       <td>
-        <Button onClick={() => handleUpdate(order.external_id)}>Edit</Button>
-        <Button color='red' onClick={() => handleDelete(order.id)}>
-          {loading ? 'Loading...' : 'Delete'}
+        <Button color={`${order.status === 'PENDING' ? 'black' : 'lime'}`}>
+          {order.status}
         </Button>
       </td>
-      <td>{order.status}</td>
       <td>{format(parseISO(order.createdAt), 'dd MMM yyyy - H:mm')}</td>
+      <td>{format(parseISO(order.expiration_date), 'dd MMM yyyy - H:mm')}</td>
       <td>{order.name}</td>
-      <td>{order.items.total}</td>
+      <td>Rp {order.items.total}</td>
       <td>
-        <NextLink href={`/admin/order/${order.external_id}`} passHref>
-          <Anchor>Detail orders</Anchor>
-        </NextLink>
+        <Button
+          onClick={() => handleUpdate(order.external_id)}
+          sx={{ margin: 'auto' }}
+        >
+          Edit
+        </Button>
+      </td>
+      <td>
+        <Button color='red' onClick={() => handleDelete(order.id)}>
+          Delete
+        </Button>
       </td>
     </tr>
   ))
   const headers = (
     <tr>
-      <th>Action</th>
-      <th>Status</th>
-      <th>Tgl</th>
+      <th>Status Pembayaran</th>
+      <th>tgl dibuat</th>
+      <th>tgl kadaluarsa</th>
       <th>Nama</th>
       <th>Total</th>
-      <th>Detail</th>
+      <th>Update</th>
+      <th>Action</th>
     </tr>
   )
 
   return (
     <AdminShell>
       <Title>Orders</Title>
+      {loading && <Loading />}
       <Suspense fallback={<Loading />}>
         <AdminTable headers={headers} rows={rows} />
       </Suspense>
