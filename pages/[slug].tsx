@@ -16,6 +16,7 @@ import {
   Title,
   Text,
   Button,
+  Card,
 } from '@mantine/core'
 import useCart from 'hooks/useCart'
 import isInCart from 'utils/isInCart'
@@ -72,52 +73,59 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
     <Main>
       <Suspense fallback={<LoadingFullScreen />}>
         <Container size='xl'>
-          <Grid mt={50}>
+          <Grid mt={50} gutter='xl'>
             <Suspense fallback={<Loading />}>
               <Grid.Col xs={12} md={6}>
-                <Group position='center' mb={20}>
-                  <div style={{ height: '400px', width: '400px' }}>
-                    <Image
-                      src={product.imgUrl}
-                      alt={product.title}
-                      height={'100%'}
-                      width={'100%'}
-                    />
-                  </div>
-                </Group>
-                <Group position='apart' grow>
-                  {!inCart && (
-                    <Button mx={20} onClick={() => addItem(product)}>
-                      Add{' '}
-                    </Button>
-                  )}
-                  {inCart && (
-                    <Button
-                      mx={20}
-                      onClick={() => increaseItem(product.productId)}
-                    >
-                      +
-                    </Button>
-                  )}
-                  {inCart?.quantity > 1 && (
-                    <Button
-                      mx={20}
-                      onClick={() => decreaseItem(product.productId)}
-                    >
-                      -
-                    </Button>
-                  )}
-                  {inCart?.quantity === 1 && (
-                    <Button
-                      mx={20}
-                      onClick={() => removeItem(product.productId)}
-                    >
-                      <BsFillTrashFill />
-                    </Button>
-                  )}
-                </Group>
+                <Card
+                  style={{
+                    background: '#C1C2C5',
+                  }}
+                >
+                  <Group position='center' mb={20}>
+                    <div style={{ height: '400px', width: '400px' }}>
+                      <Image
+                        src={product.imgUrl}
+                        alt={product.title}
+                        height={'100%'}
+                        width={'100%'}
+                      />
+                    </div>
+                  </Group>
+                  <Group position='apart' grow mb={20}>
+                    {!inCart && (
+                      <Button mx={20} onClick={() => addItem(product)}>
+                        Add{' '}
+                      </Button>
+                    )}
+                    {inCart && (
+                      <Button
+                        mx={20}
+                        onClick={() => increaseItem(product.productId)}
+                      >
+                        +
+                      </Button>
+                    )}
+                    {inCart?.quantity > 1 && (
+                      <Button
+                        mx={20}
+                        onClick={() => decreaseItem(product.productId)}
+                      >
+                        -
+                      </Button>
+                    )}
+                    {inCart?.quantity === 1 && (
+                      <Button
+                        mx={20}
+                        onClick={() => removeItem(product.productId)}
+                      >
+                        <BsFillTrashFill />
+                      </Button>
+                    )}
+                  </Group>
+                </Card>
               </Grid.Col>
             </Suspense>
+
             <Grid.Col xs={12} md={6}>
               <Title order={1} mb={20}>
                 {product.title}

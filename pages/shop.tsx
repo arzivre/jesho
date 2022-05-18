@@ -2,7 +2,6 @@ import {
   Box,
   Container,
   Group,
-  Image,
   Loader,
   Text,
   Title,
@@ -13,6 +12,7 @@ import { db } from 'libs/firebase-admin'
 import { ProductProps } from 'libs/types'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
+import Image from 'next/image'
 import NextLink from 'next/link'
 import { Suspense } from 'react'
 
@@ -48,7 +48,6 @@ const Shop = ({ products }: Props) => {
       <Main>
         <Box
           sx={(theme) => ({
-            margin: 0,
             backgroundColor: theme.colors.yellow[0],
           })}
         >
@@ -66,17 +65,34 @@ const Shop = ({ products }: Props) => {
             </Title>
 
             <Suspense fallback={<Loader />}>
-              <Group direction='row' position='center' grow py={20}>
+              <Group
+                direction='row'
+                position='center'
+                spacing='xl'
+                grow
+                py={20}
+              >
                 {products.map((product: ProductProps) => (
                   <NextLink key={product.id} href={`/${product.slug}`} passHref>
                     <Text component='a'>
                       <div>
-                        <Image
-                          src={product.imgUrl}
-                          alt='Banner'
-                          height='400px'
-                          width='400px'
-                        />
+                        <div
+                          style={{
+                            margin: 'auto',
+                            height: '400px',
+                            minWidth: '350px',
+                          }}
+                        >
+                          <Image
+                            src={product.imgUrl}
+                            alt='Banner'
+                            height={'80%'}
+                            width={'80%'}
+                            layout='responsive'
+                            objectFit='contain'
+                            priority
+                          />
+                        </div>
                         <Group
                           direction='column'
                           style={{
