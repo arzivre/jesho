@@ -11,14 +11,18 @@ import {
   Text,
 } from '@mantine/core'
 import useCart from 'hooks/useCart'
+import { BsFillTrashFill } from 'react-icons/bs'
 
 const Cart = () => {
-  let { cart, clear, sumItems } = useCart()
+  let { cart, clear, sumItems, increaseItem, decreaseItem, removeItem } =
+    useCart()
   let { itemCount, total } = sumItems()
   if (itemCount === 0) {
     return (
       <Main>
-        <Title align='center' my={150}>Keranjang Kosong</Title>
+        <Title align='center' my={150}>
+          Keranjang Kosong
+        </Title>
       </Main>
     )
   }
@@ -38,14 +42,38 @@ const Cart = () => {
                 />
               </Box>
               <Box>
-                <Group position='apart'>
+                <Group position='apart' mb={10}>
                   <Text size='md'> {item.title}</Text>
                   <Text size='md'>Rp {item.price}</Text>
                 </Group>
 
                 <Group position='apart'>
                   <Text size='md'>Qty:</Text>
-                  <Text size='md'> {item.quantity}</Text>
+                  <Group>
+                    <Button
+                      mx={20}
+                      onClick={() => increaseItem(item.productId)}
+                    >
+                      +
+                    </Button>
+                    <Text size='md'> {item.quantity}</Text>
+                    {item.quantity! > 1 && (
+                      <Button
+                        mx={20}
+                        onClick={() => decreaseItem(item.productId)}
+                      >
+                        -
+                      </Button>
+                    )}
+                    {item.quantity === 1 && (
+                      <Button
+                        mx={20}
+                        onClick={() => removeItem(item.productId)}
+                      >
+                        <BsFillTrashFill />
+                      </Button>
+                    )}
+                  </Group>
                 </Group>
 
                 <hr />

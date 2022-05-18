@@ -1,4 +1,4 @@
-import { Suspense } from 'react'
+import { Suspense, useEffect } from 'react'
 import { ParsedUrlQuery } from 'querystring'
 import { GetStaticPaths, GetStaticProps } from 'next'
 
@@ -19,6 +19,7 @@ import {
 } from '@mantine/core'
 import useCart from 'hooks/useCart'
 import isInCart from 'utils/isInCart'
+import { BsFillTrashFill } from 'react-icons/bs'
 
 type Props = {
   product: any
@@ -98,7 +99,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                       +
                     </Button>
                   )}
-                  {inCart?.quantity > 1 && (
+                  {inCart.quantity > 1 && (
                     <Button
                       mx={20}
                       onClick={() => decreaseItem(product.productId)}
@@ -106,12 +107,12 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                       -
                     </Button>
                   )}
-                  {inCart?.quantity === 1 && (
+                  {inCart.quantity === 1 && (
                     <Button
                       mx={20}
                       onClick={() => removeItem(product.productId)}
                     >
-                      Remove
+                      <BsFillTrashFill />
                     </Button>
                   )}
                 </Group>

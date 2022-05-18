@@ -14,13 +14,16 @@ const store = proxy({
   cart: initialCart,
 
   addItem: (newItems: any) => {
-    newItems.content && delete newItems.content
     const isNew = !store.cart.find(
       (item: { id: any }) => item.id === newItems.productId
     )
+
+    const item = { ...newItems }
+    delete item.content
+
     if (isNew) {
       store.cart.push({
-        ...newItems,
+        ...item,
         quantity: 1,
       })
     }
@@ -44,9 +47,15 @@ const store = proxy({
   },
 
   removeItem: (id: any) => {
-    store.cart = [
-      store.cart.filter((item: { productId: any }) => item.productId !== id),
-    ]
+    const removeIndex = store.cart.findIndex(
+      (item: any) => item.productId === id
+    )
+
+    const index = store.cart.indexOf(removeIndex)
+    store.cart.splice(index, 1) // 2nd parameter means remove one item only
+    // store.cart = [
+    //   store.cart.filter((item: { productId: any }) => item.productId !== id),
+    // ]
   },
 
   clear: () => {
