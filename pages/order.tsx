@@ -47,7 +47,7 @@ const OrderList = () => {
   const { data, error } = useSWR(`api/user/${currentUser.uid}`, fetcher, {
     suspense: true,
   })
-  const { classes, theme } = useStyles()
+  const { classes } = useStyles()
 
   return (
     <>
@@ -56,12 +56,16 @@ const OrderList = () => {
           <Card className={classes.container}>
             <Card.Section>
               <Group position='apart' className={classes.header}>
+                <Text
+                  color={`${order.status === 'PENDING' ? 'black' : 'white'}`}
+                >
+                  STATUS: {order.statusDelivery}
+                </Text>
                 <Text>Jumlah: {order.items.itemCount}</Text>
                 <Text>Total: Rp {order.expected_amount}</Text>
                 <Text>
                   {format(parseISO(order.createdAt), 'dd MMM yyyy - H:mm')}
                 </Text>
-                <Text>Status: {order.statusDelivery}</Text>
               </Group>
             </Card.Section>
             <Card.Section component={ScrollArea} className={classes.main}>
