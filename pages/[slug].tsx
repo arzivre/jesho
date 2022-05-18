@@ -78,7 +78,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
               <Grid.Col xs={12} md={6}>
                 <Card
                   style={{
-                    background: '#C1C2C5',
+                    backgroundColor: 'rgb(206 212 218 / 25%)',
                   }}
                 >
                   <Group position='center' mb={20}>
