@@ -3,10 +3,15 @@ import xendit from 'libs/xendit'
 
 const expirationDate = () => {
   const date = new Date()
+
+  const minutes = date.getMinutes()
+  const hours = date.getHours()
   const day = date.getDate() + 3
   const month = date.getMonth()
   const year = date.getFullYear()
-  const expiration_date = new Date(year, month, day)
+
+  const expiration_date = new Date(year, month, day, hours, minutes)
+
   return expiration_date
 }
 
@@ -38,7 +43,7 @@ export default async function handler(
       }
 
       res.status(200).send(data)
-    } catch (error:any) {
+    } catch (error: any) {
       return res.status(400).send(`error: ${error.message}`)
     }
   }

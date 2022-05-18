@@ -15,27 +15,40 @@ const store = proxy({
 
   addItem: (newItems: any) => {
     newItems.content && delete newItems.content
-    if (!store.cart.find((item: { id: any }) => item.id === newItems.id)) {
+    const isNew = !store.cart.find(
+      (item: { id: any }) => item.id === newItems.productId
+    )
+    if (isNew) {
       store.cart.push({
         ...newItems,
         quantity: 1,
       })
     }
   },
+
   increaseItem: (id: any) => {
-    const increaseIndex = store.cart.findIndex((item: any) => item.id === id)
+    const increaseIndex = store.cart.findIndex(
+      (item: any) => item.productId === id
+    )
     store.cart[increaseIndex].quantity++
   },
+
   decreaseItem: (id: any) => {
-    const decreaseIndex = store.cart.findIndex((item: any) => item.id === id)
+    const decreaseIndex = store.cart.findIndex(
+      (item: any) => item.productId === id
+    )
     const product = store.cart[decreaseIndex]
     if (product.quantity > 1) {
       product.quantity--
     }
   },
+
   removeItem: (id: any) => {
-    store.cart = [store.cart.filter((item: { id: any }) => item.id !== id)]
+    store.cart = [
+      store.cart.filter((item: { productId: any }) => item.productId !== id),
+    ]
   },
+
   clear: () => {
     Cookies.remove('cart')
     store.cart = []

@@ -63,7 +63,7 @@ const Products = ({ fallback }: Props) => {
       <td>
         <Button onClick={() => handleUpdate(product.id)}>Edit</Button>
         <Button color='red' onClick={() => handleDelete(product.id)}>
-          {loading ? 'Loading...' : 'Delete'}
+          Delete
         </Button>
       </td>
       <td>{product.id}</td>
@@ -96,6 +96,7 @@ const Products = ({ fallback }: Props) => {
   )
   return (
     <AdminShell>
+      {loading && <Loading />}
       <Suspense fallback={<Loading />}>
         <AdminTable headers={headers} rows={rows} />
       </Suspense>

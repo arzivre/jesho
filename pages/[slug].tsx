@@ -66,7 +66,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (
 const ProductDetails = ({ product }: ProductDetailsProps) => {
   let { cart, removeItem, addItem, increaseItem, decreaseItem } = useCart()
   const inCart = isInCart(cart, product)
-  // const noContent=
+
   return (
     <Main>
       <Suspense fallback={<LoadingFullScreen />}>
@@ -91,17 +91,26 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                     </Button>
                   )}
                   {inCart && (
-                    <Button mx={20} onClick={() => increaseItem(product.id)}>
+                    <Button
+                      mx={20}
+                      onClick={() => increaseItem(product.productId)}
+                    >
                       +
                     </Button>
                   )}
                   {inCart?.quantity > 1 && (
-                    <Button mx={20} onClick={() => decreaseItem(product.id)}>
+                    <Button
+                      mx={20}
+                      onClick={() => decreaseItem(product.productId)}
+                    >
                       -
                     </Button>
                   )}
                   {inCart?.quantity === 1 && (
-                    <Button mx={20} onClick={() => removeItem(product.id)}>
+                    <Button
+                      mx={20}
+                      onClick={() => removeItem(product.productId)}
+                    >
                       Remove
                     </Button>
                   )}

@@ -28,7 +28,7 @@ const Cart = () => {
       <Container size='md'>
         {cart.length > 0 &&
           cart.map((item: ProductProps) => (
-            <Group key={item.id} spacing='xs' grow mb={20}>
+            <Group key={item.productId} spacing='xs' grow mb={20}>
               <Box>
                 <Image
                   src={item.imgUrl}

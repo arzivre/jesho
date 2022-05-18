@@ -89,7 +89,7 @@ const Shop = ({ products }: Props) => {
                       >
                         <Text>{product.title}</Text>
                         <Text size='md' weight={700}>
-                          Rp 100000
+                          Rp {product.price}
                         </Text>
                       </Group>
                     </div>

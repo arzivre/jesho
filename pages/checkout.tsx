@@ -37,7 +37,8 @@ const Checkout = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<unknown | null>(null)
   const [virtualAccount, setVirtualAccount] = useState<{} | null>(null)
-  // const [simulation, setSimulation] = useState<any | null>(null)
+  //! Tes Simulasi Pembayaran
+  const [simulation, setSimulation] = useState<any | null>(null)
 
   const form = useForm({
     initialValues: {
@@ -111,27 +112,27 @@ const Checkout = () => {
   }
 
   //! Tes Simulasi Pembayaran
-  // const verivikasi = async (virtualAccount: {
-  //   external_id?: any
-  //   expected_amount?: any
-  // }) => {
-  //   setSimulation(null)
-  //   const response = await post('/api/xendit/va/simulate', {
-  //     externalId: virtualAccount.external_id,
-  //     amount: virtualAccount.expected_amount,
-  //   })
-  //   setSimulation(response)
-  // }
+  const verivikasi = async (virtualAccount: {
+    external_id?: any
+    expected_amount?: any
+  }) => {
+    setSimulation(null)
+    const response = await post('/api/xendit/va/simulate', {
+      externalId: virtualAccount.external_id,
+      amount: virtualAccount.expected_amount,
+    })
+    setSimulation(response)
+  }
 
   if (virtualAccount) {
     return (
       <Main>
         <Container>
-          {/* <Group position='center' mt={20}>
+          <Group position='center' mt={20}>
             <Button onClick={() => verivikasi(virtualAccount)}>Bayar</Button>
           </Group>
           {simulation && JSON.stringify(simulation)}
-          <br /> */}
+          <br />
           {/*@ts-ignore*/}
           <VirtualAccount data={virtualAccount} />
         </Container>
@@ -250,7 +251,7 @@ const Checkout = () => {
                 <Suspense fallback={<Loading />}>
                   {cart.length > 0 &&
                     cart.map((item: ProductProps) => (
-                      <Group key={item.id} spacing='xs' grow mb={20}>
+                      <Group key={item.productId} spacing='xs' grow mb={20}>
                         <Box>
                           <Image
                             src={item.imgUrl}
