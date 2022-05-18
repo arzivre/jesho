@@ -28,7 +28,7 @@ const GridBanner = () => {
           />
         </Box>
       </Group>
-      <Box style={{ margin: 'auto', height: '560px', width: '560px' }}>
+      <Box style={{ margin: 'auto', height: '400px', width: '400px' }}>
         <Image
           src='https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fb_7_.webp?alt=media&token=c8cc54ca-b332-4bea-9099-ee7a055b5815'
           alt='Banner'
