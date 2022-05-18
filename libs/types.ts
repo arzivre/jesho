@@ -4,7 +4,7 @@ export interface ProductProps {
   slug: string
   price: string
   title: string
-  description: string
+  description?: string
   content: string
   imgUrl: string
   createdAt: string

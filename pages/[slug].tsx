@@ -99,7 +99,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                       +
                     </Button>
                   )}
-                  {inCart.quantity > 1 && (
+                  {inCart?.quantity > 1 && (
                     <Button
                       mx={20}
                       onClick={() => decreaseItem(product.productId)}
@@ -107,7 +107,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                       -
                     </Button>
                   )}
-                  {inCart.quantity === 1 && (
+                  {inCart?.quantity === 1 && (
                     <Button
                       mx={20}
                       onClick={() => removeItem(product.productId)}
