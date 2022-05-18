@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import { Loading } from 'components/Loading'
 
 import useAuth, { signinWithGoogle } from 'hooks/useAuth'
-import useSWR from 'swr'
+import useSWR, { mutate } from 'swr'
 import fetcher from 'utils/fetcher'
 
 import Main from 'components/Main'
@@ -21,6 +21,7 @@ import {
   ScrollArea,
 } from '@mantine/core'
 import { parseISO, format } from 'date-fns'
+import post from 'utils/post'
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -49,6 +50,15 @@ const OrderList = () => {
   })
   const { classes } = useStyles()
 
+  const handleOnClick = async (id: string) => {
+    const data = {
+      statusDelivery: 'TERKIRIM',
+    }
+    const response = await post(`/api/order/${id}`, data, 'PUT')
+    mutate(`api/user/${currentUser.uid}`)
+    console.log(response)
+  }
+
   return (
     <>
       {data.map((order: any) => (
@@ -59,13 +69,25 @@ const OrderList = () => {
                 <Text
                   color={`${order.status === 'PENDING' ? 'black' : 'white'}`}
                 >
-                  STATUS: {order.statusDelivery}
+                  STATUS:{' '}
+                  {order.statusDelivery === 'DIKIRIM'
+                    ? `DIKIRIM - RESI:${order.codeDelivery}`
+                    : order.statusDelivery}
                 </Text>
                 <Text>Jumlah: {order.items.itemCount}</Text>
                 <Text>Total: Rp {order.expected_amount}</Text>
                 <Text>
                   {format(parseISO(order.createdAt), 'dd MMM yyyy - H:mm')}
                 </Text>
+                {order.statusDelivery === 'DIKIRIM' && (
+                  <Button
+                    variant='gradient'
+                    gradient={{ from: '#ed6ea0', to: '#ec8c69', deg: 35 }}
+                    onClick={() => handleOnClick(order.external_id)}
+                  >
+                    Terkirim
+                  </Button>
+                )}
               </Group>
             </Card.Section>
             <Card.Section component={ScrollArea} className={classes.main}>

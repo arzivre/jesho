@@ -66,7 +66,11 @@ const OrderUpdate = () => {
         <Group spacing={0}>
           <Text>Pembayaran: {order.status}</Text>
           <Text>
-            Pengiriman: {order.codeDelivery} - {order.statusDelivery}
+            Pengiriman:{' '}
+            {order.codeDelivery === 'PENDING'
+              ? 'MASUKAN RESI'
+              : order.codeDelivery}{' '}
+            - {order.statusDelivery}
           </Text>
         </Group>
         <Text>Nama: {order.name}</Text>
