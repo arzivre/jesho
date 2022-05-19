@@ -39,7 +39,7 @@ function App(props: AppProps) {
           colorScheme: 'light',
 
           fontFamily: 'Varela Round, sans-serif',
-
+          headings: { fontFamily: 'Greycliff CF, sans-serif' },
           loader: 'bars',
 
           shadows: 'sm',

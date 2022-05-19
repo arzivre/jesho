@@ -1,14 +1,3 @@
-import { ProductProps } from 'libs/types'
-import { Suspense, useState } from 'react'
-import { Loading, LoadingFullScreen } from 'components/Loading'
-
-import Main from 'components/Main'
-import NextLink from 'next/link'
-
-import useCart from 'hooks/useCart'
-import useAuth from 'hooks/useAuth'
-import post from 'utils/post'
-
 import {
   Box,
   Breadcrumbs,
@@ -25,8 +14,17 @@ import {
   Title,
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { firestore } from 'libs/firebase'
+import { Loading, LoadingFullScreen } from 'components/Loading'
+import Main from 'components/Main'
 import VirtualAccount from 'components/VirtualAccount'
+import useAuth, { signinWithGoogle } from 'hooks/useAuth'
+import useCart from 'hooks/useCart'
+import { firestore } from 'libs/firebase'
+import { ProductProps } from 'libs/types'
+import NextLink from 'next/link'
+import { Suspense, useState } from 'react'
+import { FcGoogle } from 'react-icons/fc'
+import post from 'utils/post'
 
 const Checkout = () => {
   let { cart, clear, sumItems } = useCart()
@@ -129,7 +127,9 @@ const Checkout = () => {
       <Main>
         <Container>
           <Group position='center' mt={20}>
-            <Button onClick={() => verivikasi(virtualAccount)}>Simulasi Bayar</Button>
+            <Button onClick={() => verivikasi(virtualAccount)}>
+              Simulasi Bayar
+            </Button>
           </Group>
           {simulation && JSON.stringify(simulation.status)}
           <br />
@@ -138,6 +138,29 @@ const Checkout = () => {
           {/*@ts-ignore*/}
           <VirtualAccount data={virtualAccount} />
         </Container>
+      </Main>
+    )
+  }
+  if (!user) {
+    return (
+      <Main>
+        <Group
+          direction='column'
+          position='center'
+          py={200}
+          sx={{ background: '#A9E34B' }}
+        >
+          <Title align='center'>Please Login to Checkout</Title>
+          <Button
+            variant='white'
+            color='dark'
+            size='xl'
+            leftIcon={<FcGoogle size={34} />}
+            onClick={() => signinWithGoogle('/checkout')}
+          >
+            Login
+          </Button>
+        </Group>
       </Main>
     )
   }

@@ -6,7 +6,7 @@ import useCart from 'hooks/useCart'
 import { useBooleanToggle } from '@mantine/hooks'
 
 import { BsBucket } from 'react-icons/bs'
-import { BiLogOut, BiChevronDown } from 'react-icons/bi'
+import { BiLogOut, BiChevronDown, BiUserCircle } from 'react-icons/bi'
 import { FcGoogle } from 'react-icons/fc'
 
 import {
@@ -177,14 +177,16 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
           className={cx(classes.user, { [classes.userActive]: userMenuOpened })}
         >
           <Group spacing={7}>
-            {user && (
+            {user ? (
               <Avatar
                 src={user.photoURL}
                 alt={user.name}
                 radius='xl'
                 size={20}
               />
-            )}
+            ) :
+              (<BiUserCircle size={20} />)
+            }
             <Text
               className={classes.userMenu}
               weight={500}
