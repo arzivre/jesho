@@ -52,11 +52,12 @@ const OrderList = () => {
 
   const handleOnClick = async (id: string) => {
     const data = {
+      isDelivered: true,
+      deliveredAt: new Date().toLocaleString(),
       statusDelivery: 'TERKIRIM',
     }
     const response = await post(`/api/order/${id}`, data, 'PUT')
     mutate(`api/user/${currentUser.uid}`)
-    console.log(response)
   }
 
   return (
