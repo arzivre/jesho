@@ -9,6 +9,7 @@ import {
   Image,
   Title,
   Text,
+  SimpleGrid,
 } from '@mantine/core'
 import useCart from 'hooks/useCart'
 import { BsFillTrashFill } from 'react-icons/bs'
@@ -32,15 +33,22 @@ const Cart = () => {
       <Container size='md'>
         {cart.length > 0 &&
           cart.map((item: ProductProps) => (
-            <Group key={item.productId} spacing='xs' grow mb={20}>
-              <Box>
+            <SimpleGrid
+              key={item.productId}
+              my={20}
+              breakpoints={[
+                { minWidth: 755, cols: 2, spacing: 'md' },
+                { minWidth: 600, cols: 1, spacing: 'sm' },
+              ]}
+            >
+              <Group position='center'>
                 <Image
                   src={item.imgUrl}
                   alt={item.title}
-                  height={200}
-                  width={200}
+                  height={350}
+                  width={350}
                 />
-              </Box>
+              </Group>
               <Box>
                 <Group position='apart' mb={10}>
                   <Text size='md'> {item.title}</Text>
@@ -52,6 +60,9 @@ const Cart = () => {
                   <Group>
                     <Button
                       mx={20}
+                      variant='subtle'
+                      color='dark'
+                      size='md'
                       onClick={() => increaseItem(item.productId)}
                     >
                       +
@@ -60,6 +71,9 @@ const Cart = () => {
                     {item.quantity! > 1 && (
                       <Button
                         mx={20}
+                        variant='subtle'
+                        color='dark'
+                        size='md'
                         onClick={() => decreaseItem(item.productId)}
                       >
                         -
@@ -68,6 +82,9 @@ const Cart = () => {
                     {item.quantity === 1 && (
                       <Button
                         mx={20}
+                        variant='outline'
+                        color='pink'
+                        size='sm'
                         onClick={() => removeItem(item.productId)}
                       >
                         <BsFillTrashFill />
@@ -85,7 +102,7 @@ const Cart = () => {
                   </Text>
                 </Group>
               </Box>
-            </Group>
+            </SimpleGrid>
           ))}
         <Group direction='column' position='right'>
           <Text size='md'>Jumlah: {itemCount}</Text>

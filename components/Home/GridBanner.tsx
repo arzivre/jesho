@@ -16,12 +16,12 @@ const GridBanner = () => {
             Epic home decor from creative finger macrame and wood
           </Text>
         </Box>
-        <Box style={{ margin: 'auto', height: '390px', minWidth: '360px' }}>
+        <Box style={{ margin: 'auto', height: '400px', minWidth: '350px' }}>
           <Image
             src='https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fb_5_.webp?alt=media&token=25e7cdac-ad6f-4ec9-b731-7ab9658ffde4'
             alt='Banner'
-            height='100%'
-            width='100%'
+            height='80%'
+            width='80%'
             layout='responsive'
             objectFit='contain'
             priority
@@ -38,8 +38,8 @@ const GridBanner = () => {
         <Image
           src='https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fb_7_.webp?alt=media&token=c8cc54ca-b332-4bea-9099-ee7a055b5815'
           alt='Banner'
-          height='100%'
-          width='100%'
+          height='80%'
+          width='80%'
           layout='responsive'
           objectFit='contain'
           priority
