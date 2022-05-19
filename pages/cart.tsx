@@ -111,7 +111,7 @@ const Cart = () => {
           <Text size='xl'>Total: Rp {total + 30000}</Text>
         </Group>
 
-        <Group position='right' spacing='xl' mt={20}>
+        <Group position='right' spacing='xl' my={20}>
           <Button color='red' onClick={() => clear()}>
             Clear Cart
           </Button>
