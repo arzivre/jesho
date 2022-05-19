@@ -1,29 +1,27 @@
-import { Suspense, useState } from 'react'
-import { Loading } from 'components/Loading'
-
-import useAuth, { signinWithGoogle } from 'hooks/useAuth'
-import useSWR, { mutate } from 'swr'
-import fetcher from 'utils/fetcher'
-
-import Main from 'components/Main'
-import { FcGoogle } from 'react-icons/fc'
 import {
+  Accordion,
   Button,
+  Card,
   Container,
   createStyles,
   Group,
   Image,
+  Modal,
+  ScrollArea,
   Text,
   Title,
-  Box,
-  Card,
-  Accordion,
-  ScrollArea,
-  Modal,
 } from '@mantine/core'
-import { parseISO, format } from 'date-fns'
-import post from 'utils/post'
+import { Loading } from 'components/Loading'
+import Main from 'components/Main'
 import VirtualAccount from 'components/VirtualAccount'
+import { format, parseISO } from 'date-fns'
+import useAuth, { signinWithGoogle } from 'hooks/useAuth'
+import { Suspense, useState } from 'react'
+import { FcGoogle } from 'react-icons/fc'
+import useSWR, { mutate } from 'swr'
+import fetcher from 'utils/fetcher'
+import post from 'utils/post'
+import { OrderDetailProps } from 'libs/types'
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -45,7 +43,7 @@ const useStyles = createStyles((theme) => ({
 }))
 
 const OrderList = () => {
-  const [opened, setOpened] = useState(false)
+  const [modal, setOpened] = useState({ open: false, id: '' })
   let { currentUser }: any = useAuth()
 
   const { data, error } = useSWR(`api/user/${currentUser.uid}`, fetcher, {
@@ -66,13 +64,12 @@ const OrderList = () => {
 
   return (
     <>
-      {data.map((order: any) => (
+      {data.map((order: OrderDetailProps) => (
         <Container key={order.id} size='md' mb={20}>
-
           {order.status === 'PENDING' ? (
             <Modal
-              opened={opened}
-              onClose={() => setOpened(false)}
+              opened={order.external_id === modal.id && modal.open}
+              onClose={() => setOpened({ open: false, id: '' })}
               title='Virtual Account'
             >
               <VirtualAccount data={order} />
@@ -82,7 +79,7 @@ const OrderList = () => {
           <Card className={classes.container}>
             <Card.Section>
               <Group position='apart' className={classes.header}>
-                <Button 
+                <Button
                   color={`${order.status === 'PENDING' ? 'yellow' : 'lime'}`}
                 >
                   STATUS:{' '}
@@ -105,7 +102,12 @@ const OrderList = () => {
                   </Button>
                 )}
                 {order.status === 'PENDING' && (
-                  <Button onClick={() => setOpened(true)} mt={8}>
+                  <Button
+                    onClick={() =>
+                      setOpened({ open: true, id: order.external_id })
+                    }
+                    mt={8}
+                  >
                     Bayar
                   </Button>
                 )}

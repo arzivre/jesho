@@ -17,7 +17,7 @@ const VirtualAccount = ({ data }: Props) => {
         <Title>Virtual Account Bank {data.bank_code}</Title>
       </Group>
       <Group position='apart' mb={20}>
-        <Text>Name</Text>
+        <Text>Nama</Text>
         <Text size='xl' weight={500}>{data.name}</Text>
       </Group>
       <Group position='apart' mb={20}>

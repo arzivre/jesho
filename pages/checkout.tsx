@@ -192,11 +192,13 @@ const Checkout = () => {
                 <form onSubmit={form.onSubmit(handleSubmit)}>
                   <Group grow>
                     <TextInput
+                      required
                       label='Nama depan'
                       placeholder='Jhon'
                       {...form.getInputProps('nama_depan')}
                     />
                     <TextInput
+                      required
                       label='Nama Belakang'
                       placeholder='Doe'
                       {...form.getInputProps('nama_belakang')}
@@ -204,17 +206,20 @@ const Checkout = () => {
                   </Group>
                   <Group grow>
                     <TextInput
+                      required
                       label='Email'
                       placeholder='Jhon'
                       {...form.getInputProps('email')}
                     />
                     <TextInput
+                      required
                       label='Phone'
                       placeholder='0812 3456 7890'
                       {...form.getInputProps('phone')}
                     />
                   </Group>
                   <TextInput
+                    required
                     label='Alamat Pengiriman'
                     placeholder='15329 Huston 21st'
                     {...form.getInputProps('alamat')}
@@ -233,16 +238,19 @@ const Checkout = () => {
                   />
                   <Group direction='row' grow>
                     <TextInput
+                      required
                       label='Provinsi'
                       placeholder='Jawa Barat'
                       {...form.getInputProps('provinsi')}
                     />
                     <TextInput
+                      required
                       label='Kota'
                       placeholder='Jakarta'
                       {...form.getInputProps('kota')}
                     />
                     <TextInput
+                      required
                       label='Kode Pos'
                       placeholder='65123'
                       {...form.getInputProps('kode_pos')}
