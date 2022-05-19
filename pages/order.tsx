@@ -1,4 +1,4 @@
-import { Suspense } from 'react'
+import { Suspense, useState } from 'react'
 import { Loading } from 'components/Loading'
 
 import useAuth, { signinWithGoogle } from 'hooks/useAuth'
@@ -19,9 +19,11 @@ import {
   Card,
   Accordion,
   ScrollArea,
+  Modal,
 } from '@mantine/core'
 import { parseISO, format } from 'date-fns'
 import post from 'utils/post'
+import VirtualAccount from 'components/VirtualAccount'
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -43,11 +45,13 @@ const useStyles = createStyles((theme) => ({
 }))
 
 const OrderList = () => {
+  const [opened, setOpened] = useState(false)
   let { currentUser }: any = useAuth()
 
   const { data, error } = useSWR(`api/user/${currentUser.uid}`, fetcher, {
     suspense: true,
   })
+
   const { classes } = useStyles()
 
   const handleOnClick = async (id: string) => {
@@ -56,7 +60,7 @@ const OrderList = () => {
       deliveredAt: new Date().toLocaleString(),
       statusDelivery: 'TERKIRIM',
     }
-    const response = await post(`/api/order/${id}`, data, 'PUT')
+    await post(`/api/order/${id}`, data, 'PUT')
     mutate(`api/user/${currentUser.uid}`)
   }
 
@@ -64,17 +68,28 @@ const OrderList = () => {
     <>
       {data.map((order: any) => (
         <Container key={order.id} size='md' mb={20}>
+
+          {order.status === 'PENDING' ? (
+            <Modal
+              opened={opened}
+              onClose={() => setOpened(false)}
+              title='Virtual Account'
+            >
+              <VirtualAccount data={order} />
+            </Modal>
+          ) : null}
+
           <Card className={classes.container}>
             <Card.Section>
               <Group position='apart' className={classes.header}>
-                <Text
-                  color={`${order.status === 'PENDING' ? 'black' : 'white'}`}
+                <Button 
+                  color={`${order.status === 'PENDING' ? 'yellow' : 'lime'}`}
                 >
                   STATUS:{' '}
                   {order.statusDelivery === 'DIKIRIM'
                     ? `DIKIRIM - RESI:${order.codeDelivery}`
                     : order.statusDelivery}
-                </Text>
+                </Button>
                 <Text>Jumlah: {order.items.itemCount}</Text>
                 <Text>Total: Rp {order.expected_amount}</Text>
                 <Text>
@@ -87,6 +102,11 @@ const OrderList = () => {
                     onClick={() => handleOnClick(order.external_id)}
                   >
                     Terkirim
+                  </Button>
+                )}
+                {order.status === 'PENDING' && (
+                  <Button onClick={() => setOpened(true)} mt={8}>
+                    Bayar
                   </Button>
                 )}
               </Group>
@@ -137,10 +157,6 @@ const OrderList = () => {
                   </Group>
                 </Accordion.Item>
               </Accordion>
-
-              <Group position='right'>
-                {order.status === 'PENDING' && <Button mt={8}>Bayar</Button>}
-              </Group>
             </Card.Section>
           </Card>
         </Container>
