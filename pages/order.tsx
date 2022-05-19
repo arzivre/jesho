@@ -68,7 +68,7 @@ const OrderList = () => {
         <Container key={order.id} size='md' mb={20}>
           {order.status === 'PENDING' ? (
             <Modal
-              opened={order.external_id === modal.id && modal.open}
+              opened={order.external_id === modal.id ? modal.open : false}
               onClose={() => setOpened({ open: false, id: '' })}
               title='Virtual Account'
             >
