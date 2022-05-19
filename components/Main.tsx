@@ -25,28 +25,15 @@ const data = [
     title: 'Contact Us',
     links: [
       {
-        label: 'info@email.com',
+        label: 'houseofjesho@gmail.com',
         link: '#',
       },
       {
-        label: '0812-3456-7891',
+        label: '0858 5081 9996',
         link: '#',
       },
       {
         label: 'Semarang, Jawa Tengah',
-        link: '#',
-      },
-    ],
-  },
-  {
-    title: 'Follow Us',
-    links: [
-      {
-        label: 'Instagram',
-        link: '#',
-      },
-      {
-        label: 'Facebook',
         link: '#',
       },
     ],

@@ -1,5 +1,6 @@
 import {
   Box,
+  Card,
   Container,
   Group,
   Loader,
@@ -48,7 +49,7 @@ const Shop = ({ products }: Props) => {
       <Main>
         <Box
           sx={(theme) => ({
-            backgroundColor: theme.colors.yellow[0],
+            backgroundColor: theme.colors.gray[1],
           })}
         >
           <Container size='xl'>
@@ -75,24 +76,25 @@ const Shop = ({ products }: Props) => {
                 {products.map((product: ProductProps) => (
                   <NextLink key={product.id} href={`/${product.slug}`} passHref>
                     <Text component='a'>
-                      <div>
-                        <div
+                      <Card>
+                        <Card.Section
                           style={{
                             margin: 'auto',
                             height: '400px',
                             minWidth: '350px',
+                            maxWidth: '400px',
                           }}
                         >
                           <Image
                             src={product.imgUrl}
                             alt='Banner'
-                            height={'80%'}
-                            width={'80%'}
+                            height={400}
+                            width={400}
                             layout='responsive'
                             objectFit='contain'
                             priority
                           />
-                        </div>
+                        </Card.Section>
                         <Group
                           direction='column'
                           style={{
@@ -105,7 +107,7 @@ const Shop = ({ products }: Props) => {
                             Rp {product.price}
                           </Text>
                         </Group>
-                      </div>
+                      </Card>
                     </Text>
                   </NextLink>
                 ))}

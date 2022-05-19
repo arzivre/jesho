@@ -1,15 +1,14 @@
-import React from 'react'
 import {
-  createStyles,
-  Text,
-  Container,
-  ActionIcon,
-  Group,
   Anchor,
+  Container,
+  createStyles,
+  Group,
   SimpleGrid,
+  Text,
   Title,
 } from '@mantine/core'
-import { BrandTwitter, BrandYoutube, BrandInstagram } from 'tabler-icons-react'
+import NextLink from 'next/link'
+import { ImFacebook2, ImInstagram } from 'react-icons/im'
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -67,7 +66,7 @@ const useStyles = createStyles((theme) => ({
     color:
       theme.colorScheme === 'dark'
         ? theme.colors.dark[1]
-        : theme.colors.gray[6],
+        : theme.colors.gray[8],
     fontSize: theme.fontSizes.sm,
     margin: '0 10px',
     padding: 6,
@@ -150,13 +149,36 @@ export const JeshoFooter = ({ data }: FooterProps) => {
               whats going on at Jesho
             </Text>
           </div>
-          <div className={classes.groups}>{groups}</div>
+          <div className={classes.groups}>
+            {groups}
+            <div>
+              <Text className={classes.title}>Follow Us</Text>
+              <NextLink
+                href='https://www.instagram.com/houseofjesho/?hl=id'
+                passHref
+              >
+                <Text className={classes.link} component='a'>
+                  <Group>
+                    <ImInstagram size={18} /> House of Jesho
+                  </Group>
+                </Text>
+              </NextLink>
+              <NextLink href='https://www.facebook.com/houseofjesho/' passHref>
+                <Text<'a'> className={classes.link} component='a'>
+                  <Group>
+                    <ImFacebook2 size={18} /> House of Jesho
+                  </Group>
+                </Text>
+              </NextLink>
+            </div>
+          </div>
         </SimpleGrid>
       </Container>
 
       <Container size='xl' className={classes.afterFooter}>
         <Text color='dimmed' size='sm'>
-          © 2022 HOUSE OF JESHO | Made by <Anchor>Arzivre</Anchor>
+          © 2022 HOUSE OF JESHO | Made by{' '}
+          <Anchor href='https://arzivre.com'>Arzivre</Anchor>
         </Text>
 
         <Group spacing={8} className={classes.social} position='right' noWrap>

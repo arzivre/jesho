@@ -17,6 +17,7 @@ import {
   Text,
   Button,
   Card,
+  Box,
 } from '@mantine/core'
 import useCart from 'hooks/useCart'
 import isInCart from 'utils/isInCart'
@@ -71,76 +72,93 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
 
   return (
     <Main>
-      <Suspense fallback={<LoadingFullScreen />}>
-        <Container size='xl'>
-          <Grid mt={50} gutter='xl'>
-            <Suspense fallback={<Loading />}>
-              <Grid.Col xs={12} md={6}>
-                <Card
-                  style={{
-                    backgroundColor: 'rgb(206 212 218 / 25%)',
-                  }}
-                >
-                  <Group position='center' mb={20}>
-                    <div style={{ height: '400px', width: '400px' }}>
-                      <Image
-                        src={product.imgUrl}
-                        alt={product.title}
-                        height={'100%'}
-                        width={'100%'}
-                      />
-                    </div>
-                  </Group>
-                  <Group position='apart' grow mb={20}>
-                    {!inCart && (
-                      <Button mx={20} onClick={() => addItem(product)}>
-                        Add{' '}
-                      </Button>
-                    )}
-                    {inCart && (
-                      <Button
-                        mx={20}
-                        onClick={() => increaseItem(product.productId)}
-                      >
-                        +
-                      </Button>
-                    )}
-                    {inCart?.quantity > 1 && (
-                      <Button
-                        mx={20}
-                        onClick={() => decreaseItem(product.productId)}
-                      >
-                        -
-                      </Button>
-                    )}
-                    {inCart?.quantity === 1 && (
-                      <Button
-                        mx={20}
-                        onClick={() => removeItem(product.productId)}
-                      >
-                        <BsFillTrashFill />
-                      </Button>
-                    )}
-                  </Group>
-                </Card>
+      <Box
+        style={{
+          background: '#F8F9FA',
+        }}
+      >
+        <Suspense fallback={<LoadingFullScreen />}>
+          <Container size='xl'>
+            <Grid gutter='xl'>
+              <Suspense fallback={<Loading />}>
+                <Grid.Col xs={12} md={6} mt={20}>
+                  <Card
+                    style={{
+                      backgroundColor: 'rgb(206 212 218 / 25%)',
+                    }}
+                  >
+                    <Group direction='column' position='center' grow mb={20}>
+                      <div>
+                        <Image
+                          src={product.imgUrl}
+                          alt={product.title}
+                          height={'100%'}
+                          width={'100%'}
+                        />
+                      </div>
+                      <Group position='apart' grow mb={20}>
+                        {!inCart && (
+                          <Button
+                            mx={20}
+                            variant='outline'
+                            color='dark'
+                            onClick={() => addItem(product)}
+                          >
+                            Add{' '}
+                          </Button>
+                        )}
+                        {inCart && (
+                          <Button
+                            mx={20}
+                            variant='outline'
+                            color='dark'
+                            size='md'
+                            onClick={() => increaseItem(product.productId)}
+                          >
+                            +
+                          </Button>
+                        )}
+                        {inCart?.quantity > 1 && (
+                          <Button
+                            mx={20}
+                            variant='outline'
+                            color='dark'
+                            size='md'
+                            onClick={() => decreaseItem(product.productId)}
+                          >
+                            -
+                          </Button>
+                        )}
+                        {inCart?.quantity === 1 && (
+                          <Button
+                            mx={20}
+                            variant='outline'
+                            color='pink'
+                            size='sm'
+                            onClick={() => removeItem(product.productId)}
+                          >
+                            <BsFillTrashFill />
+                          </Button>
+                        )}
+                      </Group>
+                    </Group>
+                  </Card>
+                </Grid.Col>
+              </Suspense>
+              <Grid.Col xs={12} md={6} mt={20}>
+                <Title order={1} mb={20}>
+                  {product.title}
+                </Title>
+                <Text size='xl'>Rp {product.price}</Text>
+                <hr />
+                <Text>
+                  <div dangerouslySetInnerHTML={{ __html: product.content }} />
+                </Text>
               </Grid.Col>
-            </Suspense>
-
-            <Grid.Col xs={12} md={6}>
-              <Title order={1} mb={20}>
-                {product.title}
-              </Title>
-              <Text size='xl'>Rp {product.price}</Text>
-              <hr />
-              {product.description ? (
-                <Text>{product.description}</Text>
-              ) : (
-                <div dangerouslySetInnerHTML={{ __html: product.content }} />
-              )}
-            </Grid.Col>
-          </Grid>
-        </Container>
-      </Suspense>
+            </Grid>
+          </Container>
+        </Suspense>
+      </Box>
     </Main>
   )
 }
