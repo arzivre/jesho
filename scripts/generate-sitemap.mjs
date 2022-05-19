@@ -36,7 +36,7 @@ const homeURL = 'https://www.houseofjesho.com'
                   .replace('.mdx', '')
                 const route = path === '/index' ? '' : path
                 const fullUrl = `${homeURL}${route}`
-                console.log(fullUrl)
+                // console.log(fullUrl)
                 return `
                         <url>
                             <loc>${fullUrl}</loc>

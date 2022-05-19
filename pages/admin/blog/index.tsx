@@ -30,7 +30,9 @@ const AdminBlog = ({ blogs }: Props) => {
   const rows = blogs.map((blog) => (
     <tr key={blog.id}>
       <td>
-        <Button>Edit</Button>
+        <Button disabled>Edit</Button>
+      </td>
+      <td>
         <Button color='red'>Delete</Button>
       </td>
       <td>{blog.id}</td>
@@ -46,6 +48,7 @@ const AdminBlog = ({ blogs }: Props) => {
   ))
   const headers = (
     <tr>
+      <th>Update (disabled)</th>
       <th>Action</th>
       <th>Id</th>
       <th>Title</th>

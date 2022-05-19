@@ -12,7 +12,7 @@ import { Loading } from 'components/Loading'
 
 import AdminTable from 'components/Admin/AdminTable'
 import NextLink from 'next/link'
-import { Anchor, Button, Image } from '@mantine/core'
+import { Anchor, Button, Group, Image } from '@mantine/core'
 import { useRouter } from 'next/router'
 import post from 'utils/post'
 
@@ -62,6 +62,8 @@ const Products = ({ fallback }: Props) => {
     <tr key={product.id}>
       <td>
         <Button onClick={() => handleUpdate(product.id)}>Edit</Button>
+      </td>
+      <td>
         <Button color='red' onClick={() => handleDelete(product.id)}>
           Delete
         </Button>
@@ -86,6 +88,7 @@ const Products = ({ fallback }: Props) => {
   ))
   const headers = (
     <tr>
+      <th>Update</th>
       <th>Action</th>
       <th>Id</th>
       <th>Title</th>

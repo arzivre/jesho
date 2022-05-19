@@ -1,4 +1,4 @@
-import { Button , Title } from '@mantine/core'
+import { Button, Title } from '@mantine/core'
 import AdminShell from 'components/Admin/AdminShell'
 import { Loading } from 'components/Loading'
 import { db } from 'libs/firebase-admin'
@@ -60,8 +60,13 @@ const AdminOrder = (fallback: any) => {
   const rows = orders.map((order: any) => (
     <tr key={order.id}>
       <td>
-        <Button color={`${order.status === 'PENDING' ? 'black' : 'lime'}`}>
+        <Button color={`${order.status === 'PENDING' ? 'gray' : 'lime'}`}>
           {order.status}
+        </Button>
+      </td>
+      <td>
+        <Button color={`${order.status === 'PENDING' ? 'gray' : 'violet'}`}>
+          {order.statusDelivery}
         </Button>
       </td>
       <td>{format(parseISO(order.createdAt), 'dd MMM yyyy - H:mm')}</td>
@@ -86,6 +91,7 @@ const AdminOrder = (fallback: any) => {
   const headers = (
     <tr>
       <th>Status Pembayaran</th>
+      <th>Pengiriman</th>
       <th>tgl dibuat</th>
       <th>tgl kadaluarsa</th>
       <th>Nama</th>

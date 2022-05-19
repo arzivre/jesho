@@ -1,21 +1,27 @@
-import NextLink from 'next/link'
 import {
-  Navbar,
-  Group,
+  Button,
   Code,
-  ScrollArea,
   createStyles,
-  Anchor,
+  Group,
+  Navbar,
+  ScrollArea,
+  Text,
 } from '@mantine/core'
-import { Notes, Gauge } from 'tabler-icons-react'
+import NextLink from 'next/link'
 
 const mockdata = [
-  { href: '/admin/', label: 'Dashboard', icon: Gauge },
-  { href: '/admin/order', label: 'Order', icon: Notes },
-  { href: '/admin/product', label: 'Products', icon: Notes },
-  { href: '/admin/product/upload', label: 'Upload Product', icon: Notes },
-  { href: '/admin/blog', label: 'Blog', icon: Notes },
-  { href: '/admin/blog/upload', label: 'Create Blog', icon: Notes },
+  { href: '/admin/', label: 'Dashboard' },
+  { href: '/admin/order', label: 'Order' },
+  { href: '/admin/product', label: 'Products' },
+  {
+    href: '/admin/product/upload',
+    label: 'Upload Product',
+  },
+  { href: '/admin/blog', label: 'Blog' },
+  {
+    href: '/admin/blog/upload',
+    label: 'Create Blog',
+  },
 ]
 
 const useStyles = createStyles((theme) => ({
@@ -60,7 +66,18 @@ const AdminNavbar = () => {
   const links = mockdata.map((item) => (
     <div key={item.label}>
       <NextLink href={item.href} passHref>
-        <Anchor>{item.label}</Anchor>
+        <Button
+          component='a'
+          fullWidth
+          variant='gradient'
+          gradient={{ from: 'teal', to: 'lime', deg: 105 }}
+          mb={20}
+          style={{
+            fontFamily: 'sans-serif',
+          }}
+        >
+          {item.label}
+        </Button>
       </NextLink>
     </div>
   ))
