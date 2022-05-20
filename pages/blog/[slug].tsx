@@ -6,7 +6,7 @@ import { ParsedUrlQuery } from 'querystring'
 
 import { Loading } from 'components/Loading'
 import Main from 'components/Main'
-import { Container, createStyles, Group, Text, Title } from '@mantine/core'
+import { Container, createStyles, Group, Text, Title, Box } from '@mantine/core'
 import { BlogProps } from 'libs/types'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
@@ -57,11 +57,18 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (
 }
 
 const useStyles = createStyles((theme) => ({
-  title: {
-    fontSize: theme.fontSizes.xl * 3,
+  root: {
+    background: theme.colors.gray[2],
   },
-  [theme.fn.smallerThan('md')]: {
-    fontSize: theme.fontSizes.md,
+  image: {
+    maxWidth: '100%',
+    maxHeight: '400px',
+    margin: '0 auto',
+  },
+  content: {
+    background: theme.colors.gray[2],
+    border: 0,
+    padding: 0,
   },
 }))
 
@@ -71,34 +78,34 @@ const BlogDetail = ({ blog }: BlogDetailsProps) => {
 
   return (
     <Main>
-      <Container>
-        {blog.cover && (
-          <Group position='center' mt={20}>
-            <div>
+      <Box className={classes.root}>
+        <Container>
+          <Group direction='column' position='left' spacing={4} py={20}>
+            <Title order={1}>{blog.title}</Title>
+            <Text size='sm' inline>
+              {format(parseISO(blog.publishedAt), 'dd MMM yyyy')}
+            </Text>
+          </Group>
+          {blog.cover && (
+            <Group position='center' className={classes.image}>
               <Image
                 src={blog.cover}
                 alt={blog.title}
                 height={400}
-                width={900}
+                width={930}
+                layout='fixed'
               />
-            </div>
-          </Group>
-        )}
-        <Text size='sm' inline my={20}>
-          {format(parseISO(blog.publishedAt), 'dd MMM yyyy')}
-        </Text>
-        <Title align='center' mb={50} className={classes.title}>
-          {blog.title}
-        </Title>
-        <RichTextEditor
-          value={content}
-          onChange={onChange}
-          readOnly
-          style={{
-            border: 0,
-          }}
-        />
-      </Container>
+            </Group>
+          )}
+          <RichTextEditor
+            value={content}
+            onChange={onChange}
+            readOnly
+            mt={20}
+            className={classes.content}
+          />
+        </Container>
+      </Box>
     </Main>
   )
 }
