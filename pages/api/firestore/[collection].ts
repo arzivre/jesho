@@ -42,7 +42,7 @@ export default async function handler(
     try {
       await db
         .collection(collection as string)
-        .doc(id as string)
+        .doc(req.body)
         .delete()
       res.status(201).end(JSON.stringify('Deleted'))
     } catch (error: any) {
