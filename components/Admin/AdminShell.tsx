@@ -31,10 +31,14 @@ const AdminShell = ({ children }: AdminShellProps) => {
         </Navbar>
       }
       header={
-        <Header height={60} p='xs'>
-          <div
-            style={{ display: 'flex', alignItems: 'center', height: '100%' }}
-          >
+        <Header
+          height={60}
+          p='xs'
+          sx={(theme) => ({
+            background: `linear-gradient(135deg, ${theme.colors.indigo[6]} 0%, ${theme.colors.cyan[6]} 100%)`,
+          })}
+        >
+          <div style={{ display: 'flex', height: '100%' }}>
             <MediaQuery largerThan='sm' styles={{ display: 'none' }}>
               <Burger
                 opened={opened}
@@ -45,7 +49,14 @@ const AdminShell = ({ children }: AdminShellProps) => {
               />
             </MediaQuery>
 
-            <Text>Admin Section</Text>
+            <Text
+              align='center'
+              size='xl'
+              color='white'
+              sx={{ margin: 'auto' }}
+            >
+              Admin Section
+            </Text>
           </div>
         </Header>
       }

@@ -12,7 +12,7 @@ import { Loading } from 'components/Loading'
 
 import AdminTable from 'components/Admin/AdminTable'
 import NextLink from 'next/link'
-import { Anchor, Button, Group, Image } from '@mantine/core'
+import { Anchor, Button, Group, Image, Text, Title } from '@mantine/core'
 import { useRouter } from 'next/router'
 import post from 'utils/post'
 
@@ -69,7 +69,7 @@ const Products = ({ fallback }: Props) => {
         </Button>
       </td>
       <td>{product.id}</td>
-      <td>{product.title}</td>
+      <td>{product.createdAt}</td>
       <td>{product.price}</td>
       <td>
         <NextLink href={`/${product.slug}`} passHref>
@@ -80,8 +80,8 @@ const Products = ({ fallback }: Props) => {
         <Image
           src={product.imgUrl}
           alt={product.title}
-          width='100px'
-          height='140px'
+          width='150px'
+          height='150px'
         />
       </td>
     </tr>
@@ -90,7 +90,7 @@ const Products = ({ fallback }: Props) => {
     <tr>
       <th>Update</th>
       <th>Action</th>
-      <th>Id</th>
+      <th>Dibuat</th>
       <th>Title</th>
       <th>Price</th>
       <th>Description</th>
@@ -99,6 +99,12 @@ const Products = ({ fallback }: Props) => {
   )
   return (
     <AdminShell>
+      <Group position='apart' mb={20}>
+        <Title>Products</Title>
+        <NextLink href='/admin/product/upload' passHref>
+          <Button component='a'>Upload a Product</Button>
+        </NextLink>
+      </Group>
       {loading && <Loading />}
       <Suspense fallback={<Loading />}>
         <AdminTable headers={headers} rows={rows} />

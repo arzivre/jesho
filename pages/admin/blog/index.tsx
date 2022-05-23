@@ -1,4 +1,4 @@
-import { Anchor, Button, Text } from '@mantine/core'
+import { Anchor, Button, Group, Text, Title } from '@mantine/core'
 import AdminShell from 'components/Admin/AdminShell'
 import AdminTable from 'components/Admin/AdminTable'
 import { db } from 'libs/firebase-admin'
@@ -59,7 +59,12 @@ const AdminBlog = ({ blogs }: Props) => {
   )
   return (
     <AdminShell>
-      <h1>Blog</h1>
+      <Group position='apart' mb={20}>
+        <Title>Blogs</Title>
+        <NextLink href='/admin/blog/upload' passHref>
+          <Button component='a'>Upload a Blog</Button>
+        </NextLink>
+      </Group>
       <AdminTable headers={headers} rows={rows} />
     </AdminShell>
   )
