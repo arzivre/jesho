@@ -11,7 +11,7 @@ export default async function handler(
   //   return res.status(401).json({ message: 'Invalid token' })
   // }
 
-  const { collection, id, limit } = req.query
+  const { collection, id, condition, limit } = req.query
 
   if (req.method === 'POST') {
     try {
@@ -51,6 +51,23 @@ export default async function handler(
   }
 
   if (req.method === 'GET') {
+    if (condition) {
+      //* route example /api/firestore/user?condition=userId?where
+      //* ?foo=bar equivalent foo:'bar' in query
+      
+      try {
+        const results = await db
+          .collection(collection as string)
+          .where(condition as string, '==', req.body)
+          .orderBy('createdAt', 'desc')
+          .limit(Number(limit) || 10)
+          .get()
+
+        res.status(200).json(results)
+      } catch (error: any) {
+        res.status(400).json(error.message)
+      }
+    }
     if (id) {
       try {
         const results = await db
