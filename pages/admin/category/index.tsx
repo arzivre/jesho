@@ -14,6 +14,8 @@ import { Loading } from 'components/Loading'
 import { db } from 'libs/firebase-admin'
 import { GetStaticProps } from 'next'
 import { Suspense, useState } from 'react'
+import useSWR from 'swr'
+import fetcher from 'utils/fetcher'
 import post from 'utils/post'
 
 export const getStaticProps: GetStaticProps = async (context) => {
@@ -22,15 +24,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
     .orderBy('createdAt', 'desc')
     .get()
 
-  let categories: any[] = []
+  let fallback: any[] = []
 
   snapshot.forEach((doc) => {
-    categories.push({ ...doc.data() })
+    fallback.push({ ...doc.data() })
   })
   return {
     // will be passed to the page component as props
-    props: { categories },
-    revalidate: 60,
+    props: { fallback },
+    revalidate: 24 * 3600,
   }
 }
 interface Category {
@@ -40,9 +42,13 @@ interface Category {
   createdAt: string
 }
 interface CategoryProps {
-  categories: [Category]
+  fallback: [Category]
 }
-const AdminCategory = ({ categories }: CategoryProps) => {
+const AdminCategory = ({ fallback }: CategoryProps) => {
+  const { data: categories } = useSWR('/api/firestore/category', fetcher, {
+    fallback: fallback,
+    suspense: true,
+  })
   const [loading, setLoading] = useState(false)
 
   const form = useForm({

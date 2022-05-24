@@ -15,6 +15,7 @@ import NextLink from 'next/link'
 import { Anchor, Button, Group, Image, Text, Title } from '@mantine/core'
 import { useRouter } from 'next/router'
 import post from 'utils/post'
+import { parseISO, format } from 'date-fns'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const snapshot = await db
@@ -68,8 +69,8 @@ const Products = ({ fallback }: Props) => {
           Delete
         </Button>
       </td>
-      <td>{product.id}</td>
-      <td>{product.createdAt}</td>
+      <td> {format(parseISO(product.createdAt), 'dd MMM yyyy')}</td>
+      <td>{product.title}</td>
       <td>{product.price}</td>
       <td>
         <NextLink href={`/${product.slug}`} passHref>

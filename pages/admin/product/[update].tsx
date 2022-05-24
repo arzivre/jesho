@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { Loading } from 'components/Loading'
 import AdminShell from 'components/Admin/AdminShell'
-import { Button, Group, InputWrapper, TextInput, Title } from '@mantine/core'
+import { Button, Group, InputWrapper, NativeSelect, TextInput, Title } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useProduct } from 'hooks/useProduct'
 import Image from 'next/image'
@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { db } from 'libs/firebase-admin'
 import { ParsedUrlQuery } from 'querystring'
-import { DataProps, ProductProps } from 'libs/types'
+import { CategoryProps, DataProps, ProductProps } from 'libs/types'
 import { firestore } from 'libs/firebase'
 
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
@@ -26,8 +26,9 @@ interface Params extends ParsedUrlQuery {
   update: string
 }
 
-interface ProductDetailsProps {
+interface UpdateProps {
   product: ProductProps
+  categories: CategoryProps[]
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -51,24 +52,37 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (
   const params = context.params! // ! is a non-null assertion
   const doc = await db.collection('products').doc(params.update).get()
   const product = { id: doc.id, ...doc.data() }
+
+  const snapshot = await db
+    .collection('category')
+    .where('type', '==', 'product')
+    .orderBy('createdAt', 'desc')
+    .get()
+  let categories: any[] = []
+  snapshot.forEach((doc) => {
+    categories.push({ ...doc.data() })
+  })
   return {
-    props: { product },
+    props: { product, categories },
     revalidate: 60,
   }
 }
 
-const UpdateProduct = ({ product }: ProductDetailsProps) => {
+const UpdateProduct = ({ product, categories }: UpdateProps) => {
   const router = useRouter()
   const [content, onChange] = useState(product.content)
   const [thumbnail, setThumbnail] = useState<null | any>(null)
   const [thumbnailError, setThumbnailError] = useState('')
-
+  
   const { uploadImage, loading, error } = useProduct('products')
+  
+  const categoryList = categories.map((category) => category.title)
 
   const form = useForm({
     initialValues: {
       title: product.title,
       price: product.price,
+      category: product.category || '',
     },
   })
 
@@ -76,11 +90,11 @@ const UpdateProduct = ({ product }: ProductDetailsProps) => {
     const searchQuery = values.title
 
     const data: DataProps = {
-      ...values,
       content,
       productId: product.id,
       slug: values.title.replace(/\s/g, '-'),
       searchQuery,
+      ...values,
     }
 
     if (thumbnail) {
@@ -139,6 +153,14 @@ const UpdateProduct = ({ product }: ProductDetailsProps) => {
           label='Harga'
           placeholder='Harga Product'
           {...form.getInputProps('price')}
+        />
+
+        <NativeSelect
+          data={categoryList}
+          placeholder='Pick one'
+          label='Select Category'
+          required
+          {...form.getInputProps('category')}
         />
 
         <InputWrapper label='Image lama' labelElement='div'>

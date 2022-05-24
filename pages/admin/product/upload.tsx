@@ -2,43 +2,78 @@ import { ChangeEvent, Suspense, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { Loading } from 'components/Loading'
 import AdminShell from 'components/Admin/AdminShell'
-import { Button, Group, InputWrapper, TextInput, Title } from '@mantine/core'
+import {
+  Button,
+  Group,
+  InputWrapper,
+  NativeSelect,
+  TextInput,
+  Title,
+} from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useProduct } from 'hooks/useProduct'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { firestore, storage } from 'libs/firebase'
-import { DataProps } from 'libs/types'
+import { CategoryProps, DataProps } from 'libs/types'
+import { GetStaticProps } from 'next'
+import { db } from 'libs/firebase-admin'
 
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
   loading: () => <Loading />,
 })
 
-const UploadProduct = () => {
+export const getStaticProps: GetStaticProps = async (context) => {
+  const snapshot = await db
+    .collection('category')
+    .where('type', '==', 'product')
+    .orderBy('createdAt', 'desc')
+    .get()
+
+  let categories: any[] = []
+
+  snapshot.forEach((doc) => {
+    categories.push({ ...doc.data() })
+  })
+  return {
+    // will be passed to the page component as props
+    props: { categories },
+    revalidate: 60,
+  }
+}
+
+interface Props {
+  categories: [CategoryProps]
+}
+
+const UploadProduct = ({ categories }: Props) => {
   const router = useRouter()
+  const [loading, setLoading] = useState(false)
   const [content, onChange] = useState('<p> Descripsi produk</p>')
   const [thumbnail, setThumbnail] = useState<null | any>(null)
   const [thumbnailError, setThumbnailError] = useState('')
-
-  const { uploadImage, loading, error } = useProduct('products')
 
   const form = useForm({
     initialValues: {
       title: '',
       price: '',
+      category: '',
     },
   })
 
+  const categoryList = categories.map((category) => category.title)
+
   const handleSubmit = async (values: typeof form.values) => {
+    setLoading(true)
     const searchQuery = values.title
 
     const data: DataProps = {
-      ...values,
       content,
+      createdAt: new Date().toISOString(),
       slug: values.title.replace(/\s/g, '-'),
       searchQuery,
-      createdAt: new Date().toISOString(),
+      ...values,
     }
 
     const uploadPath = `products/jesho/${thumbnail.name}`
@@ -52,7 +87,7 @@ const UploadProduct = () => {
       ...data,
       productId: docRef.id,
     })
-
+    setLoading(false)
     router.push('/admin/product')
   }
 
@@ -82,7 +117,7 @@ const UploadProduct = () => {
 
   return (
     <AdminShell>
-      <Title>Upload</Title>
+      <Title>Upload Product</Title>
 
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <TextInput
@@ -98,7 +133,13 @@ const UploadProduct = () => {
           placeholder='Harga Product'
           {...form.getInputProps('price')}
         />
-
+        <NativeSelect
+          data={categoryList}
+          placeholder='Pick one'
+          label='Select Category'
+          required
+          {...form.getInputProps('category')}
+        />
         <Suspense fallback={<Loading />}>
           <InputWrapper id='description' required label='Deskripsi Produk'>
             <RichTextEditor
@@ -143,7 +184,6 @@ const UploadProduct = () => {
             <Button type='submit'>Upload</Button>
           )}
         </Group>
-        {error && <div>{error}</div>}
       </form>
     </AdminShell>
   )
