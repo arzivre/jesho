@@ -19,6 +19,8 @@ const store = proxy({
     )
 
     const item = { ...newItems }
+    delete item.createdAt
+    delete item.searchQuery
     delete item.content
 
     if (isNew) {
