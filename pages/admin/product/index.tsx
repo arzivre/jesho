@@ -70,7 +70,10 @@ const Products = ({ fallback }: Props) => {
         </Button>
       </td>
       <td> {format(parseISO(product.createdAt), 'dd MMM yyyy')}</td>
-      <td>{product.title}</td>
+      <td>
+        <p>{product.title}</p>
+        <p>Category: {product.category}</p>
+      </td>
       <td>{product.price}</td>
       <td>
         <NextLink href={`/${product.slug}`} passHref>
