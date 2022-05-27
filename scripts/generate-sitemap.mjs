@@ -1,5 +1,6 @@
 // TODO: update sitema with this guide
 // TODO: https://leerob.io/blog/nextjs-sitemap-robots
+
 import { writeFileSync } from 'fs'
 import { globby } from 'globby'
 const homeURL = 'https://www.houseofjesho.com'
@@ -10,7 +11,6 @@ const homeURL = 'https://www.houseofjesho.com'
 
     const pages = await globby([
       'pages/*.tsx',
-      'pages/[**].tsx',
       'pages/**/*.tsx',
       '!pages/_*.tsx',
       '!pages/404.tsx',
@@ -47,7 +47,7 @@ const homeURL = 'https://www.houseofjesho.com'
         </urlset>`
 
     writeFileSync('public/sitemap.xml', sitemap)
-    console.log('sitemap generated')
+    console.log('SITEMAP GENERATED !!!')
   } catch (e) {
     console.log(e)
     process.exit(1)
