@@ -48,9 +48,7 @@ const Home = ({ products }: Props) => {
 
       <Main>
         <Suspense fallback={<LoadingFullScreen />}>
-          <Container size='xl'>
             <Banner />
-          </Container>
         </Suspense>
 
         <Suspense fallback={<LoadingFullScreen />}>

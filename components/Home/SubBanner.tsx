@@ -2,7 +2,14 @@ import { Key, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import NextLink from 'next/link'
-import { Button, Container, createStyles, Group } from '@mantine/core'
+import {
+  Button,
+  Container,
+  createStyles,
+  Divider,
+  Group,
+  Title,
+} from '@mantine/core'
 import { ProductProps } from 'libs/types'
 
 // const images = [
@@ -50,10 +57,10 @@ const useStyles = createStyles((theme) => ({
 interface Props {
   images: [ProductProps]
 }
-const SubBanner = ({ images }:Props) => {
+const SubBanner = ({ images }: Props) => {
   const [widt, setWidth] = useState(0)
   const carousel = useRef<HTMLDivElement>(null)
-  const { classes } = useStyles()
+  const { classes, theme } = useStyles()
 
   useEffect(() => {
     if (null !== carousel.current) {
@@ -64,6 +71,17 @@ const SubBanner = ({ images }:Props) => {
   return (
     <motion.div ref={carousel} className={classes.carousel}>
       <Container size='xl'>
+        <Title order={2} mb={16} sx={{ fontFamily: 'Greycliff CF' }}>
+          Produk Terbaru
+          <Divider
+            color='pink'
+            size='xl'
+            sx={(theme) => ({
+              // color: theme.colors.lime[9],
+              width: '90px',
+            })}
+          />
+        </Title>
         <motion.div
           drag='x'
           dragConstraints={{ right: 0, left: -widt }}

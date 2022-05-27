@@ -1,6 +1,5 @@
 import Image from 'next/image'
-import { Box, Group, SimpleGrid, Text, Title } from '@mantine/core'
-
+import { Box, Divider, Group, SimpleGrid, Text, Title } from '@mantine/core'
 const GridBanner = () => {
   return (
     <SimpleGrid
@@ -11,9 +10,19 @@ const GridBanner = () => {
     >
       <Group direction='column' grow>
         <Box>
-          <Title order={2}>Product</Title>
+          <Title order={2} mb={16} sx={{ fontFamily: 'Greycliff CF' }}>
+            Produk Lainya
+            <Divider
+              color='pink'
+              size='xl'
+              sx={() => ({
+                // color: theme.colors.lime[9],
+                width: '90px',
+              })}
+            />
+          </Title>
           <Text size='xl' weight={400}>
-            Epic home decor from creative finger macrame and wood
+            Dekorasi rumah
           </Text>
         </Box>
         <Box style={{ margin: 'auto', height: '400px', minWidth: '350px' }}>
