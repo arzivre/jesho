@@ -28,12 +28,12 @@ const useStyles = createStyles((theme) => ({
     borderRadius: 4,
   },
   header: {
-    background: theme.colors.teal[6],
-    color: theme.colors.gray[0],
+    background: theme.colors.teal[3],
+    color: theme.colors.gray[9],
     padding: '8px 12px',
   },
   main: {
-    background: theme.colors.gray[1],
+    background: theme.colors.teal[1],
     padding: 8,
     overflowX: 'hidden',
   },
@@ -80,15 +80,18 @@ const OrderList = () => {
             <Card.Section>
               <Group position='apart' className={classes.header}>
                 <Button
-                  color={`${order.status === 'PENDING' ? 'yellow' : 'lime'}`}
+                  color={`${order.status === 'PENDING' ? 'yellow' : 'teal'}`}
+                  sx={{ fontWeight: 400 }}
                 >
-                  STATUS:{' '}
                   {order.statusDelivery === 'DIKIRIM'
-                    ? `DIKIRIM - RESI:${order.codeDelivery}`
+                    ? `DIKIRIM VIA JNE-RESI ${order.codeDelivery} `
                     : order.statusDelivery}
                 </Button>
-                <Text>Jumlah: {order.items.itemCount}</Text>
-                <Text>Total: Rp {order.expected_amount}</Text>
+                <Text>Jumlah {order.items.itemCount}</Text>
+                <Group>
+                  <Text>Total </Text>
+                  <Text weight={500}>Rp {order.expected_amount}</Text>
+                </Group>
                 <Text>
                   {format(parseISO(order.createdAt), 'dd MMM yyyy - H:mm')}
                 </Text>
