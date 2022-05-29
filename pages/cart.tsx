@@ -96,7 +96,7 @@ const Cart = () => {
                 <hr />
 
                 <Group position='apart'>
-                  <Text size='md'>Total:</Text>
+                  <Text size='md'>Total</Text>
                   <Text size='md'>
                     Rp {item.quantity! * Number(item.price)}
                   </Text>
@@ -105,10 +105,10 @@ const Cart = () => {
             </SimpleGrid>
           ))}
         <Group direction='column' position='right'>
-          <Text size='md'>Jumlah: {itemCount}</Text>
-          <Text size='md'>Subtotal: Rp {total}</Text>
-          <Text size='md'>Pengiriman: Rp 30000</Text>
-          <Text size='xl'>Total: Rp {total + 30000}</Text>
+          <Text size='md'>Jumlah {itemCount}</Text>
+          <Text size='md'>Subtotal Rp {total}</Text>
+          <Text size='md'>Pengiriman Rp 30000</Text>
+          <Text size='xl'>Total Rp {total + 30000}</Text>
         </Group>
 
         <Group position='right' spacing='xl' my={20}>

@@ -14,6 +14,7 @@ import {
   Title,
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
+import { showNotification, updateNotification } from '@mantine/notifications'
 import { Loading, LoadingFullScreen } from 'components/Loading'
 import Main from 'components/Main'
 import VirtualAccount from 'components/VirtualAccount'
@@ -23,6 +24,7 @@ import { firestore } from 'libs/firebase'
 import { ProductProps } from 'libs/types'
 import NextLink from 'next/link'
 import { Suspense, useState } from 'react'
+import { BsFillCheckCircleFill } from 'react-icons/bs'
 import { FcGoogle } from 'react-icons/fc'
 import post from 'utils/post'
 
@@ -64,6 +66,13 @@ const Checkout = () => {
   ))
 
   const handleSubmit = async (values: typeof form.values) => {
+    showNotification({
+      id: 'checkout',
+      title: 'Memproses Pesanan',
+      message: 'Loading...',
+      disallowClose: true,
+      loading: true,
+    })
     setError(null)
     setLoading(true)
     setVirtualAccount(null)
@@ -101,11 +110,26 @@ const Checkout = () => {
       setVirtualAccount(results)
 
       clear()
+      updateNotification({
+        id: 'sukses',
+        color: 'teal',
+        title: 'Sukses',
+        message: 'Tutup notifikasi ini sekarang',
+        icon: <BsFillCheckCircleFill />,
+        autoClose: 5000,
+      })
       setLoading(false)
     } catch (error) {
       console.error(error)
       setError(error)
       setLoading(false)
+      updateNotification({
+        id: 'error',
+        color: 'red',
+        title: 'Error',
+        message: 'Coba Lagi atau Kontak admin untuk minta bantuan',
+        autoClose: 5000,
+      })
     }
   }
 
@@ -190,7 +214,7 @@ const Checkout = () => {
               <Group direction='column' position='center'>
                 <Title order={2}>Alamat Pengiriman</Title>
                 <form onSubmit={form.onSubmit(handleSubmit)}>
-                  <Group grow>
+                  <Group grow mb={10}>
                     <TextInput
                       required
                       label='Nama depan'
@@ -204,7 +228,7 @@ const Checkout = () => {
                       {...form.getInputProps('nama_belakang')}
                     />
                   </Group>
-                  <Group grow>
+                  <Group grow mb={10}>
                     <TextInput
                       required
                       label='Email'
@@ -223,11 +247,13 @@ const Checkout = () => {
                     label='Alamat Pengiriman'
                     placeholder='15329 Huston 21st'
                     {...form.getInputProps('alamat')}
+                    mb={10}
                   />
                   <TextInput
                     label='Detail Alamat'
                     placeholder='(optional)'
                     {...form.getInputProps('detail_alamat')}
+                    mb={10}
                   />
                   <Select
                     data={['Indonesia']}
@@ -236,7 +262,7 @@ const Checkout = () => {
                     {...form.getInputProps('negara')}
                     value={'Indonesia'}
                   />
-                  <Group direction='row' grow>
+                  <Group direction='row' grow mb={10}>
                     <TextInput
                       required
                       label='Provinsi'

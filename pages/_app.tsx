@@ -40,7 +40,6 @@ function App(props: AppProps) {
 
           fontFamily: 'Varela Round, sans-serif',
           headings: { fontFamily: 'Greycliff CF, sans-serif' },
-          loader: 'bars',
 
           shadows: 'sm',
         }}
