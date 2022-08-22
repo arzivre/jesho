@@ -26,7 +26,7 @@ const GridBanner = () => {
           </Text>
         </Box>
         <Box style={{ margin: 'auto', height: '400px', minWidth: '350px' }}>
-          <Image
+          {/* <Image
             src='https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fb_5_.webp?alt=media&token=25e7cdac-ad6f-4ec9-b731-7ab9658ffde4'
             alt='Banner'
             height='80%'
@@ -34,7 +34,7 @@ const GridBanner = () => {
             layout='responsive'
             objectFit='contain'
             priority
-          />
+          /> */}
         </Box>
       </Group>
       <div
@@ -44,7 +44,7 @@ const GridBanner = () => {
           minWidth: '350px',
         }}
       >
-        <Image
+        {/* <Image
           src='https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/products%2Fjesho%2Fb_7_.webp?alt=media&token=c8cc54ca-b332-4bea-9099-ee7a055b5815'
           alt='Banner'
           height='80%'
@@ -52,7 +52,7 @@ const GridBanner = () => {
           layout='responsive'
           objectFit='contain'
           priority
-        />
+        /> */}
       </div>
     </SimpleGrid>
   )

@@ -51,7 +51,7 @@ const Home = ({ products }: Props) => {
             <Banner />
         </Suspense>
 
-        <Suspense fallback={<LoadingFullScreen />}>
+        {/* <Suspense fallback={<LoadingFullScreen />}>
           <SubBanner images={products} />
         </Suspense>
 
@@ -59,7 +59,7 @@ const Home = ({ products }: Props) => {
           <Container size='xl'>
             <GridBanner />
           </Container>
-        </Suspense>
+        </Suspense> */}
       </Main>
     </>
   )
