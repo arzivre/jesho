@@ -11,6 +11,7 @@ import { BlogProps } from 'libs/types'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { format, parseISO } from 'date-fns'
+import Meta from 'components/Meta'
 
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
@@ -77,6 +78,8 @@ const BlogDetail = ({ blog }: BlogDetailsProps) => {
   const [content, onChange] = useState(blog.content)
 
   return (
+    <>
+    <Meta />
     <Main>
       <Box className={classes.root}>
         <Container>
@@ -107,6 +110,8 @@ const BlogDetail = ({ blog }: BlogDetailsProps) => {
         </Container>
       </Box>
     </Main>
+    </>
+
   )
 }
 export default BlogDetail

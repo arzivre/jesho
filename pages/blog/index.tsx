@@ -18,6 +18,7 @@ import { format, parseISO } from 'date-fns'
 import { GetStaticProps } from 'next'
 import { db } from 'libs/firebase-admin'
 import { BlogProps } from 'libs/types'
+import Meta from 'components/Meta'
 
 export const getStaticProps: GetStaticProps = async () => {
   const snapshot = await db
@@ -68,6 +69,8 @@ const Blog = ({ blogs }: Props) => {
   const { classes } = useStyles()
 
   return (
+    <>
+    <Meta />
     <Main>
       <Title align='center' order={1} className={classes.title}>
         Blog
@@ -108,6 +111,7 @@ const Blog = ({ blogs }: Props) => {
         ))}
       </Container>
     </Main>
+    </>
   )
 }
 export default Blog

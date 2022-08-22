@@ -22,6 +22,7 @@ import {
 import useCart from 'hooks/useCart'
 import isInCart from 'utils/isInCart'
 import { BsFillTrashFill } from 'react-icons/bs'
+import Meta from 'components/Meta'
 
 type Props = {
   product: any
@@ -71,6 +72,8 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
   const inCart = isInCart(cart, product)
 
   return (
+    <>
+    <Meta />
     <Main>
       <Box
         style={{
@@ -160,6 +163,8 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
         </Suspense>
       </Box>
     </Main>
+    </>
+
   )
 }
 export default ProductDetails

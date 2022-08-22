@@ -20,6 +20,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import NextLink from 'next/link'
 import { Suspense } from 'react'
+import Meta from 'components/Meta'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const snapshotProducts = await db
@@ -82,9 +83,7 @@ const ShopPage = ({ products, categories }: Props) => {
 
   return (
     <>
-      <Head>
-        <title>Shop - Jesho</title>
-      </Head>
+      <Meta/>
 
       <Main>
         <Box sx={{ backgroundColor: '#E9ECEF' }}>

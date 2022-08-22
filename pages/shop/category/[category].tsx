@@ -20,6 +20,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import NextLink from 'next/link'
 import { Suspense } from 'react'
+import Meta from 'components/Meta'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const ref = await db.collection('category').get()
@@ -101,9 +102,7 @@ const CategoryPage = ({ products, categories }: Props) => {
 
   return (
     <>
-      <Head>
-        <title>Category - Jesho</title>
-      </Head>
+      <Meta/>
 
       <Main>
         <Box sx={{ backgroundColor: '#E9ECEF' }}>
