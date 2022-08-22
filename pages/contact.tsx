@@ -1,14 +1,11 @@
-import Main from "components/Main";
+import Main from 'components/Main'
 
 const ContactPage = () => {
   return (
     <>
-      <Main>
-
-      Kontak Kami
-      </Main>
+      <Main>Kontak Kami</Main>
     </>
-  );
+  )
 }
 
-export default ContactPage;
+export default ContactPage
