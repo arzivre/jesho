@@ -18,6 +18,7 @@ const data = [
   { href: '/admin/user', label: 'User' },
   { href: '/admin/product', label: 'Products' },
   { href: '/admin/blog', label: 'Blog' },
+  { href: '/admin/penjualan', label: 'Penjualan' },
   { href: '/admin/category', label: 'Category' },
 ]
 
@@ -91,38 +92,24 @@ const useStyles = createStyles((theme) => ({
 
 const AdminNavbar = () => {
   const router = useRouter()
-  const [active, setActive] = useState(router.pathname)
   const { classes, cx } = useStyles()
 
   const links = data.map((item) => (
-    <div key={item.label}>
+    <div key={item.label} className='mx-4'>
       <NextLink href={item.href} passHref>
-        <Button
-          component='a'
-          fullWidth
-          mb={20}
-          onClick={() => setActive(item.href)}
-          className={cx(classes.link, {
-            [classes.linkActive]: active === item.href,
-          })}
+        <button
+          className='mb-2 block w-full bg-gray-700
+        px-3 py-3 text-gray-50 hover:bg-gray-300 hover:text-gray-900'
         >
           {item.label}
-        </Button>
+        </button>
       </NextLink>
     </div>
   ))
 
   return (
     <>
-      <Navbar.Section className={classes.header}>
-        <Text align='center' size='xl'>
-          {active === '/admin'
-            ? 'Dashboard'
-            : active.replace('/admin', '').replace('/', '').toUpperCase()}
-        </Text>
-      </Navbar.Section>
-
-      <Navbar.Section grow className={classes.links} component={ScrollArea}>
+      <Navbar.Section grow className='bg-gray-900' component={ScrollArea}>
         <div className={classes.linksInner}>{links}</div>
       </Navbar.Section>
     </>

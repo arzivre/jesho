@@ -24,6 +24,188 @@ import {
   Transition,
   UnstyledButton,
 } from '@mantine/core'
+import { Loading } from './Loading'
+
+const links = [
+  {
+    link: '/',
+    label: 'Home',
+  },
+  {
+    link: '/blog',
+    label: 'Blog',
+  },
+  {
+    link: '/product',
+    label: 'Produk',
+  },
+  {
+    link: '/pola',
+    label: 'Pola',
+  },
+  {
+    link: '/harga',
+    label: 'Daftar Harga',
+  },
+  {
+    link: '/contact',
+    label: 'Kontak Kami',
+  },
+  {
+    link: '/testimoni',
+    label: 'Testimoni',
+  },
+]
+
+const UserMenu = () => {
+  const { classes, theme, cx } = useStyles()
+  let { currentUser: user }: any = useAuth()
+  const [userMenuOpened, setUserMenuOpened] = useBooleanToggle(false)
+  const router = useRouter()
+
+  return (
+    <Menu
+      size={260}
+      placement='end'
+      transition='pop-top-right'
+      className='pt-2'
+      onClose={() => setUserMenuOpened(false)}
+      onOpen={() => setUserMenuOpened(true)}
+      control={
+        <UnstyledButton
+          className={cx(classes.user, { [classes.userActive]: userMenuOpened })}
+        >
+          <Group spacing={7}>
+            {user ? (
+              <Avatar
+                src={user.photoURL}
+                alt={user.name}
+                radius='xl'
+                size={20}
+              />
+            ) : (
+              <BiUserCircle size={20} />
+            )}
+            <Text
+              className={classes.userMenu}
+              weight={500}
+              size='sm'
+              sx={{ lineHeight: 1 }}
+              mr={3}
+            >
+              {user ? user.name : 'Guest'}
+            </Text>
+            <BiChevronDown size={12} />
+          </Group>
+        </UnstyledButton>
+      }
+    >
+      <NextLink href={'/order'} prefetch={false} passHref>
+        <a className={classes.link} style={{ padding: 0 }}>
+          <Menu.Item icon={<BsBucket size={14} color={theme.colors.blue[6]} />}>
+            Order Lists
+          </Menu.Item>
+        </a>
+      </NextLink>
+      {user ? (
+        <Menu.Item
+          color='red'
+          icon={<BiLogOut size={14} color='red' />}
+          onClick={() => signout()}
+        >
+          Log out
+        </Menu.Item>
+      ) : (
+        <Menu.Item
+          icon={<FcGoogle size={14} />}
+          onClick={() => signinWithGoogle(router.asPath)}
+        >
+          Log in
+        </Menu.Item>
+      )}
+    </Menu>
+  )
+}
+
+const CartIcon = () => {
+  let { sumItems } = useCart()
+  let { itemCount } = sumItems()
+
+  return (
+    <div className='pt-2'>
+      <NextLink href={'/cart'} passHref>
+        <a>
+          <ActionIcon size='lg'>
+            <BsBucket size={14} />
+            {itemCount > 0 && itemCount}
+          </ActionIcon>
+        </a>
+      </NextLink>
+    </div>
+  )
+}
+const Mobile = () => {
+  let { classes, theme, cx } = useStyles()
+  const [opened, toggleOpened] = useBooleanToggle(false)
+
+  return (
+    <>
+      <div className='flex gap-x-2 pt-2 lg:hidden'>
+        <Burger opened={opened} onClick={() => toggleOpened()} size='sm' />
+        <span className='hidden pt-1 sm:block'>Menu</span>
+      </div>
+      <Transition transition='pop-top-right' duration={200} mounted={opened}>
+        {(styles) => (
+          <Paper className={classes.dropdown} withBorder style={styles}>
+            <ol>
+              {links.map(({ label, link }) => (
+                <NextLink key={label} href={link}>
+                  <a className='hover:underline'>{label}</a>
+                </NextLink>
+              ))}
+            </ol>
+          </Paper>
+        )}
+      </Transition>
+    </>
+  )
+}
+export const NewHeader = () => {
+  return (
+    <header className='sticky top-0 z-10 mx-auto flex max-w-screen-xl justify-between px-4'>
+      <Mobile />
+
+      <NextLink href='/'>
+        <a>
+          <h1>JESHO</h1>
+        </a>
+      </NextLink>
+
+      <ol className='my-1 hidden gap-x-4 px-4 py-2 lg:flex [&>li>a]:py-1 [&>li>a]:px-2'>
+        {links.map(({ label, link }) => (
+          <NextLink key={label} href={link}>
+            <a className='rounded px-2 py-1 hover:bg-gray-500 hover:text-gray-50'>
+              {label}
+            </a>
+          </NextLink>
+        ))}
+      </ol>
+
+      <ol className='flex gap-x-4'>
+        <li>
+          <Suspense fallback={<Loading />}>
+            <UserMenu />
+          </Suspense>
+        </li>
+        <li>
+          <Suspense fallback={<Loading />}>
+            <CartIcon />
+          </Suspense>
+        </li>
+      </ol>
+    </header>
+  )
+}
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -184,9 +366,9 @@ export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
                 radius='xl'
                 size={20}
               />
-            ) :
-              (<BiUserCircle size={20} />)
-            }
+            ) : (
+              <BiUserCircle size={20} />
+            )}
             <Text
               className={classes.userMenu}
               weight={500}

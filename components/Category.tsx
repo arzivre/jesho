@@ -70,14 +70,9 @@ const Category = ({ categories }: Props) => {
                 href={`/shop/category/${category.title}`}
                 passHref
               >
-                <Button
-                  component='a'
-                  variant='gradient'
-                  gradient={{ from: 'teal', to: 'lime', deg: 105 }}
-                  sx={{ width: 150 }}
-                >
-                  {category.title}
-                </Button>
+                <button>
+                  {category.title }
+               </button>
               </NextLink>
             ))}
           </Group>

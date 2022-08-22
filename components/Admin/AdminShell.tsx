@@ -25,7 +25,7 @@ const AdminShell = ({ children }: AdminShellProps) => {
           hidden={!opened}
           width={{ base: 300 }}
           height={500}
-          p='xs'
+          p={0}
         >
           <AdminNavbar />
         </Navbar>

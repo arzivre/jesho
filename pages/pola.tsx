@@ -1,5 +1,11 @@
+import Main from "components/Main"
+
 const PolaPage = () => {
-  return <div>Enter</div>
+  return <>
+    <Main>
+      Pola
+  </Main>
+  </>
 }
 
 export default PolaPage

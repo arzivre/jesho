@@ -1,8 +1,13 @@
+import Main from "components/Main";
+
 const ContactPage = () => {
   return (
-    <div>
-      Enter
-    </div>
+    <>
+      <Main>
+
+      Kontak Kami
+      </Main>
+    </>
   );
 }
 
