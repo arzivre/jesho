@@ -151,7 +151,12 @@ const OrderUpdate = () => {
           {...form.getInputProps('resi')}
         />
         <Group position='right' mt='md'>
-          <Button type='submit'>Submit</Button>
+          <button
+            className='rounded bg-blue-500 px-4 py-2 text-blue-50 hover:bg-blue-400'
+            type='submit'
+          >
+            Submit
+          </button>
         </Group>
       </form>
     </AdminShell>

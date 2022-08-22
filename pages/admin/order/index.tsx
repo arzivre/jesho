@@ -60,31 +60,42 @@ const AdminOrder = (fallback: any) => {
   const rows = orders.map((order: any) => (
     <tr key={order.id}>
       <td>
-        <Button color={`${order.status === 'PENDING' ? 'gray' : 'lime'}`}>
+        <button
+          className={`rounded p-2 text-gray-50 ${
+            order.status === 'PENDING' ? 'bg-gray-500' : 'bg-lime-500'
+          }`}
+        >
           {order.status}
-        </Button>
+        </button>
       </td>
       <td>
-        <Button color={`${order.status === 'PENDING' ? 'gray' : 'violet'}`}>
+        <button
+          className={`rounded p-2 text-gray-50 ${
+            order.status === 'PENDING' ? 'bg-gray-500' : 'bg-violet-500'
+          }`}
+        >
           {order.statusDelivery}
-        </Button>
+        </button>
       </td>
       <td>{format(parseISO(order.createdAt), 'dd MMM yyyy - H:mm')}</td>
       <td>{format(parseISO(order.expiration_date), 'dd MMM yyyy - H:mm')}</td>
       <td>{order.name}</td>
       <td>Rp {order.items.total}</td>
       <td>
-        <Button
+        <button
           onClick={() => handleUpdate(order.external_id)}
-          sx={{ margin: 'auto' }}
+          className='rounded bg-blue-500 px-4 py-2 text-blue-50 hover:bg-blue-400'
         >
           Edit
-        </Button>
+        </button>
       </td>
       <td>
-        <Button color='red' onClick={() => handleDelete(order.id)}>
+        <button
+          className='rounded bg-red-100 p-2 text-red-600 hover:bg-red-600 hover:text-red-900'
+          onClick={() => handleDelete(order.id)}
+        >
           Delete
-        </Button>
+        </button>
       </td>
     </tr>
   ))

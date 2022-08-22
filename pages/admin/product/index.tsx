@@ -62,12 +62,18 @@ const Products = ({ fallback }: Props) => {
   const rows = products.map((product: ProductProps) => (
     <tr key={product.id}>
       <td>
-        <Button onClick={() => handleUpdate(product.id)}>Edit</Button>
+        <button
+          className='rounded bg-blue-500 px-4 py-2 text-blue-50 hover:bg-blue-400'
+          onClick={() => handleUpdate(product.id)}
+        >
+          Edit
+        </button>
       </td>
       <td>
-        <Button color='red' onClick={() => handleDelete(product.id)}>
-          Delete
-        </Button>
+        <button
+        className='rounded bg-red-100 p-2 text-red-600 hover:bg-red-600
+        hover:text-red-900'
+          onClick={() => handleDelete(product.id)}>Delete</button>
       </td>
       <td> {format(parseISO(product.createdAt), 'dd MMM yyyy')}</td>
       <td>
@@ -106,7 +112,9 @@ const Products = ({ fallback }: Props) => {
       <Group position='apart' mb={20}>
         <Title>Products</Title>
         <NextLink href='/admin/product/upload' passHref>
-          <Button component='a'>Upload a Product</Button>
+          <a className='rounded bg-blue-500 px-4 py-2 text-blue-50 hover:bg-blue-400'>
+            Upload a Product
+          </a>
         </NextLink>
       </Group>
       {loading && <Loading />}

@@ -157,9 +157,19 @@ const AdminUploadBlog = () => {
 
         <Group position='right' mt='md'>
           {loading ? (
-            <Button disabled>Loading..</Button>
+            <button
+              className='rounded bg-blue-500 px-4 py-2 text-blue-50 hover:bg-blue-400'
+              disabled
+            >
+              Loading..
+            </button>
           ) : (
-            <Button type='submit'>Upload</Button>
+            <button
+              className='rounded bg-blue-500 px-4 py-2 text-blue-50 hover:bg-blue-400'
+              type='submit'
+            >
+              Upload
+            </button>
           )}
         </Group>
       </form>

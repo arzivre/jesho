@@ -220,9 +220,19 @@ const UpdateProduct = ({ product, categories }: UpdateProps) => {
 
         <Group position='right'>
           {loading ? (
-            <Button disabled>Loading..</Button>
+            <button
+              className='rounded bg-blue-500 px-4 py-2 text-blue-50 hover:bg-blue-400'
+              disabled
+            >
+              Loading..
+            </button>
           ) : (
-            <Button type='submit'>Update</Button>
+            <button
+              className='rounded bg-blue-500 px-4 py-2 text-blue-50 hover:bg-blue-400'
+              type='submit'
+            >
+              Update
+            </button>
           )}
         </Group>
         {error && <div>{error}</div>}

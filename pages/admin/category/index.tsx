@@ -130,7 +130,12 @@ const AdminCategory = ({ fallback }: CategoryProps) => {
           {loading ? (
             <Button disabled>Loading..</Button>
           ) : (
-            <Button type='submit'>Create</Button>
+            <button
+              className='rounded bg-blue-500 px-4 py-2 text-blue-50 hover:bg-blue-400'
+              type='submit'
+            >
+              Create
+            </button>
           )}
         </Group>
       </form>

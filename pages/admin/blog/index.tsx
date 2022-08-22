@@ -33,7 +33,9 @@ const AdminBlog = ({ blogs }: Props) => {
         <Button disabled>Edit</Button>
       </td>
       <td>
-        <Button color='red'>Delete</Button>
+        <button className='rounded bg-red-100 p-2 text-red-600 hover:bg-red-600 hover:text-red-900'>
+          Delete
+        </button>
       </td>
       <td>{blog.id}</td>
       <td>{blog.title}</td>
@@ -61,8 +63,11 @@ const AdminBlog = ({ blogs }: Props) => {
     <AdminShell>
       <Group position='apart' mb={20}>
         <Title>Blogs</Title>
-        <NextLink href='/admin/blog/upload' passHref>
-          <Button component='a'>Upload a Blog</Button>
+        <NextLink href='/admin/blog/upload' >
+          <a
+          className='rounded bg-blue-500 px-4 py-2 text-blue-50
+          hover:bg-blue-400'
+          >Upload a Blog</a>
         </NextLink>
       </Group>
       <AdminTable headers={headers} rows={rows} />

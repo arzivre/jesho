@@ -181,7 +181,12 @@ const UploadProduct = ({ categories }: Props) => {
           {loading ? (
             <Button disabled>Loading..</Button>
           ) : (
-            <Button type='submit'>Upload</Button>
+            <button
+              className='rounded bg-blue-500 px-4 py-2 text-blue-50 hover:bg-blue-400'
+              type='submit'
+            >
+              Create
+            </button>
           )}
         </Group>
       </form>
