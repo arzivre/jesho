@@ -36,7 +36,7 @@ const links = [
     label: 'Blog',
   },
   {
-    link: '/product',
+    link: '/shop',
     label: 'Produk',
   },
   {
