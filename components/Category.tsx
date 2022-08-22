@@ -43,40 +43,35 @@ const Category = ({ categories }: Props) => {
   const WIDTH = categories.length
 
   return (
-    <Container size='lg' mb={20} className={classes.root}>
+    <Container size='lg' mb={20}>
       <Card pt={20} pb={0} className={classes.card}>
         <Text align='left' mb={10} className={classes.header}>
           Categori
         </Text>
-        <ScrollArea>
-          <Group
-            mb={20}
-            className={classes.category}
-            style={{ width: `calc(300px + 150px * ${WIDTH})` }}
-          >
-            <NextLink href='/shop' passHref>
-              <Button
-                component='a'
-                variant='gradient'
-                gradient={{ from: 'teal', to: 'lime', deg: 105 }}
-                sx={{ width: 150 }}
+        <Group mb={20} className={classes.category}>
+          <NextLink href='/shop' passHref>
+            <button
+              className='rounded-sm bg-green-600 px-2 py-2 text-green-50 
+                hover:bg-green-400 hover:text-green-900'
+            >
+              Semua Produk
+            </button>
+          </NextLink>
+          {categories.map((category: CategoryProps) => (
+            <NextLink
+              key={category.docId}
+              href={`/shop/category/${category.title}`}
+              passHref
+            >
+              <button
+                className='rounded-sm bg-green-600 px-2 py-2 text-green-50 
+                hover:bg-green-400 hover:text-green-900'
               >
-                Semua Produk
-              </Button>
+                {category.title}
+              </button>
             </NextLink>
-            {categories.map((category:CategoryProps) => (
-              <NextLink
-                key={category.docId}
-                href={`/shop/category/${category.title}`}
-                passHref
-              >
-                <button>
-                  {category.title }
-               </button>
-              </NextLink>
-            ))}
-          </Group>
-        </ScrollArea>
+          ))}
+        </Group>
       </Card>
     </Container>
   )

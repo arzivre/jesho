@@ -172,38 +172,40 @@ const Mobile = () => {
 }
 export const NewHeader = () => {
   return (
-    <header className='sticky top-0 z-10 mx-auto flex max-w-screen-xl justify-between px-4'>
-      <Mobile />
+    <div className='sticky top-0 z-10  bg-white'>
+      <header className='mx-auto flex max-w-screen-xl justify-between px-4'>
+        <Mobile />
 
-      <NextLink href='/'>
-        <a>
-          <h1>JESHO</h1>
-        </a>
-      </NextLink>
+        <NextLink href='/'>
+          <a>
+            <h1>JESHO</h1>
+          </a>
+        </NextLink>
 
-      <ol className='my-1 hidden gap-x-4 px-4 py-2 lg:flex [&>li>a]:py-1 [&>li>a]:px-2'>
-        {links.map(({ label, link }) => (
-          <NextLink key={label} href={link}>
-            <a className='rounded px-2 py-1 hover:bg-gray-500 hover:text-gray-50'>
-              {label}
-            </a>
-          </NextLink>
-        ))}
-      </ol>
+        <ol className='my-1 hidden gap-x-4 px-4 py-2 lg:flex [&>li>a]:py-1 [&>li>a]:px-2'>
+          {links.map(({ label, link }) => (
+            <NextLink key={label} href={link}>
+              <a className='rounded px-2 py-1 hover:bg-gray-500 hover:text-gray-50'>
+                {label}
+              </a>
+            </NextLink>
+          ))}
+        </ol>
 
-      <ol className='flex gap-x-4'>
-        <li>
-          <Suspense fallback={<Loading />}>
-            <UserMenu />
-          </Suspense>
-        </li>
-        <li>
-          <Suspense fallback={<Loading />}>
-            <CartIcon />
-          </Suspense>
-        </li>
-      </ol>
-    </header>
+        <ol className='flex gap-x-4'>
+          <li>
+            <Suspense fallback={<Loading />}>
+              <UserMenu />
+            </Suspense>
+          </li>
+          <li>
+            <Suspense fallback={<Loading />}>
+              <CartIcon />
+            </Suspense>
+          </li>
+        </ol>
+      </header>
+    </div>
   )
 }
 
