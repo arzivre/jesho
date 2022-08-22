@@ -1,8 +1,8 @@
 import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import { Skeleton } from '@mantine/core'
+import JeshoFooter from './Footer'
 
-const JeshoFooter = dynamic(() => import('./Footer'), { suspense: true })
 const JeshoHeader = dynamic(() => import('./Header'), { suspense: true })
 
 const links = [
@@ -15,8 +15,12 @@ const links = [
     label: 'Blog',
   },
   {
-    link: '/shop',
-    label: 'Shop',
+    link: '/product',
+    label: 'Produk',
+  },
+  {
+    link: '/contact',
+    label: 'Kontak Kami',
   },
 ]
 
