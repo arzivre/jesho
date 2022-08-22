@@ -295,9 +295,13 @@ const Checkout = () => {
                     <Radio value='BCA ' label='BCA' />
                   </RadioGroup>
                   <Group position='left' mt={20}>
-                    <Button type='submit' value='Send'>
+                    <button
+                      className='rounded bg-blue-500 px-4 py-2 text-blue-50 hover:bg-blue-400'
+                      type='submit'
+                      value='Send'
+                    >
                       Checkout
-                    </Button>
+                    </button>
                   </Group>
                 </form>
               </Group>

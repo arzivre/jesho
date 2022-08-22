@@ -112,11 +112,14 @@ const Cart = () => {
         </Group>
 
         <Group position='right' spacing='xl' my={20}>
-          <Button color='red' onClick={() => clear()}>
+          <button
+            className='rounded bg-red-100 p-2 text-red-600 hover:bg-red-600 hover:text-red-900'
+            onClick={() => clear()}
+          >
             Clear Cart
-          </Button>
-          <NextLink href='/checkout' passHref>
-            <Button component='a'>Checkout</Button>
+          </button>
+          <NextLink href='/checkout'>
+            <a className='rounded bg-green-500 p-2 text-green-50 hover:bg-green-300'>Checkout</a>
           </NextLink>
         </Group>
       </Container>
