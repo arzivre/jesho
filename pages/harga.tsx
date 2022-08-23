@@ -4,7 +4,7 @@ import Meta from 'components/Meta'
 const Harga = () => {
   return (
     <>
-      <Meta />
+      <Meta title='Daftar Harga - Jesho'/>
       <Main>Daftar Harga</Main>
     </>
   )

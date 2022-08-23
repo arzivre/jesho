@@ -83,7 +83,7 @@ const ShopPage = ({ products, categories }: Props) => {
 
   return (
     <>
-      <Meta/>
+      <Meta title='Produk - Jesho'/>
 
       <Main>
         <Box sx={{ backgroundColor: '#E9ECEF' }}>

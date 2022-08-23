@@ -16,6 +16,7 @@ import { useForm } from '@mantine/form'
 import { showNotification, updateNotification } from '@mantine/notifications'
 import { Loading, LoadingFullScreen } from 'components/Loading'
 import Main from 'components/Main'
+import Meta from 'components/Meta'
 import VirtualAccount from 'components/VirtualAccount'
 import useAuth, { signinWithGoogle } from 'hooks/useAuth'
 import useCart from 'hooks/useCart'
@@ -183,165 +184,168 @@ const Checkout = () => {
     )
   }
   return (
-    <Main>
-      <Suspense fallback={<Loading />}>
-        <Container size='xl'>
-          <Group position='left'>
-            <Breadcrumbs>{items}</Breadcrumbs>
-          </Group>
-        </Container>
-      </Suspense>
+    <>
+      <Meta title='Checkout - Jesho'/>
+      <Main>
+        <Suspense fallback={<Loading />}>
+          <Container size='xl'>
+            <Group position='left'>
+              <Breadcrumbs>{items}</Breadcrumbs>
+            </Group>
+          </Container>
+        </Suspense>
 
-      {loading && <LoadingFullScreen />}
+        {loading && <LoadingFullScreen />}
 
-      <Suspense fallback={<LoadingFullScreen />}>
-        <Container size='lg' my={20}>
-          <SimpleGrid
-            cols={2}
-            spacing='xl'
-            breakpoints={[
-              { maxWidth: 'sm', cols: 2, spacing: 'sm' },
-              { maxWidth: 'xs', cols: 1, spacing: 'sm' },
-            ]}
-          >
-            <Suspense fallback={<Loading />}>
-              <Group position='center'>
-                <Title order={2}>Alamat Pengiriman</Title>
-                <form onSubmit={form.onSubmit(handleSubmit)}>
-                  <Group grow mb={10}>
+        <Suspense fallback={<LoadingFullScreen />}>
+          <Container size='lg' my={20}>
+            <SimpleGrid
+              cols={2}
+              spacing='xl'
+              breakpoints={[
+                { maxWidth: 'sm', cols: 2, spacing: 'sm' },
+                { maxWidth: 'xs', cols: 1, spacing: 'sm' },
+              ]}
+            >
+              <Suspense fallback={<Loading />}>
+                <Group position='center'>
+                  <Title order={2}>Alamat Pengiriman</Title>
+                  <form onSubmit={form.onSubmit(handleSubmit)}>
+                    <Group grow mb={10}>
+                      <TextInput
+                        required
+                        label='Nama depan'
+                        placeholder='Jhon'
+                        {...form.getInputProps('nama_depan')}
+                      />
+                      <TextInput
+                        required
+                        label='Nama Belakang'
+                        placeholder='Doe'
+                        {...form.getInputProps('nama_belakang')}
+                      />
+                    </Group>
+                    <Group grow mb={10}>
+                      <TextInput
+                        required
+                        label='Email'
+                        placeholder='Jhon'
+                        {...form.getInputProps('email')}
+                      />
+                      <TextInput
+                        required
+                        label='Phone'
+                        placeholder='0812 3456 7890'
+                        {...form.getInputProps('phone')}
+                      />
+                    </Group>
                     <TextInput
                       required
-                      label='Nama depan'
-                      placeholder='Jhon'
-                      {...form.getInputProps('nama_depan')}
+                      label='Alamat Pengiriman'
+                      placeholder='15329 Huston 21st'
+                      {...form.getInputProps('alamat')}
+                      mb={10}
                     />
                     <TextInput
-                      required
-                      label='Nama Belakang'
-                      placeholder='Doe'
-                      {...form.getInputProps('nama_belakang')}
+                      label='Detail Alamat'
+                      placeholder='(optional)'
+                      {...form.getInputProps('detail_alamat')}
+                      mb={10}
                     />
-                  </Group>
-                  <Group grow mb={10}>
-                    <TextInput
-                      required
-                      label='Email'
-                      placeholder='Jhon'
-                      {...form.getInputProps('email')}
+                    <Select
+                      data={['Indonesia']}
+                      placeholder='Indonesia'
+                      label='Negara'
+                      {...form.getInputProps('negara')}
+                      value={'Indonesia'}
                     />
-                    <TextInput
+                    <Group grow mb={10}>
+                      <TextInput
+                        required
+                        label='Provinsi'
+                        placeholder='Jawa Barat'
+                        {...form.getInputProps('provinsi')}
+                      />
+                      <TextInput
+                        required
+                        label='Kota'
+                        placeholder='Jakarta'
+                        {...form.getInputProps('kota')}
+                      />
+                      <TextInput
+                        required
+                        label='Kode Pos'
+                        placeholder='65123'
+                        {...form.getInputProps('kode_pos')}
+                      />
+                    </Group>
+                    <Radio.Group
+                      label='Pilih Metode Pembayaran Virtual Account'
+                      description='Virtual Account'
                       required
-                      label='Phone'
-                      placeholder='0812 3456 7890'
-                      {...form.getInputProps('phone')}
-                    />
-                  </Group>
-                  <TextInput
-                    required
-                    label='Alamat Pengiriman'
-                    placeholder='15329 Huston 21st'
-                    {...form.getInputProps('alamat')}
-                    mb={10}
-                  />
-                  <TextInput
-                    label='Detail Alamat'
-                    placeholder='(optional)'
-                    {...form.getInputProps('detail_alamat')}
-                    mb={10}
-                  />
-                  <Select
-                    data={['Indonesia']}
-                    placeholder='Indonesia'
-                    label='Negara'
-                    {...form.getInputProps('negara')}
-                    value={'Indonesia'}
-                  />
-                  <Group grow mb={10}>
-                    <TextInput
-                      required
-                      label='Provinsi'
-                      placeholder='Jawa Barat'
-                      {...form.getInputProps('provinsi')}
-                    />
-                    <TextInput
-                      required
-                      label='Kota'
-                      placeholder='Jakarta'
-                      {...form.getInputProps('kota')}
-                    />
-                    <TextInput
-                      required
-                      label='Kode Pos'
-                      placeholder='65123'
-                      {...form.getInputProps('kode_pos')}
-                    />
-                  </Group>
-                  <Radio.Group
-                    label='Pilih Metode Pembayaran Virtual Account'
-                    description='Virtual Account'
-                    required
-                    value={bankCode}
-                    onChange={setBankCode}
-                  >
-                    <Radio value='MANDIRI' label='MANDIRI' />
-                    <Radio value='BNI' label='BNI' />
-                    <Radio value='BRI' label='BRI' />
-                    <Radio value='BCA ' label='BCA' />
-                  </Radio.Group>
-                  <Group position='left' mt={20}>
-                    <button
-                      className='rounded bg-blue-500 px-4 py-2 text-blue-50 hover:bg-blue-400'
-                      type='submit'
-                      value='Send'
+                      value={bankCode}
+                      onChange={setBankCode}
                     >
-                      Checkout
-                    </button>
-                  </Group>
-                </form>
-              </Group>
-            </Suspense>
+                      <Radio value='MANDIRI' label='MANDIRI' />
+                      <Radio value='BNI' label='BNI' />
+                      <Radio value='BRI' label='BRI' />
+                      <Radio value='BCA ' label='BCA' />
+                    </Radio.Group>
+                    <Group position='left' mt={20}>
+                      <button
+                        className='rounded bg-blue-500 px-4 py-2 text-blue-50 hover:bg-blue-400'
+                        type='submit'
+                        value='Send'
+                      >
+                        Checkout
+                      </button>
+                    </Group>
+                  </form>
+                </Group>
+              </Suspense>
 
-            <Suspense fallback={<Loading />}>
-              <Group position='center' grow>
-                <Title order={2} align='center'>
-                  Keranjang
-                </Title>
-                <Suspense fallback={<Loading />}>
-                  {cart.length > 0 &&
-                    cart.map((item: ProductProps) => (
-                      <Group key={item.productId} spacing='xs' grow mb={20}>
-                        <Box>
-                          <Image
-                            src={item.imgUrl}
-                            alt={item.title}
-                            height={140}
-                            width={100}
-                          />
-                        </Box>
-                        <Box>
-                          <Group position='right'>
-                            <Text size='md'> {item.title}</Text>
-                            <Text size='md'>
-                              Rp {item.quantity! * Number(item.price)}
-                            </Text>
-                          </Group>
-                        </Box>
-                      </Group>
-                    ))}
+              <Suspense fallback={<Loading />}>
+                <Group position='center' grow>
+                  <Title order={2} align='center'>
+                    Keranjang
+                  </Title>
+                  <Suspense fallback={<Loading />}>
+                    {cart.length > 0 &&
+                      cart.map((item: ProductProps) => (
+                        <Group key={item.productId} spacing='xs' grow mb={20}>
+                          <Box>
+                            <Image
+                              src={item.imgUrl}
+                              alt={item.title}
+                              height={140}
+                              width={100}
+                            />
+                          </Box>
+                          <Box>
+                            <Group position='right'>
+                              <Text size='md'> {item.title}</Text>
+                              <Text size='md'>
+                                Rp {item.quantity! * Number(item.price)}
+                              </Text>
+                            </Group>
+                          </Box>
+                        </Group>
+                      ))}
 
-                  <div className='flex flex-col'>
-                    <Text size='md'>subtotal: Rp {total}</Text>
-                    <Text size='md'>Pengiriman: Rp 30000</Text>
-                    <br />
-                    <Text size='xl'>Total: Rp {total + 30000}</Text>
-                  </div>
-                </Suspense>
-              </Group>
-            </Suspense>
-          </SimpleGrid>
-        </Container>
-      </Suspense>
-    </Main>
+                    <div className='flex flex-col'>
+                      <Text size='md'>subtotal: Rp {total}</Text>
+                      <Text size='md'>Pengiriman: Rp 30000</Text>
+                      <br />
+                      <Text size='xl'>Total: Rp {total + 30000}</Text>
+                    </div>
+                  </Suspense>
+                </Group>
+              </Suspense>
+            </SimpleGrid>
+          </Container>
+        </Suspense>
+      </Main>
+    </>
   )
 }
 export default Checkout

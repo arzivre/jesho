@@ -79,7 +79,7 @@ const BlogDetail = ({ blog }: BlogDetailsProps) => {
 
   return (
     <>
-      <Meta />
+      <Meta title={`${blog.title} - Jesho`} />
       <Main>
         <Box className={classes.root}>
           <Container className='py-10'>

@@ -22,6 +22,7 @@ import useSWR, { mutate } from 'swr'
 import fetcher from 'utils/fetcher'
 import post from 'utils/post'
 import { OrderDetailProps } from 'libs/types'
+import Meta from 'components/Meta'
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -64,6 +65,7 @@ const OrderList = () => {
 
   return (
     <>
+    <Meta title='Order - Jesho'/>
       {data.map((order: OrderDetailProps) => (
         <Container key={order.id} size='md' mb={20}>
           {order.status === 'PENDING' ? (

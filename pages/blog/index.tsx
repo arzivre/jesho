@@ -70,7 +70,7 @@ const Blog = ({ blogs }: Props) => {
 
   return (
     <>
-      <Meta />
+      <Meta title='Blog - Jesho'/>
       <Main>
         <Title align='center' order={1} className={classes.title}>
           Blog

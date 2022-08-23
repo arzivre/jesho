@@ -45,7 +45,7 @@ const PolaTabs = () => {
 const PolaPage = () => {
   return (
     <>
-      <Meta />
+      <Meta title='Pola - Jesho'/>
       <Main>
         <main className='mx-auto my-10 max-w-screen-xl px-4'>
           <h1 className='mb-4 font-serif text-5xl'>KOLEKSI DESAIN</h1>

@@ -73,7 +73,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
 
   return (
     <>
-      <Meta />
+      <Meta title={`${product.title} - Jesho`}/>
       <Main>
         <Box
           style={{
