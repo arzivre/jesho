@@ -59,7 +59,6 @@ const UserMenu = () => {
 
   const router = useRouter()
 
-
   return (
     <>
       <Menu position='bottom-end' withArrow>
@@ -151,11 +150,13 @@ const Mobile = () => {
       <Transition transition='pop-top-right' duration={200} mounted={opened}>
         {(styles) => (
           <Paper className={classes.dropdown} withBorder style={styles}>
-            <ol>
+            <ol className='flex flex-col gap-4 px-4'>
               {links.map(({ label, link }) => (
-                <NextLink key={label} href={link}>
-                  <a className='hover:underline'>{label}</a>
-                </NextLink>
+                <li key={label} className='p-2'>
+                  <NextLink href={link}>
+                    <a className='block hover:underline'>{label}</a>
+                  </NextLink>
+                </li>
               ))}
             </ol>
           </Paper>
@@ -173,7 +174,7 @@ export const NewHeader = () => {
 
         <NextLink href='/'>
           <a>
-            <h1 className='text-3xl pt-2'>JESHO</h1>
+            <h1 className='pt-2 text-2xl lg:text-3xl'>JESHO</h1>
           </a>
         </NextLink>
 
