@@ -8,7 +8,7 @@ const PolaTabs = () => {
 
   return (
     <Tabs value={activeTab} onTabChange={setActiveTab} variant='outline'>
-      <Tabs.List position='center' className='my-10 gap-x-20'>
+      <Tabs.List position='center' className='my-10 lg:gap-x-20'>
         <Tabs.Tab value='gallery'>Random</Tabs.Tab>
         <Tabs.Tab value='geometric'>Geometric</Tabs.Tab>
         <Tabs.Tab value='settings'>Settings</Tabs.Tab>
