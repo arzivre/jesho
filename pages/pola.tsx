@@ -4,26 +4,39 @@ import { Tabs } from '@mantine/core'
 import { useState } from 'react'
 
 const PolaTabs = () => {
-  const [activeTab, setActiveTab] = useState<string | null>('gallery')
+  const [activeTab, setActiveTab] = useState<string | null>('batik')
 
   return (
-    <Tabs value={activeTab} onTabChange={setActiveTab} variant='outline'>
-      <Tabs.List position='center' className='my-10 lg:gap-x-20'>
-        <Tabs.Tab value='gallery'>Random</Tabs.Tab>
+    <Tabs
+      value={activeTab}
+      onTabChange={setActiveTab}
+      // variant='outline'
+      color='dark'
+      className='font-serif text-xl'
+    >
+      <Tabs.List
+        position='center'
+        className='container my-10 mx-auto lg:gap-x-20'
+      >
+        <Tabs.Tab value='batik'>Batik</Tabs.Tab>
         <Tabs.Tab value='geometric'>Geometric</Tabs.Tab>
-        <Tabs.Tab value='settings'>Settings</Tabs.Tab>
+        <Tabs.Tab value='floral'>Floral</Tabs.Tab>
+        <Tabs.Tab value='arabic'>Arabic</Tabs.Tab>
       </Tabs.List>
 
-      <Tabs.Panel value='gallery' pt='xs'>
-        {random}
+      <Tabs.Panel className='bg-gray-100' value='batik' pt='xs'>
+        {batik}
       </Tabs.Panel>
 
-      <Tabs.Panel value='geometric' pt='xs'>
+      <Tabs.Panel className='bg-gray-100' value='geometric' pt='xs'>
         {geometric}
       </Tabs.Panel>
 
-      <Tabs.Panel value='settings' pt='xs'>
-        Settings tab content
+      <Tabs.Panel className='bg-gray-100' value='floral' pt='xs'>
+        {floral}
+      </Tabs.Panel>
+      <Tabs.Panel className='bg-gray-100' value='arabic' pt='xs'>
+        {arabic}
       </Tabs.Panel>
     </Tabs>
   )
@@ -53,7 +66,7 @@ const PolaPage = () => {
 
 export default PolaPage
 
-const random = (
+const batik = (
   <section className='mt-20 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
     <picture>
       <img src='images/pola/random/1.png' alt='tes' />
@@ -110,6 +123,70 @@ const geometric = (
     </picture>
     <picture>
       <img src='images/pola/geometric/geo(8).png' alt='geomtric' />
+    </picture>
+  </section>
+)
+
+const floral = (
+  <section className='mt-20 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+    <picture>
+      <img src='images/pola/floral/flo1.png' alt='pola floral' />
+    </picture>
+    <picture>
+      <img src='images/pola/floral/flo2.png' alt='pola floral' />
+    </picture>
+    <picture>
+      <img src='images/pola/floral/flo3.png' alt='pola floral' />
+    </picture>
+    <picture>
+      <img src='images/pola/floral/flo4.png' alt='pola floral' />
+    </picture>
+    <picture>
+      <img src='images/pola/floral/flo5.png' alt='pola floral' />
+    </picture>
+    <picture>
+      <img src='images/pola/floral/flo6.png' alt='pola floral' />
+    </picture>
+    <picture>
+      <img src='images/pola/floral/flo7.png' alt='pola floral' />
+    </picture>
+    <picture>
+      <img src='images/pola/floral/flo8.png' alt='pola floral' />
+    </picture>
+    <picture>
+      <img src='images/pola/floral/flo9.png' alt='pola floral' />
+    </picture>
+    <picture>
+      <img src='images/pola/floral/flo10.png' alt='pola floral' />
+    </picture>
+  </section>
+)
+
+const arabic = (
+  <section className='mt-20 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+    <picture>
+      <img src='images/pola/arabic/ar1.png' alt='pola floral' />
+    </picture>
+    <picture>
+      <img src='images/pola/arabic/ar3.png' alt='pola floral' />
+    </picture>
+    <picture>
+      <img src='images/pola/arabic/ar4.png' alt='pola floral' />
+    </picture>
+    <picture>
+      <img src='images/pola/arabic/ar5.png' alt='pola floral' />
+    </picture>
+    <picture>
+      <img src='images/pola/arabic/ar6.png' alt='pola floral' />
+    </picture>
+    <picture>
+      <img src='images/pola/arabic/ar7.png' alt='pola floral' />
+    </picture>
+    <picture>
+      <img src='images/pola/arabic/ar8.png' alt='pola floral' />
+    </picture>
+    <picture>
+      <img src='images/pola/arabic/ar2.png' alt='pola floral' />
     </picture>
   </section>
 )
