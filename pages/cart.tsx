@@ -104,14 +104,14 @@ const Cart = () => {
               </Box>
             </SimpleGrid>
           ))}
-        <Group position='right'>
+        <div className='grid grid-cols-1 text-right'>
           <Text size='md'>Jumlah {itemCount}</Text>
           <Text size='md'>Subtotal Rp {total}</Text>
           <Text size='md'>Pengiriman Rp 30000</Text>
           <Text size='xl'>Total Rp {total + 30000}</Text>
-        </Group>
+        </div>
 
-        <Group position='right' spacing='xl' my={20}>
+        <div className='my-20 flex justify-end gap-8 text-right'>
           <button
             className='rounded bg-red-100 p-2 text-red-600 hover:bg-red-600 hover:text-red-900'
             onClick={() => clear()}
@@ -119,9 +119,11 @@ const Cart = () => {
             Clear Cart
           </button>
           <NextLink href='/checkout'>
-            <a className='rounded bg-green-500 p-2 text-green-50 hover:bg-green-300'>Checkout</a>
+            <a className='rounded bg-green-500 p-2 text-green-50 hover:bg-green-300'>
+              Checkout
+            </a>
           </NextLink>
-        </Group>
+        </div>
       </Container>
     </Main>
   )
