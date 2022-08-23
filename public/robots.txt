@@ -5,4 +5,4 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
-Sitemap: https://leerob.io/sitemap.xml
+Sitemap: http://houseofjesho.com/sitemap.xml
