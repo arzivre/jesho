@@ -59,6 +59,7 @@ const UserMenu = () => {
 
   const router = useRouter()
 
+
   return (
     <>
       <Menu position='bottom-end' withArrow>
@@ -172,7 +173,7 @@ export const NewHeader = () => {
 
         <NextLink href='/'>
           <a>
-            <h1>JESHO</h1>
+            <h1 className='text-3xl pt-2'>JESHO</h1>
           </a>
         </NextLink>
 

@@ -1,11 +1,7 @@
-import { AppProps } from 'next/app'
-import { Suspense } from 'react'
-import Head from 'next/head'
-import useIsMounted from 'hooks/useIsMounted'
-import NextNProgress from 'nextjs-progressbar'
 import { MantineProvider } from '@mantine/core'
-import { LoadingFullScreen } from 'components/Loading'
 import { NotificationsProvider } from '@mantine/notifications'
+import useIsMounted from 'hooks/useIsMounted'
+import { AppProps } from 'next/app'
 import '../styles/global.css'
 
 export default function Wrapper(props: AppProps) {
@@ -21,8 +17,6 @@ function App(props: AppProps) {
     <>
 
       <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
         theme={{
           /** Put your mantine theme override here */
           colorScheme: 'light',
@@ -34,10 +28,7 @@ function App(props: AppProps) {
         }}
       >
         <NotificationsProvider>
-          <NextNProgress />
-          <Suspense fallback={<LoadingFullScreen />}>
             <Component {...pageProps} />
-          </Suspense>
         </NotificationsProvider>
       </MantineProvider>
     </>
