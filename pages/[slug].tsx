@@ -73,98 +73,100 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
 
   return (
     <>
-    <Meta />
-    <Main>
-      <Box
-        style={{
-          background: '#F8F9FA',
-        }}
-      >
-        <Suspense fallback={<LoadingFullScreen />}>
-          <Container size='xl'>
-            <Grid gutter='xl'>
-              <Suspense fallback={<Loading />}>
-                <Grid.Col xs={12} md={6} mt={20}>
-                  <Card
-                    style={{
-                      backgroundColor: 'rgb(206 212 218 / 25%)',
-                    }}
-                  >
-                    <Group  position='center' grow mb={20}>
-                      <div>
-                        <Image
-                          src={product.imgUrl}
-                          alt={product.title}
-                          height={'100%'}
-                          width={'100%'}
-                        />
+      <Meta />
+      <Main>
+        <Box
+          style={{
+            background: '#F8F9FA',
+          }}
+        >
+          <Suspense fallback={<LoadingFullScreen />}>
+            <Container size='xl'>
+              <Grid gutter='xl'>
+                <Suspense fallback={<Loading />}>
+                  <Grid.Col xs={12} md={6} mt={20}>
+                    <Card
+                      style={{
+                        backgroundColor: 'rgb(206 212 218 / 25%)',
+                      }}
+                    >
+                      <div className='flex flex-col'>
+                        <div className='mb-4'>
+                          <Image
+                            src={product.imgUrl}
+                            alt={product.title}
+                            height={'100%'}
+                            width={'100%'}
+                          />
+                        </div>
+                        <Group position='apart' grow mb={20}>
+                          {!inCart && (
+                            <Button
+                              mx={20}
+                              variant='outline'
+                              color='dark'
+                              onClick={() => addItem(product)}
+                            >
+                              Masukan Keranjang{' '}
+                            </Button>
+                          )}
+                          {inCart && (
+                            <Button
+                              mx={20}
+                              variant='outline'
+                              color='dark'
+                              size='md'
+                              onClick={() => increaseItem(product.productId)}
+                            >
+                              +
+                            </Button>
+                          )}
+                          {inCart && <p className='text-center'>{inCart.quantity}</p>}
+                          {inCart?.quantity > 1 && (
+                            <Button
+                              mx={20}
+                              variant='outline'
+                              color='dark'
+                              size='md'
+                              onClick={() => decreaseItem(product.productId)}
+                            >
+                              -
+                            </Button>
+                          )}
+                          {inCart?.quantity === 1 && (
+                            <Button
+                              mx={20}
+                              variant='outline'
+                              color='pink'
+                              size='sm'
+                              onClick={() => removeItem(product.productId)}
+                            >
+                              <BsFillTrashFill />
+                            </Button>
+                          )}
+                        </Group>
                       </div>
-                      <Group position='apart' grow mb={20}>
-                        {!inCart && (
-                          <Button
-                            mx={20}
-                            variant='outline'
-                            color='dark'
-                            onClick={() => addItem(product)}
-                          >
-                            Add{' '}
-                          </Button>
-                        )}
-                        {inCart && (
-                          <Button
-                            mx={20}
-                            variant='outline'
-                            color='dark'
-                            size='md'
-                            onClick={() => increaseItem(product.productId)}
-                          >
-                            +
-                          </Button>
-                        )}
-                        {inCart?.quantity > 1 && (
-                          <Button
-                            mx={20}
-                            variant='outline'
-                            color='dark'
-                            size='md'
-                            onClick={() => decreaseItem(product.productId)}
-                          >
-                            -
-                          </Button>
-                        )}
-                        {inCart?.quantity === 1 && (
-                          <Button
-                            mx={20}
-                            variant='outline'
-                            color='pink'
-                            size='sm'
-                            onClick={() => removeItem(product.productId)}
-                          >
-                            <BsFillTrashFill />
-                          </Button>
-                        )}
-                      </Group>
-                    </Group>
-                  </Card>
+                    </Card>
+                  </Grid.Col>
+                </Suspense>
+                <Grid.Col xs={12} md={6} mt={20}>
+                  <Title order={1} mb={20}>
+                    {product.title}
+                  </Title>
+                  <Text size='xl'>Rp {product.price}</Text>
+                  <hr />
+                  <Text>
+                    <div
+                      dangerouslySetInnerHTML={{ __html: product.content }}
+                    />
+                  </Text>
                 </Grid.Col>
-              </Suspense>
-              <Grid.Col xs={12} md={6} mt={20}>
-                <Title order={1} mb={20}>
-                  {product.title}
-                </Title>
-                <Text size='xl'>Rp {product.price}</Text>
-                <hr />
-                <Text>
-                  <div dangerouslySetInnerHTML={{ __html: product.content }} />
-                </Text>
-              </Grid.Col>
-            </Grid>
-          </Container>
-        </Suspense>
-      </Box>
-    </Main>
+              </Grid>
+            </Container>
+          </Suspense>
+        </Box>
+      </Main>
     </>
-
   )
 }
 export default ProductDetails
