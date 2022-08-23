@@ -303,8 +303,9 @@ const Checkout = () => {
 
             <Suspense fallback={<Loading />}>
               <Group position='center' grow>
-                <Title order={2}>Keranjang</Title>
-
+                <Title order={2} align='center'>
+                  Keranjang
+                </Title>
                 <Suspense fallback={<Loading />}>
                   {cart.length > 0 &&
                     cart.map((item: ProductProps) => (
@@ -328,14 +329,12 @@ const Checkout = () => {
                       </Group>
                     ))}
 
-                  <Group position='right'>
-                    <Text size='md' align='justify'>
-                      subtotal: Rp {total}
-                    </Text>
+                  <div className='flex flex-col'>
+                    <Text size='md'>subtotal: Rp {total}</Text>
                     <Text size='md'>Pengiriman: Rp 30000</Text>
                     <br />
                     <Text size='xl'>Total: Rp {total + 30000}</Text>
-                  </Group>
+                  </div>
                 </Suspense>
               </Group>
             </Suspense>
