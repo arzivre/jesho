@@ -79,39 +79,36 @@ const BlogDetail = ({ blog }: BlogDetailsProps) => {
 
   return (
     <>
-    <Meta />
-    <Main>
-      <Box className={classes.root}>
-        <Container>
-          <Group position='left' spacing={4} py={20}>
-            <Title order={1}>{blog.title}</Title>
+      <Meta />
+      <Main>
+        <Box className={classes.root}>
+          <Container className='py-10'>
             <Text size='sm' inline>
               {format(parseISO(blog.publishedAt), 'dd MMM yyyy')}
             </Text>
-          </Group>
-          {blog.cover && (
-            <Group position='center' className={classes.image}>
-              <Image
-                src={blog.cover}
-                alt={blog.title}
-                height={400}
-                width={930}
-                layout='fixed'
-              />
-            </Group>
-          )}
-          <RichTextEditor
-            value={content}
-            onChange={onChange}
-            readOnly
-            mt={20}
-            className={classes.content}
-          />
-        </Container>
-      </Box>
-    </Main>
+            <Title order={1}>{blog.title}</Title>
+            {blog.cover && (
+              <Group position='center' className={classes.image}>
+                <Image
+                  src={blog.cover}
+                  alt={blog.title}
+                  height={400}
+                  width={930}
+                  layout='fixed'
+                />
+              </Group>
+            )}
+            <RichTextEditor
+              value={content}
+              onChange={onChange}
+              readOnly
+              mt={20}
+              className={classes.content}
+            />
+          </Container>
+        </Box>
+      </Main>
     </>
-
   )
 }
 export default BlogDetail

@@ -43,7 +43,7 @@ const useStyles = createStyles((theme) => ({
     fontSize: theme.fontSizes.xl * 4,
     margiin: 'auto',
     [theme.fn.smallerThan('xs')]: {
-      fontSize: theme.fontSizes.xl* 2,
+      fontSize: theme.fontSizes.xl * 2,
     },
   },
 }))
@@ -70,47 +70,47 @@ const Blog = ({ blogs }: Props) => {
 
   return (
     <>
-    <Meta />
-    <Main>
-      <Title align='center' order={1} className={classes.title}>
-        Blog
-      </Title>
-
-      <Container my='md'>
-        <Title align='left' order={2}>
-          Semua Post
+      <Meta />
+      <Main>
+        <Title align='center' order={1} className={classes.title}>
+          Blog
         </Title>
-        {blogs.map((blog) => (
-          <NextLink key={blog.slug} href={`/blog/${blog.slug}`} passHref>
-            <Text component='a'>
-              <Grid mt={20}>
-                <Grid.Col xs={12} md={8}>
-                  <Group >
+
+        <Container my='md'>
+          <Title align='left' order={2}>
+            Semua Post
+          </Title>
+          {blogs.map((blog) => (
+            <NextLink key={blog.slug} href={`/blog/${blog.slug}`} passHref>
+              <Text component='a'>
+                <Grid mt={20}>
+                  <Grid.Col xs={12} md={8}>
                     <Text size='sm' inline>
                       {format(parseISO(blog.publishedAt), 'dd MMM yyyy ')}
                     </Text>
-                    <Title order={3}>{blog.title}</Title>
-                    <Text lineClamp={2}>{blog.description}</Text>
-                  </Group>
-                </Grid.Col>
-                <Grid.Col xs={12} md={4}>
-                  {blog.cover && (
-                    <Group position='center'>
-                      <Image
-                        src={blog.cover}
-                        alt='preview'
-                        width={200}
-                        height={125}
-                      />
+                    <Group>
+                      <Title order={3}>{blog.title}</Title>
+                      <Text lineClamp={2}>{blog.description}</Text>
                     </Group>
-                  )}
-                </Grid.Col>
-              </Grid>
-            </Text>
-          </NextLink>
-        ))}
-      </Container>
-    </Main>
+                  </Grid.Col>
+                  <Grid.Col xs={12} md={4}>
+                    {blog.cover && (
+                      <Group position='center'>
+                        <Image
+                          src={blog.cover}
+                          alt='preview'
+                          width={200}
+                          height={125}
+                        />
+                      </Group>
+                    )}
+                  </Grid.Col>
+                </Grid>
+              </Text>
+            </NextLink>
+          ))}
+        </Container>
+      </Main>
     </>
   )
 }

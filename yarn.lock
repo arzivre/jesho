@@ -625,12 +625,12 @@
   dependencies:
     react-transition-group "^4.4.2"
 
-"@mantine/rte@^4.2.4":
-  version "4.2.4"
-  resolved "https://registry.yarnpkg.com/@mantine/rte/-/rte-4.2.4.tgz#99cec28f55159a0089cc30ac08b0980e07ffde67"
-  integrity sha512-fkW8TTpOOCrDuHkxHGMjP/DiwriwagaHD5Ry5oKSKXVXB9NMl/McmIdpII9zgH3jpnSCLcSQjr2knRrMlx+YUg==
+"@mantine/rte@5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@mantine/rte/-/rte-5.0.0.tgz#3bde05213fa5291a22acc6f79a8313a26ed9db56"
+  integrity sha512-z4tBJcbivM9Z/0MVighszeuhGdKacyuONpddMQx8qIc3YGJtglHn1PJVxASlViNE1JHoCmPTYeo3hnbLRdOUdQ==
   dependencies:
-    "@modulz/radix-icons" "^4.0.0"
+    "@tabler/icons" "^1.68.0"
     quill-mention "^3.0.8"
     react-quill "2.0.0-beta.4"
 
@@ -677,11 +677,6 @@
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.0.0.tgz#576ebab6b0980b996ecb70b277f4ea378dcfb474"
   integrity sha512-Fy9BdxWvrXkplWua8ZKmsBQODo24QB8OPn6BEmvXUt4O+3qoP27VaAWQVea4opWZsy+L5dtEe/kOXY/Q/kC2qg==
-
-"@modulz/radix-icons@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@modulz/radix-icons/-/radix-icons-4.0.0.tgz#628a7826a4569dd2e3331e266d8d2e26c7d6753c"
-  integrity sha512-d79T4cYvMGMocVC/q1WiMO578FPFfUoxmXIkduc8cUQAPDr7thuEV5HrCHhqqqkoVaYD0QPct180ilcNUyGPrg==
 
 "@next/env@12.1.6":
   version "12.1.6"
@@ -928,6 +923,11 @@
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.1.4.tgz#0c8b74c50f29ee44f423f7416829c0bf8bb5eb27"
   integrity sha512-LwzQKA4vzIct1zNZzBmRKI9QuNpLgTQMEjsQLf3BXuGYb3QPTP4Yjf6mkdX+X1mYttZ808QpOwAzZjv28kq7DA==
+
+"@tabler/icons@^1.68.0":
+  version "1.86.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-1.86.0.tgz#601910aab8ec43c82da5215725d59cdfc3802333"
+  integrity sha512-lip2sPwOkWOqYtQIGGQ8ZaXynnIpFEDvzXN6RfRe4zuHBtEYZM0Bm9EfFGuKv5kllGjkjyy2386kapLR1JXwiw==
 
 "@tootallnate/once@2":
   version "2.0.0"

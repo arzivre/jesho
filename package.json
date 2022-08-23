@@ -18,7 +18,7 @@
     "@mantine/modals": "^4.1.4",
     "@mantine/next": "^4.1.4",
     "@mantine/notifications": "^4.1.4",
-    "@mantine/rte": "^4.2.4",
+    "@mantine/rte": "5.0.0",
     "@mantine/spotlight": "^4.1.4",
     "date-fns": "^2.29.2",
     "dayjs": "^1.11.5",
