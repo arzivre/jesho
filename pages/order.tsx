@@ -65,7 +65,7 @@ const OrderList = () => {
 
   return (
     <>
-    <Meta title='Order - Jesho'/>
+      <Meta title='Order - Jesho' />
       {data.map((order: OrderDetailProps) => (
         <Container key={order.id} size='md' mb={20}>
           {order.status === 'PENDING' ? (
@@ -118,31 +118,32 @@ const OrderList = () => {
                 )}
               </Group>
             </Card.Section>
-            <Card.Section component={ScrollArea} className={classes.main}>
-              <Group
-                style={{ height: '200px', width: '200px' }}
-              >
+            <Card.Section className={classes.main}>
+              <div className='flex gap-8 overflow-auto'>
                 {order.items.cart.map((item: any) => (
-                  <div key={item.title}>
-                    <Text align='center'>
-                      {item.title} x{item.quantity}
-                    </Text>
-
+                  <div
+                    key={item.title}
+                    className='flex flex-row gap-8 border border-black justify-between'
+                  >
                     <Image
                       src={item.imgUrl ? item.imgUrl : item.link}
                       alt={item.title}
                       className={classes.images}
-                      height={'100%'}
-                      width={'100%'}
+                      height={300}
+                      width={400}
                     />
+
+                    <Text align='center'>
+                      {item.title} x{item.quantity}
+                    </Text>
                   </div>
                 ))}
-              </Group>
+              </div>
             </Card.Section>
             <Card.Section className={classes.main}>
-              <Accordion>
-                {/* <Accordion.Item>
-                  <Group  grow>
+              <Accordion defaultValue='customization'>
+                <Accordion.Item value='customization'>
+                  <Group grow>
                     <Text>
                       Nama: {order.shippingAddress.nama_depan}{' '}
                       {order.shippingAddress.nama_belakang}
@@ -161,7 +162,7 @@ const OrderList = () => {
                       {order.shippingAddress.kode_pos}
                     </Text>
                   </Group>
-                </Accordion.Item> */}
+                </Accordion.Item>
               </Accordion>
             </Card.Section>
           </Card>
