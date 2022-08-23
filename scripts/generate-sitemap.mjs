@@ -12,6 +12,9 @@ const homeURL = 'https://www.houseofjesho.com'
     const pages = await globby([
       'pages/*.tsx',
       'pages/**/*.tsx',
+      '!pages/[*',
+      '!pages/blog/[*',
+      '!pages/shop/category/[*',
       '!pages/_*.tsx',
       '!pages/404.tsx',
       '!pages/cart.tsx',
