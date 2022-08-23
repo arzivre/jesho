@@ -56,19 +56,7 @@ const Banner = () => {
               adalah perusahaan Jasa Cutting CNC Laser dan Router
             </Title>
           </Box>
-          <Group direction='row' position='center'>
-            <Box className={classes.box}>
-              {/* <Image
-                src='https://firebasestorage.googleapis.com/v0/b/jesho-store.appspot.com/o/blog%2Fjesho%2F20210409221416.jpg?alt=media&token=629bc9a0-ca6f-4040-b61c-3d27faa2c718'
-                alt='Banner'
-                height={1350}
-                width={1080}
-                layout='responsive'
-                objectFit='contain'
-                priority
-              /> */}
-            </Box>
-          </Group>
+         
         </SimpleGrid>
       </Container>
     </Box>

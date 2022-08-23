@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { Loading } from 'components/Loading'
 import AdminShell from 'components/Admin/AdminShell'
-import { Button, Group, InputWrapper, NativeSelect, TextInput, Title } from '@mantine/core'
+import { Button, Group, Input, NativeSelect, TextInput, Title } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useProduct } from 'hooks/useProduct'
 import Image from 'next/image'
@@ -163,7 +163,7 @@ const UpdateProduct = ({ product, categories }: UpdateProps) => {
           {...form.getInputProps('category')}
         />
 
-        <InputWrapper label='Image lama' labelElement='div'>
+        <Input.Wrapper label='Image lama' labelElement='div'>
           <br />
           <Group position='center' grow>
             {product.imgUrl && (
@@ -175,9 +175,9 @@ const UpdateProduct = ({ product, categories }: UpdateProps) => {
               />
             )}
           </Group>
-        </InputWrapper>
+        </Input.Wrapper>
 
-        <InputWrapper label='Ganti / Update Product Image' labelElement='div'>
+        <Input.Wrapper label='Ganti / Update Product Image' labelElement='div'>
           <br />
           <Group grow>
             <input type='file' onChange={handleFileChange} />
@@ -193,9 +193,9 @@ const UpdateProduct = ({ product, categories }: UpdateProps) => {
           </Group>
           {thumbnailError && <div>{thumbnailError}</div>}
           <br />
-        </InputWrapper>
+        </Input.Wrapper>
 
-        <InputWrapper
+        <Input.Wrapper
           id='description'
           required
           label='Deskripsi Produk'
@@ -216,7 +216,7 @@ const UpdateProduct = ({ product, categories }: UpdateProps) => {
               ],
             ]}
           />
-        </InputWrapper>
+        </Input.Wrapper>
 
         <Group position='right'>
           {loading ? (

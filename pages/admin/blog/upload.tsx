@@ -1,5 +1,5 @@
 import AdminShell from 'components/Admin/AdminShell'
-import { Button, Group, InputWrapper, TextInput, Title } from '@mantine/core'
+import { Input, Group, TextInput, Title } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
 import { storage } from 'libs/firebase'
@@ -124,7 +124,7 @@ const AdminUploadBlog = () => {
           {...form.getInputProps('description')}
         />
 
-        <InputWrapper
+        <Input.Wrapper
           label='Blog Cover / Thumbnail'
           required
           labelElement='div'
@@ -143,16 +143,17 @@ const AdminUploadBlog = () => {
             ) : null}
           </Group>
           {thumbnailError && <div>{thumbnailError}</div>}
-        </InputWrapper>
+        </Input.Wrapper>
 
         <Suspense fallback={<Loading />}>
-          <InputWrapper id='content' required label='Content'>
+                  <Input.Wrapper
+ id='content' required label='Content'>
             <RichTextEditor
               value={content}
               onChange={onChange}
               onImageUpload={handleImageUpload}
             />
-          </InputWrapper>
+          </Input.Wrapper>
         </Suspense>
 
         <Group position='right' mt='md'>

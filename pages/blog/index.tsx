@@ -85,7 +85,7 @@ const Blog = ({ blogs }: Props) => {
             <Text component='a'>
               <Grid mt={20}>
                 <Grid.Col xs={12} md={8}>
-                  <Group direction='column'>
+                  <Group >
                     <Text size='sm' inline>
                       {format(parseISO(blog.publishedAt), 'dd MMM yyyy ')}
                     </Text>

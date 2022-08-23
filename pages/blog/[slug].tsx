@@ -83,7 +83,7 @@ const BlogDetail = ({ blog }: BlogDetailsProps) => {
     <Main>
       <Box className={classes.root}>
         <Container>
-          <Group direction='column' position='left' spacing={4} py={20}>
+          <Group position='left' spacing={4} py={20}>
             <Title order={1}>{blog.title}</Title>
             <Text size='sm' inline>
               {format(parseISO(blog.publishedAt), 'dd MMM yyyy')}

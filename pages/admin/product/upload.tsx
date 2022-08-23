@@ -5,7 +5,7 @@ import AdminShell from 'components/Admin/AdminShell'
 import {
   Button,
   Group,
-  InputWrapper,
+  Input,
   NativeSelect,
   TextInput,
   Title,
@@ -141,7 +141,7 @@ const UploadProduct = ({ categories }: Props) => {
           {...form.getInputProps('category')}
         />
         <Suspense fallback={<Loading />}>
-          <InputWrapper id='description' required label='Deskripsi Produk'>
+          <Input.Wrapper id='description' required label='Deskripsi Produk'>
             <RichTextEditor
               value={content}
               onChange={onChange}
@@ -157,10 +157,10 @@ const UploadProduct = ({ categories }: Props) => {
                 ],
               ]}
             />
-          </InputWrapper>
+          </Input.Wrapper>
         </Suspense>
 
-        <InputWrapper label='Product Image' required labelElement='div'>
+        <Input.Wrapper label='Product Image' required labelElement='div'>
           <br />
           <Group grow>
             <input type='file' required onChange={handleFileChange} />
@@ -175,7 +175,7 @@ const UploadProduct = ({ categories }: Props) => {
             ) : null}
           </Group>
           {thumbnailError && <div>{thumbnailError}</div>}
-        </InputWrapper>
+        </Input.Wrapper>
 
         <Group position='right'>
           {loading ? (

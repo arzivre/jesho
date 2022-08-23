@@ -6,7 +6,6 @@ import {
   Group,
   Image,
   Radio,
-  RadioGroup,
   Select,
   SimpleGrid,
   Text,
@@ -168,12 +167,7 @@ const Checkout = () => {
   if (!user) {
     return (
       <Main>
-        <Group
-          direction='column'
-          position='center'
-          py={200}
-          sx={{ background: '#A9E34B' }}
-        >
+        <Group position='center' py={200} sx={{ background: '#A9E34B' }}>
           <Title align='center'>Please Login to Checkout</Title>
           <Button
             variant='white'
@@ -211,7 +205,7 @@ const Checkout = () => {
             ]}
           >
             <Suspense fallback={<Loading />}>
-              <Group direction='column' position='center'>
+              <Group position='center'>
                 <Title order={2}>Alamat Pengiriman</Title>
                 <form onSubmit={form.onSubmit(handleSubmit)}>
                   <Group grow mb={10}>
@@ -262,7 +256,7 @@ const Checkout = () => {
                     {...form.getInputProps('negara')}
                     value={'Indonesia'}
                   />
-                  <Group direction='row' grow mb={10}>
+                  <Group grow mb={10}>
                     <TextInput
                       required
                       label='Provinsi'
@@ -282,7 +276,7 @@ const Checkout = () => {
                       {...form.getInputProps('kode_pos')}
                     />
                   </Group>
-                  <RadioGroup
+                  <Radio.Group
                     label='Pilih Metode Pembayaran Virtual Account'
                     description='Virtual Account'
                     required
@@ -293,7 +287,7 @@ const Checkout = () => {
                     <Radio value='BNI' label='BNI' />
                     <Radio value='BRI' label='BRI' />
                     <Radio value='BCA ' label='BCA' />
-                  </RadioGroup>
+                  </Radio.Group>
                   <Group position='left' mt={20}>
                     <button
                       className='rounded bg-blue-500 px-4 py-2 text-blue-50 hover:bg-blue-400'
@@ -308,7 +302,7 @@ const Checkout = () => {
             </Suspense>
 
             <Suspense fallback={<Loading />}>
-              <Group direction='column' position='center' grow>
+              <Group position='center' grow>
                 <Title order={2}>Keranjang</Title>
 
                 <Suspense fallback={<Loading />}>
@@ -324,7 +318,7 @@ const Checkout = () => {
                           />
                         </Box>
                         <Box>
-                          <Group direction='column' position='right'>
+                          <Group position='right'>
                             <Text size='md'> {item.title}</Text>
                             <Text size='md'>
                               Rp {item.quantity! * Number(item.price)}
@@ -334,7 +328,7 @@ const Checkout = () => {
                       </Group>
                     ))}
 
-                  <Group direction='column' position='right'>
+                  <Group position='right'>
                     <Text size='md' align='justify'>
                       subtotal: Rp {total}
                     </Text>

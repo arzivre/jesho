@@ -1,30 +1,25 @@
-import { Suspense } from 'react'
+import { useDisclosure } from '@mantine/hooks'
 import useAuth, { signinWithGoogle, signout } from 'hooks/useAuth'
-import { useRouter } from 'next/router'
-import NextLink from 'next/link'
 import useCart from 'hooks/useCart'
-import { useBooleanToggle } from '@mantine/hooks'
-
-import { BsBucket } from 'react-icons/bs'
-import { BiLogOut, BiChevronDown, BiUserCircle } from 'react-icons/bi'
-import { FcGoogle } from 'react-icons/fc'
+import NextLink from 'next/link'
+import { useRouter } from 'next/router'
+import { Suspense } from 'react'
 
 import {
   ActionIcon,
   Avatar,
   Burger,
-  Container,
   createStyles,
   Group,
-  Header,
   Loader,
   Menu,
   Paper,
   Text,
   Transition,
-  UnstyledButton,
 } from '@mantine/core'
-import { Loading } from './Loading'
+import { BiChevronDown, BiUserCircle } from 'react-icons/bi'
+import { BsBucket } from 'react-icons/bs'
+import { FcGoogle } from 'react-icons/fc'
 
 const links = [
   {
@@ -60,70 +55,67 @@ const links = [
 const UserMenu = () => {
   const { classes, theme, cx } = useStyles()
   let { currentUser: user }: any = useAuth()
-  const [userMenuOpened, setUserMenuOpened] = useBooleanToggle(false)
+  const [opened, handlers] = useDisclosure(false)
+
   const router = useRouter()
 
   return (
-    <Menu
-      size={260}
-      placement='end'
-      transition='pop-top-right'
-      className='pt-2'
-      onClose={() => setUserMenuOpened(false)}
-      onOpen={() => setUserMenuOpened(true)}
-      control={
-        <UnstyledButton
-          className={cx(classes.user, { [classes.userActive]: userMenuOpened })}
-        >
-          <Group spacing={7}>
-            {user ? (
-              <Avatar
-                src={user.photoURL}
-                alt={user.name}
-                radius='xl'
-                size={20}
-              />
-            ) : (
-              <BiUserCircle size={20} />
-            )}
-            <Text
-              className={classes.userMenu}
-              weight={500}
-              size='sm'
-              sx={{ lineHeight: 1 }}
-              mr={3}
+    <>
+      <Menu position='bottom-end' withArrow>
+        <Menu.Target>
+          <button className='mt-2'>
+            <Group spacing={7}>
+              {user ? (
+                <Avatar
+                  src={user.photoURL}
+                  alt={user.name}
+                  radius='xl'
+                  size={20}
+                />
+              ) : (
+                <BiUserCircle size={20} />
+              )}
+              <Text
+                className={classes.userMenu}
+                weight={500}
+                size='sm'
+                sx={{ lineHeight: 1 }}
+                mr={3}
+              >
+                {user ? user.name : 'Guest'}
+              </Text>
+              <BiChevronDown size={12} />
+            </Group>
+          </button>
+        </Menu.Target>
+
+        <Menu.Dropdown>
+          {user ? (
+            <>
+              <NextLink href={'/order'} prefetch={false}>
+                <a className={classes.link} style={{ padding: 0 }}>
+                  <Menu.Item
+                    icon={<BsBucket size={14} color={theme.colors.blue[6]} />}
+                  >
+                    Order Lists
+                  </Menu.Item>
+                </a>
+              </NextLink>
+              <Menu.Item color='red' onClick={() => signout()}>
+                Log out
+              </Menu.Item>
+            </>
+          ) : (
+            <Menu.Item
+              icon={<FcGoogle size={14} />}
+              onClick={() => signinWithGoogle(router.asPath)}
             >
-              {user ? user.name : 'Guest'}
-            </Text>
-            <BiChevronDown size={12} />
-          </Group>
-        </UnstyledButton>
-      }
-    >
-      <NextLink href={'/order'} prefetch={false} passHref>
-        <a className={classes.link} style={{ padding: 0 }}>
-          <Menu.Item icon={<BsBucket size={14} color={theme.colors.blue[6]} />}>
-            Order Lists
-          </Menu.Item>
-        </a>
-      </NextLink>
-      {user ? (
-        <Menu.Item
-          color='red'
-          icon={<BiLogOut size={14} color='red' />}
-          onClick={() => signout()}
-        >
-          Log out
-        </Menu.Item>
-      ) : (
-        <Menu.Item
-          icon={<FcGoogle size={14} />}
-          onClick={() => signinWithGoogle(router.asPath)}
-        >
-          Log in
-        </Menu.Item>
-      )}
-    </Menu>
+              Log in
+            </Menu.Item>
+          )}
+        </Menu.Dropdown>
+      </Menu>
+    </>
   )
 }
 
@@ -132,7 +124,7 @@ const CartIcon = () => {
   let { itemCount } = sumItems()
 
   return (
-    <div className='pt-2'>
+    <>
       <NextLink href={'/cart'} passHref>
         <a>
           <ActionIcon size='lg'>
@@ -141,17 +133,18 @@ const CartIcon = () => {
           </ActionIcon>
         </a>
       </NextLink>
-    </div>
+    </>
   )
 }
+
 const Mobile = () => {
   let { classes, theme, cx } = useStyles()
-  const [opened, toggleOpened] = useBooleanToggle(false)
+  const [opened, handlers] = useDisclosure(false)
 
   return (
     <>
       <div className='flex gap-x-2 pt-2 lg:hidden'>
-        <Burger opened={opened} onClick={() => toggleOpened()} size='sm' />
+        <Burger opened={opened} onClick={() => handlers.toggle()} size='sm' />
         <span className='hidden pt-1 sm:block'>Menu</span>
       </div>
       <Transition transition='pop-top-right' duration={200} mounted={opened}>
@@ -170,6 +163,7 @@ const Mobile = () => {
     </>
   )
 }
+
 export const NewHeader = () => {
   return (
     <div className='sticky top-0 z-10  bg-white'>
@@ -192,14 +186,14 @@ export const NewHeader = () => {
           ))}
         </ol>
 
-        <ol className='flex gap-x-4'>
+        <ol className='flex gap-x-4 pt-2 '>
           <li>
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<Loader />}>
               <UserMenu />
             </Suspense>
           </li>
           <li>
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<Loader />}>
               <CartIcon />
             </Suspense>
           </li>
@@ -208,6 +202,8 @@ export const NewHeader = () => {
     </div>
   )
 }
+
+export default NewHeader
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -323,146 +319,3 @@ const useStyles = createStyles((theme) => ({
       theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
   },
 }))
-
-interface JeshoHeaderProps {
-  links: { link: string; label: string }[]
-}
-
-export const JeshoHeader = ({ links }: JeshoHeaderProps) => {
-  const { classes, theme, cx } = useStyles()
-  let { currentUser: user }: any = useAuth()
-
-  let { sumItems } = useCart()
-  let { itemCount } = sumItems()
-
-  const [opened, toggleOpened] = useBooleanToggle(false)
-  const [userMenuOpened, setUserMenuOpened] = useBooleanToggle(false)
-
-  const router = useRouter()
-
-  const items = links.map((link) => (
-    <NextLink key={link.label} href={link.link} passHref>
-      <Text component='a' className={classes.link}>
-        {link.label}
-      </Text>
-    </NextLink>
-  ))
-
-  const profileMenu = (
-    <Menu
-      size={260}
-      placement='end'
-      transition='pop-top-right'
-      // className={classes.userMenu}
-      onClose={() => setUserMenuOpened(false)}
-      onOpen={() => setUserMenuOpened(true)}
-      control={
-        <UnstyledButton
-          className={cx(classes.user, { [classes.userActive]: userMenuOpened })}
-        >
-          <Group spacing={7}>
-            {user ? (
-              <Avatar
-                src={user.photoURL}
-                alt={user.name}
-                radius='xl'
-                size={20}
-              />
-            ) : (
-              <BiUserCircle size={20} />
-            )}
-            <Text
-              className={classes.userMenu}
-              weight={500}
-              size='sm'
-              sx={{ lineHeight: 1 }}
-              mr={3}
-            >
-              {user ? user.name : 'Guest'}
-            </Text>
-            <BiChevronDown size={12} />
-          </Group>
-        </UnstyledButton>
-      }
-    >
-      <NextLink href={'/order'} prefetch={false} passHref>
-        <a className={classes.link} style={{ padding: 0 }}>
-          <Menu.Item icon={<BsBucket size={14} color={theme.colors.blue[6]} />}>
-            Order Lists
-          </Menu.Item>
-        </a>
-      </NextLink>
-      {user ? (
-        <Menu.Item
-          color='red'
-          icon={<BiLogOut size={14} color='red' />}
-          onClick={() => signout()}
-        >
-          Log out
-        </Menu.Item>
-      ) : (
-        <Menu.Item
-          icon={<FcGoogle size={14} />}
-          onClick={() => signinWithGoogle(router.asPath)}
-        >
-          Log in
-        </Menu.Item>
-      )}
-    </Menu>
-  )
-
-  return (
-    <Header height={56} className={classes.root}>
-      <Container size='xl' className={classes.inner}>
-        <Suspense fallback={<Loader />}>
-          <Burger
-            opened={opened}
-            onClick={() => toggleOpened()}
-            size='sm'
-            className={classes.burger}
-          />
-        </Suspense>
-
-        <Suspense fallback={<Loader />}>
-          <Group className={classes.links} spacing={5}>
-            {items}
-          </Group>
-        </Suspense>
-
-        <Suspense fallback={<Loader />}>
-          <Transition
-            transition='pop-top-right'
-            duration={200}
-            mounted={opened}
-          >
-            {(styles) => (
-              <Paper className={classes.dropdown} withBorder style={styles}>
-                {items}
-              </Paper>
-            )}
-          </Transition>
-        </Suspense>
-
-        <Suspense fallback={<Loader />}>
-          <h1>JESHO</h1>
-        </Suspense>
-
-        <Suspense fallback={<Loader />}>
-          <Group spacing={0} className={classes.social} position='right' noWrap>
-            {profileMenu}
-            <NextLink href={'/cart'} passHref>
-              <Text component='a'>
-                <ActionIcon size='lg'>
-                  <BsBucket size={14} />
-                  {itemCount > 0 && itemCount}
-                </ActionIcon>
-              </Text>
-            </NextLink>
-          </Group>
-        </Suspense>
-      </Container>
-    </Header>
-  )
-}
-
-export default JeshoHeader

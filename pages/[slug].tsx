@@ -90,7 +90,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                       backgroundColor: 'rgb(206 212 218 / 25%)',
                     }}
                   >
-                    <Group direction='column' position='center' grow mb={20}>
+                    <Group  position='center' grow mb={20}>
                       <div>
                         <Image
                           src={product.imgUrl}

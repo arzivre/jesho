@@ -104,7 +104,7 @@ const Cart = () => {
               </Box>
             </SimpleGrid>
           ))}
-        <Group direction='column' position='right'>
+        <Group position='right'>
           <Text size='md'>Jumlah {itemCount}</Text>
           <Text size='md'>Subtotal Rp {total}</Text>
           <Text size='md'>Pengiriman Rp 30000</Text>

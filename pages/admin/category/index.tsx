@@ -2,7 +2,6 @@ import {
   Button,
   Group,
   Radio,
-  RadioGroup,
   Select,
   Text,
   TextInput,
@@ -116,7 +115,7 @@ const AdminCategory = ({ fallback }: CategoryProps) => {
           placeholder='(Optional) Descripsi Category'
           {...form.getInputProps('description')}
         />
-        <RadioGroup
+        <Radio.Group
           label='Select Type Category'
           size='xl'
           required
@@ -124,7 +123,7 @@ const AdminCategory = ({ fallback }: CategoryProps) => {
         >
           <Radio value='product' label='Product' />
           <Radio value='blog' label='Blog' />
-        </RadioGroup>
+        </Radio.Group>
 
         <Group position='right' mt={20}>
           {loading ? (

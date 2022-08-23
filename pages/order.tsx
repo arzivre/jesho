@@ -118,7 +118,6 @@ const OrderList = () => {
             </Card.Section>
             <Card.Section component={ScrollArea} className={classes.main}>
               <Group
-                direction='column'
                 style={{ height: '200px', width: '200px' }}
               >
                 {order.items.cart.map((item: any) => (
@@ -139,9 +138,9 @@ const OrderList = () => {
               </Group>
             </Card.Section>
             <Card.Section className={classes.main}>
-              <Accordion iconPosition='right'>
-                <Accordion.Item label='Alamat'>
-                  <Group direction='column' grow>
+              <Accordion>
+                {/* <Accordion.Item>
+                  <Group  grow>
                     <Text>
                       Nama: {order.shippingAddress.nama_depan}{' '}
                       {order.shippingAddress.nama_belakang}
@@ -160,7 +159,7 @@ const OrderList = () => {
                       {order.shippingAddress.kode_pos}
                     </Text>
                   </Group>
-                </Accordion.Item>
+                </Accordion.Item> */}
               </Accordion>
             </Card.Section>
           </Card>

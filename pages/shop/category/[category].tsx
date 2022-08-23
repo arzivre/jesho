@@ -35,7 +35,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-
 export const getStaticProps: GetStaticProps = async (context) => {
   const params = context.params!
   const snapshotProducts = await db
@@ -98,27 +97,19 @@ const CategoryPage = ({ products, categories }: Props) => {
   const WIDTH = categories.length
   const { classes, theme } = useStyles()
 
-  
-
   return (
     <>
-      <Meta/>
+      <Meta />
 
       <Main>
         <Box sx={{ backgroundColor: '#E9ECEF' }}>
           <Suspense fallback={<Loading />}>
-            <Category categories={categories}/>
+            <Category categories={categories} />
           </Suspense>
 
           <Container size='xl'>
             <Suspense fallback={<Loading />}>
-              <Group
-                direction='row'
-                position='center'
-                spacing='xl'
-                grow
-                py={20}
-              >
+              <Group position='center' spacing='xl' grow py={20}>
                 {products.map((product: ProductProps) => (
                   <NextLink key={product.id} href={`/${product.slug}`} passHref>
                     <Text component='a'>
@@ -144,7 +135,6 @@ const CategoryPage = ({ products, categories }: Props) => {
                             priority
                           />
                           <Group
-                            direction='column'
                             style={{
                               marginBottom: 5,
                               marginTop: theme.spacing.sm,

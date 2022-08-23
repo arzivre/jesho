@@ -94,7 +94,6 @@ const ShopPage = ({ products, categories }: Props) => {
           <Suspense fallback={<Loading />}>
             <Container size='xl'>
               <Group
-                direction='row'
                 position='center'
                 spacing='xl'
                 grow
@@ -125,7 +124,6 @@ const ShopPage = ({ products, categories }: Props) => {
                             priority
                           />
                           <Group
-                            direction='column'
                             style={{
                               marginBottom: 5,
                               marginTop: theme.spacing.sm,

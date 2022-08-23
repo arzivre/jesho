@@ -39,7 +39,7 @@ const OrderUpdate = () => {
   const details = (
     <>
       <Group grow>
-        <Group direction='column'>
+        <Group>
           <Text>
             Tgl Dibuat:
             {format(parseISO(order.createdAt), ' dd MMM yyyy - H:mm')}
@@ -51,7 +51,7 @@ const OrderUpdate = () => {
             </Text>
           </Group>
         </Group>
-        <Group direction='column'>
+        <Group >
           <Text>Id: {order.external_id}</Text>
           <Text>
             account_number: {order.account_number} - Via Bank {order.bank_code}
@@ -105,7 +105,7 @@ const OrderUpdate = () => {
       <Group>
         {order.items.cart.map((item: ProductProps) => (
           <Group key={item.productId} style={{ border: '2px solid black' }}>
-            <Group direction='column'>
+            <Group>
               <Text align='center'>{item.title}</Text>
               <Text align='center'>
                 {item.quantity} x Rp {item.price} = Rp{' '}
