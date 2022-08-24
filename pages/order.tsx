@@ -82,8 +82,9 @@ const OrderList = () => {
             <Card.Section>
               <Group position='apart' className={classes.header}>
                 <Button
-                  color={`${order.status === 'PENDING' ? 'yellow' : 'teal'}`}
-                  sx={{ fontWeight: 400 }}
+                  className={`${
+                    order.status === 'PENDING' ? 'bg-yellow-500' : 'bg-teal-500'
+                  }`}
                 >
                   {order.statusDelivery === 'DIKIRIM'
                     ? `DIKIRIM VIA JNE-RESI ${order.codeDelivery} `
@@ -99,8 +100,7 @@ const OrderList = () => {
                 </Text>
                 {order.statusDelivery === 'DIKIRIM' && (
                   <Button
-                    variant='gradient'
-                    gradient={{ from: '#ed6ea0', to: '#ec8c69', deg: 35 }}
+                    className='bg-orange-500'
                     onClick={() => handleOnClick(order.external_id)}
                   >
                     Terkirim
@@ -108,6 +108,7 @@ const OrderList = () => {
                 )}
                 {order.status === 'PENDING' && (
                   <Button
+                    className='bg-rose-400'
                     onClick={() =>
                       setOpened({ open: true, id: order.external_id })
                     }
@@ -123,7 +124,7 @@ const OrderList = () => {
                 {order.items.cart.map((item: any) => (
                   <div
                     key={item.title}
-                    className='flex flex-row gap-8 border border-black justify-between'
+                    className='flex flex-row justify-between gap-8 border border-black'
                   >
                     <Image
                       src={item.imgUrl ? item.imgUrl : item.link}
