@@ -11,7 +11,7 @@ interface MetaProps {
 const Meta = ({
   title = 'Jesho - House of Jesho',
   author = 'Agil Jesho',
-  description = 'Houseofjesho adalah perusahaan Jasa Cutting CNC Laser dan Router',
+  description = 'Houseofjesho adalah perusahaan Jasa Cutting CNC Laser dan Router Semarang',
   image,
   url,
   siteName,
