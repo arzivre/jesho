@@ -77,7 +77,7 @@ const Home = ({ products }: Props) => {
               contoh pola geometric, arabic, floral dll
             </p>
           </section>
-          <section className='my-10 flex gap-8 [&>picture]:border'>
+          <section className='my-10 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 [&>picture]:border'>
             <picture>
               <img
                 src='images/home/showcase1.jpg'
@@ -112,7 +112,7 @@ const Home = ({ products }: Props) => {
             kerjakan untuk laser dan router: ACP, Akrilik, Kayu, Plywood, PVC,
             Kain, Kulit, MDF, HMR
           </p>
-          <div className='my-10 flex gap-8'>
+          <div className='my-10 grid grid-cols-1 gap-8 md:grid-cols-3 lg:grid-cols-5'>
             <picture>
               <img src='images/home/gal1.jpg' alt='' />
             </picture>
@@ -138,11 +138,11 @@ const Home = ({ products }: Props) => {
             ACP cutting juga ada huruf timbul akrilik yang biasa digunakan untuk
             pembuatan papan nama / sign / letter timbul
           </p>
-          <div className='my-10 flex gap-8'>
+          {/* <div className='my-10 flex gap-8'>
             <Skeleton height={400} />
             <Skeleton height={400} />
             <Skeleton height={400} />
-          </div>
+          </div> */}
           <section className='mx-auto max-w-screen-md'>
             <p>
               membuat huruf timbul bisasanya menggunakan bahan akrilik untuk
@@ -184,7 +184,6 @@ const Home = ({ products }: Props) => {
               produk, trouble, dn lain2
             </p>
             <br />
-
           </section>
         </main>
       </Main>
