@@ -9,6 +9,7 @@ import {
 } from '@mantine/core'
 import NextLink from 'next/link'
 import { ImFacebook2, ImInstagram } from 'react-icons/im'
+import { SiTiktok } from 'react-icons/si'
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -159,14 +160,22 @@ export const JeshoFooter = ({ data }: FooterProps) => {
               >
                 <Text className={classes.link} component='a'>
                   <Group>
-                    <ImInstagram size={18} /> House of Jesho
+                    <ImInstagram size={18} /> @houseofjesho
                   </Group>
                 </Text>
               </NextLink>
               <NextLink href='https://www.facebook.com/houseofjesho/' passHref>
                 <Text<'a'> className={classes.link} component='a'>
                   <Group>
-                    <ImFacebook2 size={18} /> House of Jesho
+                    <ImFacebook2 size={18} /> @houseofjesho
+                  </Group>
+                </Text>
+              </NextLink>
+              <NextLink href='https://vt.tiktok.com/ZSdRJ9o4o' passHref>
+                <Text<'a'> className={classes.link} component='a'>
+                  <Group>
+                    <SiTiktok size={18} />
+                    @houseofjesho
                   </Group>
                 </Text>
               </NextLink>
