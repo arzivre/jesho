@@ -12,7 +12,7 @@ const ContactPage = () => {
         <main className='mx-auto min-h-screen max-w-screen-md text-xl'>
           <h1 className='mt-12 mb-6 font-serif text-4xl'>Hubungi Kami</h1>
           <p>kami selalu siap menerima chat</p>
-          <section className='mb-20 mt-4 grid gap-x-8 gap-y-4 md:grid-cols-[auto_auto] md:gap-y-2'>
+          <section className='mb-8 mt-4 grid gap-x-8 gap-y-4 md:grid-cols-[auto_auto] md:gap-y-2'>
             <p className='text-black'>E-mail</p>
             <p>houseofjesho@gmail.com</p>
             <p className='text-black'>Phone</p>
@@ -21,7 +21,8 @@ const ContactPage = () => {
             <p>Semarang, Jawa Tengah.</p>
           </section>
           <section>
-            <ol className='my-10 flex gap-x-4 [&>li>a:hover]:text-blue-500'>
+            <h2 className='mb-4 font-serif text-3xl'>Sosial Media</h2>
+            <ol className='mb-10 flex gap-x-6 [&>li>a:hover]:text-blue-500'>
               <li>
                 <a
                   href='https://www.instagram.com/houseofjesho/?hl=id'
@@ -49,6 +50,7 @@ const ContactPage = () => {
                   <SiTiktok size={18} />
                 </a>
               </li>
+              <li>@houseofjesho</li>
             </ol>
           </section>
           <div>
