@@ -1,26 +1,19 @@
 import {
-  Box,
-  Button,
-  Card,
+  Box, Card,
   Container,
   createStyles,
-  Group,
-  Loader,
-  ScrollArea,
-  Text,
-  Title,
+  Group, Text
 } from '@mantine/core'
-import { Loading } from 'components/Loading'
 import Category from 'components/Category'
+import { Loading } from 'components/Loading'
 import Main from 'components/Main'
+import Meta from 'components/Meta'
 import { db } from 'libs/firebase-admin'
 import { CategoryProps, ProductProps } from 'libs/types'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import Head from 'next/head'
 import Image from 'next/image'
 import NextLink from 'next/link'
 import { Suspense } from 'react'
-import Meta from 'components/Meta'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const ref = await db.collection('category').get()
