@@ -103,6 +103,7 @@ const ShopPage = ({ products, categories }: Props) => {
                   <NextLink key={product.id} href={`/${product.slug}`} passHref>
                     <Text component='a'>
                       <Card
+                        className='shadow hover:shadow-xl'
                         sx={(theme) => ({
                           backgroundColor: theme.colors.gray[0],
                         })}

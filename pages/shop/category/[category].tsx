@@ -99,7 +99,7 @@ const CategoryPage = ({ products, categories }: Props) => {
 
   return (
     <>
-      <Meta title='Produk - Jesho'/>
+      <Meta title='Produk - Jesho' />
 
       <Main>
         <Box sx={{ backgroundColor: '#E9ECEF' }}>
@@ -114,6 +114,7 @@ const CategoryPage = ({ products, categories }: Props) => {
                   <NextLink key={product.id} href={`/${product.slug}`} passHref>
                     <Text component='a'>
                       <Card
+                        className='shadow hover:shadow-xl'
                         sx={(theme) => ({
                           backgroundColor: theme.colors.gray[0],
                         })}
