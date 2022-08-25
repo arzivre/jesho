@@ -21,6 +21,7 @@ const Meta = ({
       <Head>
         <meta name='author' content={author} />
         <meta name='description' content={description} />
+        <meta name="keywords" content="Jasa Cutting CNC Laser dan Router, Semarang" />
         <meta property='og:title' content={title} />
         <meta property='og:description' content={description} />
         <meta property='og:image' content={image} />
