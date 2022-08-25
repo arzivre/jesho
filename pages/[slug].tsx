@@ -90,7 +90,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                         backgroundColor: 'rgb(206 212 218 / 25%)',
                       }}
                     >
-                      <div className='flex flex-col'>
+                      <div className='flex flex-col p-4'>
                         <div className='mb-4'>
                           <Image
                             src={product.imgUrl}
@@ -99,14 +99,14 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                             width={'100%'}
                           />
                         </div>
-                        <ol className='flex justify-between'>
+                        <ol className='flex justify-between mt-4'>
                           <li>
                             <a
                               href='https://shopee.co.id/jeshoid'
                               target='_blank'
                               rel='noopener noreferrer'
                               className='rounded bg-orange-500 px-5 py-2 text-orange-50 hover:bg-orange-400'
-                              >
+                            >
                               Beli di Shopee
                             </a>
                           </li>
@@ -129,8 +129,11 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                   <Title order={1} mb={20}>
                     {product.title}
                   </Title>
-                  <Text size='xl'>Rp {product.price}</Text>
-                  <hr />
+                  <h2
+                    className='mb-6 border-b-2 text-4xl'
+                  >
+                    Rp {product.price}
+                  </h2>
                   <Text>
                     <div
                       dangerouslySetInnerHTML={{ __html: product.content }}
