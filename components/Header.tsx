@@ -188,7 +188,7 @@ export const NewHeader = () => {
           ))}
         </ol>
 
-        <ol className='flex gap-x-4 pt-2 '>
+        {/* <ol className='flex gap-x-4 pt-2 '>
           <li>
             <Suspense fallback={<Loader />}>
               <UserMenu />
@@ -199,7 +199,7 @@ export const NewHeader = () => {
               <CartIcon />
             </Suspense>
           </li>
-        </ol>
+        </ol> */}
       </header>
     </div>
   )

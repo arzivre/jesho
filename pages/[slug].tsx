@@ -99,7 +99,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                             width={'100%'}
                           />
                         </div>
-                        <Group position='apart' grow mb={20}>
+                        {/* <Group position='apart' grow mb={20}>
                           {!inCart && (
                             <Button
                               mx={20}
@@ -144,7 +144,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                               <BsFillTrashFill />
                             </Button>
                           )}
-                        </Group>
+                        </Group> */}
                       </div>
                     </Card>
                   </Grid.Col>
