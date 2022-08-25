@@ -73,7 +73,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
 
   return (
     <>
-      <Meta title={`${product.title} - Jesho`}/>
+      <Meta title={`${product.title} - Jesho`} />
       <Main>
         <Box
           style={{
@@ -99,52 +99,28 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                             width={'100%'}
                           />
                         </div>
-                        {/* <Group position='apart' grow mb={20}>
-                          {!inCart && (
-                            <Button
-                              mx={20}
-                              variant='outline'
-                              color='dark'
-                              onClick={() => addItem(product)}
+                        <ol className='flex justify-between'>
+                          <li>
+                            <a
+                              href='https://shopee.co.id/jeshoid'
+                              target='_blank'
+                              rel='noopener noreferrer'
+                              className='rounded bg-orange-500 px-5 py-2 text-orange-50 hover:bg-orange-400'
+                              >
+                              Beli di Shopee
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href='https://www.tokopedia.com/houseofjesho'
+                              target='_blank'
+                              rel='noopener noreferrer'
+                              className='rounded bg-green-500 px-5 py-2 text-green-50 hover:bg-green-400'
                             >
-                              Masukan Keranjang{' '}
-                            </Button>
-                          )}
-                          {inCart && (
-                            <Button
-                              mx={20}
-                              variant='outline'
-                              color='dark'
-                              size='md'
-                              onClick={() => increaseItem(product.productId)}
-                            >
-                              +
-                            </Button>
-                          )}
-                          {inCart && <p className='text-center'>{inCart.quantity}</p>}
-                          {inCart?.quantity > 1 && (
-                            <Button
-                              mx={20}
-                              variant='outline'
-                              color='dark'
-                              size='md'
-                              onClick={() => decreaseItem(product.productId)}
-                            >
-                              -
-                            </Button>
-                          )}
-                          {inCart?.quantity === 1 && (
-                            <Button
-                              mx={20}
-                              variant='outline'
-                              color='pink'
-                              size='sm'
-                              onClick={() => removeItem(product.productId)}
-                            >
-                              <BsFillTrashFill />
-                            </Button>
-                          )}
-                        </Group> */}
+                              Beli di Tokopedia
+                            </a>
+                          </li>
+                        </ol>
                       </div>
                     </Card>
                   </Grid.Col>
