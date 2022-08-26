@@ -85,6 +85,7 @@ const useStyles = createStyles((theme) => ({
     marginBottom: theme.spacing.xs / 2,
     padding: 6,
     color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+    whiteSpace: 'nowrap'
   },
 
   afterFooter: {
@@ -160,14 +161,16 @@ export const JeshoFooter = ({ data }: FooterProps) => {
               >
                 <Text className={classes.link} component='a'>
                   <Group>
-                    <ImInstagram size={18} /> @houseofjesho
+                    <ImInstagram size={18} />{' '}
+                    <span className='hidden md:block'>@houseofjesho</span>
                   </Group>
                 </Text>
               </NextLink>
               <NextLink href='https://www.facebook.com/houseofjesho/' passHref>
                 <Text<'a'> className={classes.link} component='a'>
                   <Group>
-                    <ImFacebook2 size={18} /> @houseofjesho
+                    <ImFacebook2 size={18} />{' '}
+                    <span className='hidden md:block'>@houseofjesho</span>
                   </Group>
                 </Text>
               </NextLink>
@@ -175,7 +178,7 @@ export const JeshoFooter = ({ data }: FooterProps) => {
                 <Text<'a'> className={classes.link} component='a'>
                   <Group>
                     <SiTiktok size={18} />
-                    @houseofjesho
+                    <span className='hidden md:block'>@houseofjesho</span>
                   </Group>
                 </Text>
               </NextLink>

@@ -9,7 +9,7 @@ const ContactPage = () => {
     <>
       <Meta title='Kontak Kami - Jesho' />
       <Main>
-        <main className='mx-auto min-h-screen max-w-screen-md text-xl'>
+        <main className='mx-auto my-12 min-h-screen max-w-screen-md px-4 text-xl'>
           <h1 className='mt-12 mb-6 font-serif text-4xl'>Hubungi Kami</h1>
           <p>kami selalu siap menerima chat</p>
           <section className='mb-8 mt-4 grid gap-x-8 gap-y-4 md:grid-cols-[auto_auto] md:gap-y-2'>
@@ -53,7 +53,7 @@ const ContactPage = () => {
               <li>@houseofjesho</li>
             </ol>
           </section>
-          <div>
+          <div className='max-w-screen-md hidden md:block'>
             <iframe
               src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62123425.37634149!2d19.028278114576043!3d18.131041213798525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e70f38ef735cfa3%3A0x3cd5244e7c6bd059!2sjasa%20cutting%20Laser%20Router%20Jesho%20CNC!5e0!3m2!1sid!2sid!4v1661322822804!5m2!1sid!2sid'
               width='600'

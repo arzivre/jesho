@@ -7,7 +7,7 @@ const Harga = () => {
       <Meta title='Daftar Harga - Jesho' />
       <Main>
         <h1 className='mt-12 mb-4 px-4 text-center text-5xl'>Daftar Harga</h1>
-        <main className='mx-auto min-h-screen max-w-screen-md'>
+        <main className='mx-auto px-4 min-h-screen max-w-screen-md'>
           <p className='mb-4'>
             Berikut daftar harga jasa cutting tidak termasuk bahan
           </p>

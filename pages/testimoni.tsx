@@ -7,7 +7,7 @@ const Testimon = () => {
       <Meta title='Testimoni - Jesho' />
       <Main>
         <h1 className='mt-12 px-4 text-center text-5xl'>Testimoni</h1>
-        <main className='mx-auto min-h-screen max-w-screen-md'>
+        <main className='mx-auto min-h-screen max-w-screen-md px-4'>
           <section>
             <ol
               className='mt-12 grid grid-cols-1 gap-8 text-xl md:grid-cols-2 lg:grid-cols-3 [&>li]:border [&>li]:p-4 [&>li]:shadow [&>li>p]:mb-4
