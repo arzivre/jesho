@@ -60,7 +60,7 @@ const Category = ({ categories }: Props) => {
           {categories.map((category: CategoryProps) => (
             <NextLink
               key={category.docId}
-              href={`/shop/category/${category.title}`}
+              href={`/shop/category/${category.docId}`}
               passHref
             >
               <button

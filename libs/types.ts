@@ -38,6 +38,7 @@ export interface DataProps {
   searchQuery: string
   imgUrl?: string
   createdAt?: string
+  categoryId: String
 }
 
 export interface CategoryProps {

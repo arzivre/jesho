@@ -1,10 +1,4 @@
-import {
-  Button,
-  Group,
-  Input,
-  NativeSelect,
-  TextInput
-} from '@mantine/core'
+import { Button, Group, Input, NativeSelect, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import AdminShell from 'components/Admin/AdminShell'
 import { Loading } from 'components/Loading'
@@ -66,11 +60,17 @@ const UploadProduct = ({ categories }: Props) => {
     setLoading(true)
     const searchQuery = values.title
 
+    const categoryIndex = categories.findIndex((category) => {
+      return category.title === values.category
+    })
+    const categoryId = categories[categoryIndex].docId
+
     const data: DataProps = {
       content,
       createdAt: new Date().toISOString(),
       slug: values.title.replace(/\s/g, '-'),
       searchQuery,
+      categoryId,
       ...values,
     }
 
@@ -115,7 +115,7 @@ const UploadProduct = ({ categories }: Props) => {
 
   return (
     <AdminShell>
-      <h1 className='text-5xl mb-8'>Upload Product</h1>
+      <h1 className='mb-8 text-5xl'>Upload Product</h1>
 
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <TextInput

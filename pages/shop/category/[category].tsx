@@ -1,9 +1,4 @@
-import {
-  Box, Card,
-  Container,
-  createStyles,
-  Group, Text
-} from '@mantine/core'
+import { Box, Card, Container, createStyles, Group, Text } from '@mantine/core'
 import Category from 'components/Category'
 import { Loading } from 'components/Loading'
 import Main from 'components/Main'
@@ -32,7 +27,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const params = context.params!
   const snapshotProducts = await db
     .collection('products')
-    .where('category', '==', params.category)
+    .where('categoryId', '==', params.category)
     .orderBy('createdAt', 'desc')
     .get()
 

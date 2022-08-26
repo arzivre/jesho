@@ -2,7 +2,14 @@ import { ChangeEvent, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { Loading } from 'components/Loading'
 import AdminShell from 'components/Admin/AdminShell'
-import { Button, Group, Input, NativeSelect, TextInput, Title } from '@mantine/core'
+import {
+  Button,
+  Group,
+  Input,
+  NativeSelect,
+  TextInput,
+  Title,
+} from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useProduct } from 'hooks/useProduct'
 import Image from 'next/image'
@@ -73,9 +80,9 @@ const UpdateProduct = ({ product, categories }: UpdateProps) => {
   const [content, onChange] = useState(product.content)
   const [thumbnail, setThumbnail] = useState<null | any>(null)
   const [thumbnailError, setThumbnailError] = useState('')
-  
+
   const { uploadImage, loading, error } = useProduct('products')
-  
+
   const categoryList = categories.map((category) => category.title)
 
   const form = useForm({
@@ -89,11 +96,17 @@ const UpdateProduct = ({ product, categories }: UpdateProps) => {
   const handleSubmit = async (values: typeof form.values) => {
     const searchQuery = values.title
 
+    const categoryIndex = categories.findIndex((category) => {
+      return category.title === values.category
+    })
+    const categoryId = categories[categoryIndex].docId
+
     const data: DataProps = {
       content,
       productId: product.id,
       slug: values.title.replace(/\s/g, '-'),
       searchQuery,
+      categoryId,
       ...values,
     }
 
@@ -110,7 +123,7 @@ const UpdateProduct = ({ product, categories }: UpdateProps) => {
       .doc(product.id)
       .set(data, { merge: true })
 
-    router.push('/admin/product')
+    router.push('/admin/')
   }
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
