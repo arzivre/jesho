@@ -76,6 +76,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
       <Meta title={`${product.title} - Jesho`} />
       <Main>
         <Box
+          className='py-12'
           style={{
             background: '#F8F9FA',
           }}
@@ -99,13 +100,13 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                             width={'100%'}
                           />
                         </div>
-                        <ol className='flex justify-between mt-4'>
+                        <ol className='mt-4 flex flex-col justify-between gap-8 md:flex-row'>
                           <li>
                             <a
                               href='https://shopee.co.id/jeshoid'
                               target='_blank'
                               rel='noopener noreferrer'
-                              className='rounded bg-orange-500 px-5 py-2 text-orange-50 hover:bg-orange-400'
+                              className='my-1 rounded bg-orange-500 px-5 py-2 text-orange-50 hover:bg-orange-400'
                             >
                               Beli di Shopee
                             </a>
@@ -115,7 +116,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                               href='https://www.tokopedia.com/houseofjesho'
                               target='_blank'
                               rel='noopener noreferrer'
-                              className='rounded bg-green-500 px-5 py-2 text-green-50 hover:bg-green-400'
+                              className='my-1 rounded bg-green-500 px-5 py-2 text-green-50 hover:bg-green-400'
                             >
                               Beli di Tokopedia
                             </a>
@@ -126,16 +127,15 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                   </Grid.Col>
                 </Suspense>
                 <Grid.Col xs={12} md={6} mt={20}>
-                  <Title order={1} mb={20}>
+                  <Title className='text-gray-800' order={1} mb={20}>
                     {product.title}
                   </Title>
-                  <h2
-                    className='mb-6 border-b-2 text-4xl'
-                  >
+                  <h2 className='mb-6 border-b-2 text-4xl'>
                     Rp {product.price}
                   </h2>
                   <Text>
                     <div
+                      className='text-gray-700'
                       dangerouslySetInnerHTML={{ __html: product.content }}
                     />
                   </Text>
