@@ -1,71 +1,137 @@
-import { Card, Group, Text, Title } from '@mantine/core'
-import AdminShell from 'components/Admin/AdminShell'
-import { db } from 'libs/firebase-admin'
 import { GetStaticProps } from 'next'
+import { ProductProps } from 'libs/types'
+
+import { db } from 'libs/firebase-admin'
+import useSWR, { SWRConfig, useSWRConfig } from 'swr'
+import fetcher from 'utils/fetcher'
+
+import AdminShell from 'components/Admin/AdminShell'
+
+import { Suspense, useState } from 'react'
+import { Loading } from 'components/Loading'
+
+import AdminTable from 'components/Admin/AdminTable'
+import NextLink from 'next/link'
+import { Anchor, Button, Group, Image, Text, Title } from '@mantine/core'
+import { useRouter } from 'next/router'
+import post from 'utils/post'
+import { parseISO, format } from 'date-fns'
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const product = await db.collection('products').get()
-  const user = await db.collection('users').get()
-  const order = await db.collection('orders').get()
-  const delivered = await db
-    .collection('orders')
-    .where('isDelivered', '==', true)
+  const snapshot = await db
+    .collection('products')
+    .orderBy('createdAt', 'desc')
     .get()
 
-  const productSize = product.size.toString()
-  const userSize = user.size.toString()
-  const orderSize = order.size.toString()
-  const deliveredSize = delivered.size.toString()
+  let products: any[] = []
+
+  snapshot.forEach((doc) => {
+    products.push({ id: doc.id, ...doc.data() })
+  })
 
   return {
-    props: { productSize, userSize, orderSize, deliveredSize },
+    props: { fallback: products },
     revalidate: 60,
   }
 }
 
 interface Props {
-  userSize: string
-  orderSize: string
-  deliveredSize: string
-  productSize: string
+  fallback: [ProductProps]
 }
-const Dashboard = ({
-  productSize,
-  userSize,
-  orderSize,
-  deliveredSize,
-}: Props) => {
+
+const Products = ({ fallback }: Props) => {
+  const { mutate } = useSWRConfig()
+  const { data: products, error } = useSWR('/api/product/action', fetcher, {
+    fallbackData: fallback,
+    suspense: true,
+  })
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
+
+  const handleUpdate = async (id: string) => {
+    router.push(`/admin/product/${id}`)
+  }
+
+  const handleDelete = async (id: string) => {
+    setLoading(true)
+    await post('/api/product/action', id, 'DELETE')
+    mutate('/api/product/action')
+    setLoading(false)
+  }
+
+  const rows = products.map((product: ProductProps) => (
+    <tr key={product.id}>
+      <td>
+        <button
+          className='rounded bg-blue-500 px-4 py-2 text-blue-50 hover:bg-blue-400'
+          onClick={() => handleUpdate(product.id)}
+        >
+          Edit
+        </button>
+      </td>
+      <td>
+        <button
+          className='rounded bg-red-100 p-2 text-red-600 hover:bg-red-600
+        hover:text-red-900'
+          onClick={() => handleDelete(product.id)}
+        >
+          Delete
+        </button>
+      </td>
+      <td>
+        <p className='whitespace-nowrap'>
+          {format(parseISO(product.createdAt), 'dd MMM yyyy')}
+        </p>
+      </td>
+      <td>
+        <p className='text-xl'>{product.title}</p>
+        <p>
+          <span className='font-bold'>Kategori: </span>
+          {product.category}
+        </p>
+      </td>
+      <td>{product.price}</td>
+      <td>
+        <NextLink href={`/${product.slug}`} passHref>
+          <Anchor>Lihat Halaman</Anchor>
+        </NextLink>
+      </td>
+      <td>
+        <Image
+          src={product.imgUrl}
+          alt={product.title}
+          width='150px'
+          height='150px'
+        />
+      </td>
+    </tr>
+  ))
+  const headers = (
+    <tr>
+      <th>Update</th>
+      <th>Aksi</th>
+      <th>Dibuat</th>
+      <th>Judul</th>
+      <th>Harga</th>
+      <th>Halaman</th>
+      <th>Foto</th>
+    </tr>
+  )
   return (
     <AdminShell>
-      <Title mb={20}>Dashboard</Title>
-
-      <Group position='apart' grow>
-        <Card p='xl' sx={{ background: '#63E6BE' }}>
-          <Title align='center' order={2}>Product</Title>
-          <Text align='center' color='white' size='xl' weight={700}>
-            {productSize}
-          </Text>
-        </Card>
-        <Card p='xl' sx={{ background: '#63E6BE' }}>
-          <Title align='center' order={2}>Users</Title>
-          <Text align='center' color='white' size='xl' weight={700}>
-            {userSize}
-          </Text>
-        </Card>
-        <Card p='xl' sx={{ background: '#63E6BE' }}>
-          <Title align='center' order={2}>Orders</Title>
-          <Text align='center' color='white' size='xl' weight={700}>
-            {orderSize}
-          </Text>
-        </Card>
-        <Card p='xl' sx={{ background: '#63E6BE' }}>
-          <Title align='center' order={2}>Order Terkirim</Title>
-          <Text align='center' color='white' size='xl' weight={700}>
-            {deliveredSize}
-          </Text>
-        </Card>
+      <Group position='apart' mb={20}>
+        <h1 className='text-5xl'>Produk</h1>
+        <NextLink href='/admin/product/upload' passHref>
+          <a className='rounded bg-blue-500 px-4 py-2 text-blue-50 hover:bg-blue-400'>
+            Upload Produk
+          </a>
+        </NextLink>
       </Group>
+      {loading && <Loading />}
+      <Suspense fallback={<Loading />}>
+        <AdminTable headers={headers} rows={rows} />
+      </Suspense>
     </AdminShell>
   )
 }
-export default Dashboard
+export default Products

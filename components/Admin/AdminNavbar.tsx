@@ -13,13 +13,13 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 const data = [
-  { href: '/admin/', label: 'Dashboard' },
-  { href: '/admin/order', label: 'Order' },
-  { href: '/admin/user', label: 'User' },
-  { href: '/admin/product', label: 'Products' },
+  // { href: '/admin/', label: 'Dashboard' },
+  // { href: '/admin/order', label: 'Order' },
+  // { href: '/admin/user', label: 'User' },
+  { href: '/admin/', label: 'Produk' },
   { href: '/admin/blog', label: 'Blog' },
-  { href: '/admin/penjualan', label: 'Penjualan' },
-  { href: '/admin/category', label: 'Category' },
+  // { href: '/admin/penjualan', label: 'Penjualan' },
+  { href: '/admin/category', label: 'Kategori' },
 ]
 
 const useStyles = createStyles((theme) => ({
@@ -109,7 +109,11 @@ const AdminNavbar = () => {
 
   return (
     <>
-      <Navbar.Section grow className='bg-gray-900' component={ScrollArea}>
+      <Navbar.Section
+        grow
+        className='boder-b-2 bg-gray-800 shadow'
+        component={ScrollArea}
+      >
         <div className={classes.linksInner}>{links}</div>
       </Navbar.Section>
     </>

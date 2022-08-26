@@ -1,15 +1,9 @@
-import {
-  Button,
-  Group,
-  Radio,
-  Select,
-  Text,
-  TextInput,
-} from '@mantine/core'
+import { Button, Group, Radio, Select, Text, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import AdminShell from 'components/Admin/AdminShell'
 import AdminTable from 'components/Admin/AdminTable'
 import { Loading } from 'components/Loading'
+import { format, parseISO } from 'date-fns'
 import { db } from 'libs/firebase-admin'
 import { GetStaticProps } from 'next'
 import { Suspense, useState } from 'react'
@@ -74,13 +68,16 @@ const AdminCategory = ({ fallback }: CategoryProps) => {
   const rows = categories.map((item: any) => (
     <tr key={item.createdAt}>
       <td>
-        <Button color='red' onClick={() => handleDelete(item.docId)}>
+        <button
+          className='rounded bg-red-100 p-2 text-red-600 hover:bg-red-600
+        hover:text-red-900'
+          onClick={() => handleDelete(item.docId)}
+        >
           Delete
-        </Button>
+        </button>
       </td>
       <td>
-        <p>Id: {item.docId}</p>
-        <p>{item.createdAt}</p>
+        <p>{format(parseISO(item.createdAt), 'dd MMM yyyy')}</p>
       </td>
       <td>{item.type}</td>
       <td>{item.title}</td>
@@ -92,31 +89,32 @@ const AdminCategory = ({ fallback }: CategoryProps) => {
   const headers = (
     <tr>
       <th>Delete</th>
-      <th>Created At</th>
-      <th>Type</th>
-      <th>Title</th>
-      <th>Description</th>
+      <th>Tgl Dibuat</th>
+      <th>Tipe</th>
+      <th>Judul</th>
+      <th>Deskripisi</th>
     </tr>
   )
 
   return (
     <AdminShell>
-      <h2>Create Category</h2>
+      <h1 className='mb-8 text-5xl'>Buat Kategory</h1>
 
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <TextInput
           required
-          label='Title'
-          placeholder='Nama Category'
+          label='Nama Category'
+          placeholder='Nama Kategori'
           {...form.getInputProps('title')}
         />
         <TextInput
-          label='Description'
-          placeholder='(Optional) Descripsi Category'
+          label='Deskripsi'
+          placeholder='(Optional) Deskripsi Kategori'
           {...form.getInputProps('description')}
+          className='mb-4'
         />
         <Radio.Group
-          label='Select Type Category'
+          label='Pilih Tipe Kategory'
           size='xl'
           required
           {...form.getInputProps('type')}
@@ -133,7 +131,7 @@ const AdminCategory = ({ fallback }: CategoryProps) => {
               className='rounded bg-blue-500 px-4 py-2 text-blue-50 hover:bg-blue-400'
               type='submit'
             >
-              Create
+              Buat Kategori
             </button>
           )}
         </Group>

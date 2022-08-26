@@ -143,7 +143,7 @@ const UpdateProduct = ({ product, categories }: UpdateProps) => {
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <TextInput
           required
-          label='Title'
+          label='Judul'
           placeholder='Nama Product'
           {...form.getInputProps('title')}
         />
@@ -158,12 +158,12 @@ const UpdateProduct = ({ product, categories }: UpdateProps) => {
         <NativeSelect
           data={categoryList}
           placeholder='Pick one'
-          label='Select Category'
+          label='Pilih Kategori'
           required
           {...form.getInputProps('category')}
         />
 
-        <Input.Wrapper label='Image lama' labelElement='div'>
+        <Input.Wrapper label='Foto lama' labelElement='div'>
           <br />
           <Group position='center' grow>
             {product.imgUrl && (
@@ -177,7 +177,7 @@ const UpdateProduct = ({ product, categories }: UpdateProps) => {
           </Group>
         </Input.Wrapper>
 
-        <Input.Wrapper label='Ganti / Update Product Image' labelElement='div'>
+        <Input.Wrapper label='Ganti / Update Foto Produk' labelElement='div'>
           <br />
           <Group grow>
             <input type='file' onChange={handleFileChange} />

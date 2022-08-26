@@ -19,35 +19,28 @@ const AdminShell = ({ children }: AdminShellProps) => {
   const [opened, setOpened] = useState(false)
   return (
     <>
-      <Meta title='Admin - Jesho'/>
+      <Meta title='Admin - Jesho' />
       <AppShell
-        padding='md'
         navbar={
           <Navbar
             hiddenBreakpoint='sm'
             hidden={!opened}
             width={{ base: 300 }}
-            height={500}
             p={0}
+            mt={-1}
           >
             <AdminNavbar />
           </Navbar>
         }
         header={
-          <Header
-            height={60}
-            p='xs'
-            sx={(theme) => ({
-              background: `linear-gradient(135deg, ${theme.colors.indigo[6]} 0%, ${theme.colors.cyan[6]} 100%)`,
-            })}
-          >
+          <Header height={56} p='xs' className=' bg-gray-900'>
             <div style={{ display: 'flex', height: '100%' }}>
               <MediaQuery largerThan='sm' styles={{ display: 'none' }}>
                 <Burger
                   opened={opened}
                   onClick={() => setOpened((o) => !o)}
                   size='sm'
-                  color={theme.colors.gray[6]}
+                  className='text-white'
                   mr='xl'
                 />
               </MediaQuery>
@@ -63,14 +56,6 @@ const AdminShell = ({ children }: AdminShellProps) => {
             </div>
           </Header>
         }
-        styles={(theme) => ({
-          main: {
-            backgroundColor:
-              theme.colorScheme === 'dark'
-                ? theme.colors.dark[8]
-                : theme.colors.gray[0],
-          },
-        })}
       >
         {children}
       </AppShell>

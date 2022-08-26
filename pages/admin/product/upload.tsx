@@ -1,23 +1,21 @@
-import { ChangeEvent, Suspense, useState } from 'react'
-import dynamic from 'next/dynamic'
-import { Loading } from 'components/Loading'
-import AdminShell from 'components/Admin/AdminShell'
 import {
   Button,
   Group,
   Input,
   NativeSelect,
-  TextInput,
-  Title,
+  TextInput
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { useProduct } from 'hooks/useProduct'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
+import AdminShell from 'components/Admin/AdminShell'
+import { Loading } from 'components/Loading'
 import { firestore, storage } from 'libs/firebase'
+import { db } from 'libs/firebase-admin'
 import { CategoryProps, DataProps } from 'libs/types'
 import { GetStaticProps } from 'next'
-import { db } from 'libs/firebase-admin'
+import dynamic from 'next/dynamic'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { ChangeEvent, Suspense, useState } from 'react'
 
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
@@ -117,12 +115,12 @@ const UploadProduct = ({ categories }: Props) => {
 
   return (
     <AdminShell>
-      <Title>Upload Product</Title>
+      <h1 className='text-5xl mb-8'>Upload Product</h1>
 
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <TextInput
           required
-          label='Title'
+          label='Judul'
           placeholder='Nama Product'
           {...form.getInputProps('title')}
         />
@@ -136,7 +134,7 @@ const UploadProduct = ({ categories }: Props) => {
         <NativeSelect
           data={categoryList}
           placeholder='Pick one'
-          label='Select Category'
+          label='Pilih Kategori'
           required
           {...form.getInputProps('category')}
         />
@@ -160,7 +158,7 @@ const UploadProduct = ({ categories }: Props) => {
           </Input.Wrapper>
         </Suspense>
 
-        <Input.Wrapper label='Product Image' required labelElement='div'>
+        <Input.Wrapper label='Foto Produk' required labelElement='div'>
           <br />
           <Group grow>
             <input type='file' required onChange={handleFileChange} />
@@ -185,7 +183,7 @@ const UploadProduct = ({ categories }: Props) => {
               className='rounded bg-blue-500 px-4 py-2 text-blue-50 hover:bg-blue-400'
               type='submit'
             >
-              Create
+              Upload
             </button>
           )}
         </Group>
