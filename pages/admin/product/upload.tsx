@@ -51,6 +51,8 @@ const UploadProduct = ({ categories }: Props) => {
       title: '',
       price: '',
       category: '',
+      linkTokopedia: '',
+      linkShopee:''
     },
   })
 
@@ -133,10 +135,20 @@ const UploadProduct = ({ categories }: Props) => {
         />
         <NativeSelect
           data={categoryList}
-          placeholder='Pick one'
           label='Pilih Kategori'
+          placeholder='Pilih Satu'
           required
           {...form.getInputProps('category')}
+        />
+        <TextInput
+          label='Link Tokopedia'
+          placeholder='link tokopedia'
+          {...form.getInputProps('linkTokopedia')}
+        />
+        <TextInput
+          label='link Shoppe'
+          placeholder='link shopee'
+          {...form.getInputProps('linkShopee')}
         />
         <Suspense fallback={<Loading />}>
           <Input.Wrapper id='description' required label='Deskripsi Produk'>

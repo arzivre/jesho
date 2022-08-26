@@ -175,7 +175,16 @@ const UpdateProduct = ({ product, categories }: UpdateProps) => {
           required
           {...form.getInputProps('category')}
         />
-
+        <TextInput
+          label='Link Tokopedia'
+          placeholder='link tokopedia'
+          {...form.getInputProps('linkTokopedia')}
+        />
+        <TextInput
+          label='link Shoppe'
+          placeholder='link shopee'
+          {...form.getInputProps('linkShopee')}
+        />
         <Input.Wrapper label='Foto lama' labelElement='div'>
           <br />
           <Group position='center' grow>

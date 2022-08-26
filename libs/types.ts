@@ -10,6 +10,9 @@ export interface ProductProps {
   createdAt: string
   category?: string
   quantity?: number | undefined
+  categoryId: String
+  linkTokopedia?: String
+  linkShopee?: String
 }
 
 export interface BlogProps {
@@ -39,6 +42,8 @@ export interface DataProps {
   imgUrl?: string
   createdAt?: string
   categoryId: String
+  linkTokopedia?: String
+  linkShopee?: String
 }
 
 export interface CategoryProps {

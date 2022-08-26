@@ -1,28 +1,19 @@
-import { Suspense, useEffect } from 'react'
-import { ParsedUrlQuery } from 'querystring'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import { ParsedUrlQuery } from 'querystring'
+import { Suspense } from 'react'
 
-import { ProductProps } from 'libs/types'
 import { db } from 'libs/firebase-admin'
+import { ProductProps } from 'libs/types'
 
-import Main from 'components/Main'
 import { Loading, LoadingFullScreen } from 'components/Loading'
+import Main from 'components/Main'
 
 import {
-  Grid,
-  Group,
-  Image,
-  Container,
-  Title,
-  Text,
-  Button,
-  Card,
-  Box,
+  Box, Card, Container, Grid, Image, Text, Title
 } from '@mantine/core'
+import Meta from 'components/Meta'
 import useCart from 'hooks/useCart'
 import isInCart from 'utils/isInCart'
-import { BsFillTrashFill } from 'react-icons/bs'
-import Meta from 'components/Meta'
 
 type Props = {
   product: any
@@ -103,7 +94,11 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                         <ol className='mt-4 flex flex-col justify-between gap-8 md:flex-row'>
                           <li>
                             <a
-                              href='https://shopee.co.id/jeshoid'
+                              href={`${
+                                product.linkShopee
+                                  ? product.linkShopee
+                                  : 'https://shopee.co.id/jeshoid'
+                              }`}
                               target='_blank'
                               rel='noopener noreferrer'
                               className='my-1 rounded bg-orange-500 px-5 py-2 text-orange-50 hover:bg-orange-400'
@@ -113,7 +108,11 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                           </li>
                           <li>
                             <a
-                              href='https://www.tokopedia.com/houseofjesho'
+                              href={`${
+                                product.linkTokopedia
+                                  ? product.linkTokopedia
+                                  : 'https://www.tokopedia.com/houseofjesho'
+                              }`}
                               target='_blank'
                               rel='noopener noreferrer'
                               className='my-1 rounded bg-green-500 px-5 py-2 text-green-50 hover:bg-green-400'
