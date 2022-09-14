@@ -23,7 +23,7 @@
     "@mantine/next": "^5.2.3",
     "@mantine/notifications": "^5.2.3",
     "@mantine/rte": "5.2.3",
-    "date-fns": "^2.29.2",
+    "date-fns": "^2.29.3",
     "dayjs": "^1.11.5",
     "firebase": "8.2.1",
     "firebase-admin": "^10.1.0",
