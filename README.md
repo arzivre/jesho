@@ -1,34 +1,86 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# House of Jesho 
+check Open source ecommerce code at bracnh ecommerce https://github.com/arzivre/jesho/tree/e-commerce
 
-First, run the development server:
+## Features
+
+- Login with Google
+- Cart
+- Product List
+- Checkout
+- Order List
+
+
+## Demo
+
+https://ecommerce.arzivre.com
+
+
+## Run Locally
+
+Clone the project
 
 ```bash
-npm run dev
-# or
-yarn dev
+  git clone https://github.com/arzivre/jesho.git
+  git checkout e-commerce
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Go to the project directory
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```bash
+  cd jesho
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Install dependencies with yarn or npm
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+  npm install
+  yarn
+```
 
-## Learn More
+Start the development server
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+  npm run dev
+  yarn dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Environment Variables
 
-## Deploy on Vercel
+To run this project, you will need to add the following environment variables to your .env file
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`FIREBASE_CLIENT_EMAIL`
+`FIREBASE_PRIVATE_KEY`
+`NEXT_PUBLIC_FIREBASE_API_KEY`
+`NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`
+`NEXT_PUBLIC_FIREBASE_PROJECT_ID`
+`NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`
+`XENDIT_CALLBACK_TOKEN_API`
+`XENDIT_SECRET_KEY`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Deployment
+
+### Vercel
+
+We recommend deploying to [Vercel](https://vercel.com/?utm_source=t3-oss&utm_campaign=oss). It makes it super easy to deploy NextJs apps.
+
+- Push your code to a GitHub repository.
+- Go to [Vercel](https://vercel.com/?utm_source=t3-oss&utm_campaign=oss) and sign up with GitHub.
+- Create a Project and import the repository you pushed your code to.
+- Add your environment variables.
+- Click **Deploy**
+- Now whenever you push a change to your repository, Vercel will automatically redeploy your website!
+
+
+
+## Authors
+
+- [@arzivre](https://www.github.com/arzivre)
+
+
+## Feedback
+
+If you have any feedback, please reach out to us at arzivre@gmail.com or [Twitter](https://twitter.com/arzivre)
+
