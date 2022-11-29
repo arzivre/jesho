@@ -1,6 +1,6 @@
 
 # House of Jesho 
-check Open source ecommerce code at bracnh ecommerce https://github.com/arzivre/jesho/tree/e-commerce
+Check open source ecommerce code at branch ecommerce https://github.com/arzivre/jesho/tree/e-commerce
 
 ## Features
 
