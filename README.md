@@ -82,5 +82,5 @@ We recommend deploying to [Vercel](https://vercel.com/?utm_source=t3-oss&utm_cam
 
 ## Feedback
 
-If you have any feedback, please reach out to us at arzivre@gmail.com or [Twitter](https://twitter.com/arzivre)
+If you have any feedback, please reach out to us at arzivreart@gmail.com or [Twitter](https://twitter.com/arzivre)
 
